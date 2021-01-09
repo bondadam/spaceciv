@@ -73,13 +73,13 @@ public class Spaceship : MonoBehaviour
         return this.population;
     }
 
-    public void custom_update(float delta){
+    public void update_custom(float delta){
         if (this.moving){
             this.move(delta);
         }
     }
 
-    public void setDead(){
+    public void die(){
         this.set_population(0);
         this.destroyable = true;
         this.gameObject.SetActive(false);
@@ -88,50 +88,56 @@ public class Spaceship : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Planet"){
-            Planet collided_planet = other.gameObject.GetComponent<Planet>();
-            if (collided_planet == this.target){
-                this.moving = false;
-                if (collided_planet.get_team() == this.team){
-                    // Transfer of units between planets
-                    collided_planet.grow(this.population);
-                } else {
-                    int defending_units = collided_planet.get_population();
-                    if (this.population > defending_units){
-                        // invasion success
-                        collided_planet.set_population(this.population - defending_units);
-                        collided_planet.set_team(this.team);
-                        collided_planet.update_identity();
-                        Debug.Log("invasion success");
-                    } else{
-                        // invasion defeat
-                        collided_planet.ungrow(this.population);
-                        Debug.Log("defeat!");
-                    }
-                }
-                this.setDead();
-            }
+            this.planetCollision(other.gameObject.GetComponent<Planet>());
         } else if (other.gameObject.tag == "Spaceship"){
-            Spaceship collided_spaceship = other.gameObject.GetComponent<Spaceship>();
-            if (this.team != collided_spaceship.team){
-                // Yay space battle
-                // Only one spaceship survives unless both
-                // have exactly the same number of units
-                int defending_units = collided_spaceship.population;
-                if (this.population == defending_units){
-                    // its a tie
-                    collided_spaceship.set_population(1);
-                    this.set_population(1);
-                }
-                else if (this.population > defending_units){
-                    // this spaceship wins
-                    this.set_population(this.population - defending_units);
-                    collided_spaceship.setDead();
+            this.spaceShipCollision(other.gameObject.GetComponent<Spaceship>());
+        }
+    }
+
+    private void spaceShipCollision(Spaceship collided_spaceship){
+        if (this.team != collided_spaceship.team){
+            // Yay space battle
+            // Only one spaceship survives unless both
+            // have exactly the same number of units
+            int defending_units = collided_spaceship.population;
+            if (this.population == defending_units){
+                // its a tie
+                collided_spaceship.set_population(1);
+                this.set_population(1);
+            }
+            else if (this.population > defending_units){
+                // this spaceship wins
+                this.set_population(this.population - defending_units);
+                collided_spaceship.die();
+            } else{
+                // this one loses
+                collided_spaceship.set_population(collided_spaceship.get_population() - this.population);
+                this.die();
+            }
+        }
+    }
+
+    private void planetCollision(Planet collided_planet){
+        if (collided_planet == this.target){
+            this.moving = false;
+            if (collided_planet.get_team() == this.team){
+                // Transfer of units between planets
+                collided_planet.grow(this.population);
+            } else {
+                int defending_units = collided_planet.get_population();
+                if (this.population > defending_units){
+                    // invasion success
+                    collided_planet.set_population(this.population - defending_units);
+                    collided_planet.set_team(this.team);
+                    collided_planet.update_identity();
+                    Debug.Log("invasion success");
                 } else{
-                    // this one loses
-                    collided_spaceship.set_population(collided_spaceship.get_population() - this.population);
-                    this.setDead();
+                    // invasion defeat
+                    collided_planet.ungrow(this.population);
+                    Debug.Log("defeat!");
                 }
             }
+            this.die();
         }
     }
 
@@ -140,8 +146,4 @@ public class Spaceship : MonoBehaviour
         this.transform.position = new Vector3(this.current_position.x, this.current_position.y, this.transform.position.z);
     }
 
-    // Update is called once per frame  
-    void Update()
-    {
-    }
 }

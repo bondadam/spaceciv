@@ -68,10 +68,4 @@ public class units_taken : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

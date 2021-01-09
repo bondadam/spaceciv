@@ -9,21 +9,35 @@ public class Level_Manager : MonoBehaviour
     public Planet planet_prefab;
 
     public Spaceship spaceship_prefab;
-    // TODO: Change List<Planet> to Array for perf gains
-    // see https://blogs.unity3d.com/2015/12/23/1k-update-calls/
 
     private List<Spaceship> spaceships;
-    private List<Planet> planets;
+    // Array for performance. See https://blogs.unity3d.com/2015/12/23/1k-update-calls/
+    private Planet[] planets;
+    private List<Planet> selected_planets;
 
     public units_taken units_taken_prefab;
     private units_taken units_taken;
 
     private float update_frequency = 0.016f; // 60 times/s
     private float timer = 0.0f;
-
-    private List<Planet> selected_planets;
+    private int num_planets = 10;
 
     private Planet currently_selected_planet;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        this.units_taken = Instantiate(this.units_taken_prefab, Utils.getMousePosition(), Quaternion.identity);
+        this.planets = new Planet[this.num_planets];
+        this.spaceships = new List<Spaceship>();
+        this.selected_planets = new List<Planet>();
+        for (int i = 0; i < this.num_planets; i++){
+            Planet planet = Instantiate(planet_prefab, new Vector3(Utils.floatRange(-4.0f, 4.0f), Utils.floatRange(-4.0f, 4.0f), 0), Quaternion.identity);
+            planet.Initialize(this, Utils.randomEnumValue<Team>());
+            planet.growth_factor =  Mathf.FloorToInt(Utils.floatRange(1f,20f));
+            this.planets[i] = planet;
+        } 
+    }
 
     public void select(Planet planet){
         if (!this.selected_planets.Contains(planet)){
@@ -80,8 +94,7 @@ public class Level_Manager : MonoBehaviour
             foreach (Planet from_planet in this.selected_planets){
                 int incoming_units = this.get_units_taken(from_planet);
                 if (from_planet == target_planet){
-                    // Don't send a ship from planet A to planet A
-                    // DUH
+                    // Don't send a ship from planet A to planet A. DUH
                     target_planet.grow(incoming_units);
                 } else {
                     Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position , Quaternion.identity);
@@ -91,22 +104,6 @@ public class Level_Manager : MonoBehaviour
             }
             this.unselect_planets();
         }
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        this.units_taken = Instantiate(this.units_taken_prefab, Utils.getMousePosition(), Quaternion.identity);
-        this.planets = new List<Planet>();
-        this.spaceships = new List<Spaceship>();
-        this.selected_planets = new List<Planet>();
-        for (int i = 0; i < 10; i++){
-            Planet planet = Instantiate(planet_prefab, new Vector3(Utils.floatRange(-4.0f, 4.0f), Utils.floatRange(-4.0f, 4.0f), 0), Quaternion.identity);
-            planet.Initialize(this, Utils.randomEnumValue<Team>());
-            planet.growth_factor =  Mathf.FloorToInt(Utils.floatRange(1f,20f));
-            this.planets.Add(planet);
-        } 
     }
 
     // Update is called once per frame
@@ -122,12 +119,12 @@ public class Level_Manager : MonoBehaviour
         // Subtracting is more accurate over time than resetting to zero.
         if (this.timer > this.update_frequency)
         {
-            for(int i = 0; i < this.planets.Count; i++){
+            for(int i = 0; i < this.num_planets; i++){
                 this.planets[i].Update_Custom(this.get_units_taken(this.planets[i]));
             }
 
             for(int i = 0; i < this.spaceships.Count; i++){
-                this.spaceships[i].custom_update(this.update_frequency);
+                this.spaceships[i].update_custom(this.update_frequency);
                 if (this.spaceships[i].destroyable){
                     Destroy(this.spaceships[i]);
                     this.spaceships.Remove(this.spaceships[i]);

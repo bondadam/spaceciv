@@ -30,6 +30,21 @@ public class Planet : MonoBehaviour
     public float growth_factor = 50f;
 
     private float growth_queue = 0.0f;
+
+    public void Initialize(Level_Manager level_manager, Team team){
+        this.tag = "Planet";
+
+        this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
+        this.population_display = this.GetComponentInChildren<TextMeshPro>();
+
+        this.team = team;
+        this.units_taken_from_planet = 0;
+
+        this.selected = false;
+
+        this.m_SpriteRenderer.color = Constants.team_colors[this.team];
+    }
+
     public void grow(int num_pop){
         if (this.team != Team.Neutral){
             int total_population = this.population + this.units_taken_from_planet;
@@ -45,7 +60,7 @@ public class Planet : MonoBehaviour
 
     private bool ungrow_one(){
         // remove one person from population if possible
-        // return 1/0 depending on success
+        // return true/false depending on success
         if (this.population > Planet.population_min){
             this.population--;
             return true;
@@ -71,33 +86,16 @@ public class Planet : MonoBehaviour
         this.population_display.text = this.population.ToString();
     }
 
-    void Start()
-    {   
-    
-    }
-
     public void update_identity(){
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
         this.update_population_display();
-    }
-    public void Initialize(Level_Manager level_manager, Team team){
-        this.tag = "Planet";
-
-        this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
-        this.population_display = this.GetComponentInChildren<TextMeshPro>();
-
-        this.team = team;
-        this.units_taken_from_planet = 0;
-
-        this.selected = false;
-
-        this.m_SpriteRenderer.color = Constants.team_colors[this.team];
     }
 
     public int take_available_units(){
         return (this.selected && ungrow_one()) ? 1 : 0;
 
     }
+    
     // Update is called once per frame
     public void Update_Custom(int units_taken_from_planet)
     {
@@ -111,10 +109,6 @@ public class Planet : MonoBehaviour
         }
         
         this.update_population_display();
-
-    }
-
-    public void Update(){
 
     }
 
