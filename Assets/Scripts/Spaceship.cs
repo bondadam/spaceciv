@@ -5,6 +5,7 @@ using TMPro;
 
 public class Spaceship : MonoBehaviour
 {
+    private int battling;
     private Team team;
     private SpriteRenderer m_SpriteRenderer;
 
@@ -59,11 +60,29 @@ public class Spaceship : MonoBehaviour
         
     }
 
+    public void update_display(){
+        this.population_display.text = this.population.ToString();
+    }
+
+    public void set_population(int new_pop){
+        this.population = new_pop;
+        this.update_display();
+    }
+
+    public int get_population(){
+        return this.population;
+    }
+
     public void custom_update(float delta){
-        if ( this.moving){
+        if (this.moving){
             this.move(delta);
         }
-        //if ()
+    }
+
+    public void setDead(){
+        this.set_population(0);
+        this.destroyable = true;
+        this.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -89,9 +108,29 @@ public class Spaceship : MonoBehaviour
                         Debug.Log("defeat!");
                     }
                 }
-                this.population = 0;
-                this.destroyable = true;
-                this.gameObject.SetActive(false);
+                this.setDead();
+            }
+        } else if (other.gameObject.tag == "Spaceship"){
+            Spaceship collided_spaceship = other.gameObject.GetComponent<Spaceship>();
+            if (this.team != collided_spaceship.team){
+                // Yay space battle
+                // Only one spaceship survives unless both
+                // have exactly the same number of units
+                int defending_units = collided_spaceship.population;
+                if (this.population == defending_units){
+                    // its a tie
+                    collided_spaceship.set_population(1);
+                    this.set_population(1);
+                }
+                else if (this.population > defending_units){
+                    // this spaceship wins
+                    this.set_population(this.population - defending_units);
+                    collided_spaceship.setDead();
+                } else{
+                    // this one loses
+                    collided_spaceship.set_population(collided_spaceship.get_population() - this.population);
+                    this.setDead();
+                }
             }
         }
     }
@@ -104,6 +143,5 @@ public class Spaceship : MonoBehaviour
     // Update is called once per frame  
     void Update()
     {
-        //this.move(Time.deltaTime);
     }
 }
