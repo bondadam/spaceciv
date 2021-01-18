@@ -18,7 +18,7 @@ public class Click_Manager : MonoBehaviour
         if (this.dragging){
             Vector2 mousePos2D = Utils.getMousePosition2D();
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-            if (hit.collider != null) {
+            if (hit.collider != null && hit.collider.gameObject.tag == "Planet") {
                 Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
                 if (Input.GetMouseButton(0)){
                     this.level_manager.select(clicked_planet);
@@ -38,7 +38,7 @@ public class Click_Manager : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) {
                 Vector2 mousePos2D = Utils.getMousePosition2D();
                 RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-                if (hit.collider != null) {
+                if (hit.collider != null && hit.collider.gameObject.tag == "Planet") {
                     Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
                     this.level_manager.select(clicked_planet);
                     this.dragging = true;

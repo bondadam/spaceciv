@@ -5,7 +5,7 @@ using TMPro;
 
 public class Spaceship : MonoBehaviour
 {
-    private int battling;
+    private List<Spaceship> battling;
     private Team team;
     private SpriteRenderer m_SpriteRenderer;
 
@@ -33,19 +33,16 @@ public class Spaceship : MonoBehaviour
         this.moving = true;
         this.destroyable = false;
 
+        this.battling = new List<Spaceship>();
+
         // Set positions
 
         this.target = target;
         this.target_position = this.target.transform.position;
         this.current_position = new Vector2(this.transform.position.x, this.transform.position.y);
 
-        // set angle
-        Vector3 targ = this.target.transform.position;
-        targ.z = 0f;
-        targ.x = targ.x - this.transform.position.x;
-        targ.y = targ.y - this.transform.position.y;
-        float angle = Mathf.Atan2(-targ.x, targ.y) * Mathf.Rad2Deg;
-        this.m_SpriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        // set rotation
+        this.face(this.target_position);
 
 
         this.team = team;
@@ -54,10 +51,39 @@ public class Spaceship : MonoBehaviour
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void face(Vector3 target_position){
+        // Takes the object.transform.position as input
+        // Because too lazy to cast to gameobject everytime
+        target_position.z = 0f;
+        target_position.x = target_position.x - this.transform.position.x;
+        target_position.y = target_position.y - this.transform.position.y;
+        float angle = Mathf.Atan2(-target_position.x, target_position.y) * Mathf.Rad2Deg;
+        this.m_SpriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
+    public void add_battling(Spaceship spaceship){
+        this.battling.Add(spaceship);
+    }
+
+    public void remove_battling(Spaceship spaceship){
+        this.battling.Remove(spaceship);
+    }
+
+    public bool is_battling(){
+        return this.battling.Count > 0;
+    }
+
+    public bool ungrow_one(){
+        // returns TRUE if alive,
+        // returns FALSE if dead
+        if (this.population > 0){
+            this.set_population(this.population - 1);
+        }
+        if (this.population < 1){
+            this.die();
+            return false;
+        }
+        return true;
     }
 
     public void update_display(){
@@ -73,13 +99,8 @@ public class Spaceship : MonoBehaviour
         return this.population;
     }
 
-    public void custom_update(float delta){
-        if (this.moving){
-            this.move(delta);
-        }
-    }
 
-    public void setDead(){
+    public void die(){
         this.set_population(0);
         this.destroyable = true;
         this.gameObject.SetActive(false);
@@ -108,7 +129,7 @@ public class Spaceship : MonoBehaviour
                         Debug.Log("defeat!");
                     }
                 }
-                this.setDead();
+                this.die();
             }
         } else if (other.gameObject.tag == "Spaceship"){
             Spaceship collided_spaceship = other.gameObject.GetComponent<Spaceship>();
@@ -116,22 +137,28 @@ public class Spaceship : MonoBehaviour
                 // Yay space battle
                 // Only one spaceship survives unless both
                 // have exactly the same number of units
-                int defending_units = collided_spaceship.population;
-                if (this.population == defending_units){
-                    // its a tie
-                    collided_spaceship.set_population(1);
-                    this.set_population(1);
-                }
-                else if (this.population > defending_units){
-                    // this spaceship wins
-                    this.set_population(this.population - defending_units);
-                    collided_spaceship.setDead();
-                } else{
-                    // this one loses
-                    collided_spaceship.set_population(collided_spaceship.get_population() - this.population);
-                    this.setDead();
+                this.face(collided_spaceship.transform.position);
+                this.add_battling(collided_spaceship);
+            }
+        }
+    }
+
+        public void custom_update(float delta){
+        if (this.is_battling()){
+            for (int i = 0; i < this.battling.Count; i++){
+                bool other_spaceship_alive = this.battling[i].ungrow_one();
+                if (!other_spaceship_alive){
+                    this.remove_battling(this.battling[i]);
                 }
             }
+            if (!this.is_battling()){
+                // We have battled the last battle,
+                // Let's go on our merry way
+                this.face(this.target_position);
+            }
+        }
+        else {
+            this.move(delta);
         }
     }
 

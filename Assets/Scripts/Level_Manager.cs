@@ -28,6 +28,7 @@ public class Level_Manager : MonoBehaviour
     public void select(Planet planet){
         if (!this.selected_planets.Contains(planet)){
             if (this.selected_planets.Count == 0 ){
+
                 this.units_taken.add(planet, Planet.min_selected);
                 this.units_taken.show();
                 this.selected_planets.Add(planet);
@@ -101,12 +102,16 @@ public class Level_Manager : MonoBehaviour
         this.planets = new List<Planet>();
         this.spaceships = new List<Spaceship>();
         this.selected_planets = new List<Planet>();
-        for (int i = 0; i < 10; i++){
+        /*for (int i = 0; i < 10; i++){
             Planet planet = Instantiate(planet_prefab, new Vector3(Utils.floatRange(-4.0f, 4.0f), Utils.floatRange(-4.0f, 4.0f), 0), Quaternion.identity);
             planet.Initialize(this, Utils.randomEnumValue<Team>());
             planet.growth_factor =  Mathf.FloorToInt(Utils.floatRange(1f,20f));
             this.planets.Add(planet);
-        } 
+        }*/
+        GameObject[] planets_as_game_objects = GameObject.FindGameObjectsWithTag("Planet");
+        for (int i = 0; i < planets_as_game_objects.Length; i++){
+            this.planets.Add(planets_as_game_objects[i].GetComponent<Planet>());
+        }
     }
 
     // Update is called once per frame

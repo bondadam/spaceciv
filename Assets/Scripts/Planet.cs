@@ -6,12 +6,11 @@ using System;
 
 public class Planet : MonoBehaviour
 {
-    public Level_Manager level_manager;
     private bool selected;
 
     private int units_taken_from_planet;
 
-    private Team team;
+    public Team team;
 
     public const int min_selected = 1;
 
@@ -20,9 +19,11 @@ public class Planet : MonoBehaviour
     private TextMeshPro population_display;
 
     private bool over_planet;
-    private float planet_size = 1f;
+    public float planet_size = 1f;
 
-    private int population = 1;
+    public int initial_population;
+
+    private int population;
  
     private int population_max = 99;
     public const int population_min = 1;
@@ -80,18 +81,26 @@ public class Planet : MonoBehaviour
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
         this.update_population_display();
     }
-    public void Initialize(Level_Manager level_manager, Team team){
+    public void Awake(){
         this.tag = "Planet";
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
 
-        this.team = team;
+        this.population = initial_population;
+
         this.units_taken_from_planet = 0;
 
         this.selected = false;
 
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
+
+        //planet size grows proportionally to planet growth rate
+        this.growth_factor = (this.planet_size * 75) - 50;
+        Debug.Log(this.planet_size);
+        Debug.Log(this.growth_factor);
+
+        this.transform.localScale = new Vector3(this.planet_size,this.planet_size,this.planet_size);
     }
 
     public int take_available_units(){
