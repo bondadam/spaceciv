@@ -38,6 +38,11 @@ public class Planet : MonoBehaviour
         }
     }
 
+
+    public void grow_back(int num_pop){
+        this.population = Math.Min(this.population_max, this.population + num_pop);
+    }
+
     public void cancelled_selection(){
         int units_taken = this.units_taken_from_planet;
         this.units_taken_from_planet = 0;
@@ -96,9 +101,8 @@ public class Planet : MonoBehaviour
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
 
         //planet size grows proportionally to planet growth rate
-        this.growth_factor = (this.planet_size * 75) - 50;
-        Debug.Log(this.planet_size);
-        Debug.Log(this.growth_factor);
+        this.growth_factor = (this.planet_size * 25);
+
 
         this.transform.localScale = new Vector3(this.planet_size,this.planet_size,this.planet_size);
     }

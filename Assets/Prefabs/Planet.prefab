@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1015810612947043111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children:
   - {fileID: 4191644054345003626}
   m_Father: {fileID: 8420843036441800139}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: -2030308715
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 45ac33da32d9e104ab7b1fa5a14e8197, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d93f8b646fad08429a3686590a61bf7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,7 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56952614236b2224da842d2938ffe85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level_manager: {fileID: 0}
+  team: 0
+  planet_size: 1
+  initial_population: 0
   growth_factor: 5
 --- !u!58 &9059287597222409563
 CircleCollider2D:
@@ -156,7 +158,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4191644054345003626}
   - component: {fileID: 4211982918656314745}
-  - component: {fileID: 7312043594967677391}
   - component: {fileID: 81231537577819391}
   m_Layer: 0
   m_Name: Units
@@ -174,7 +175,7 @@ RectTransform:
   m_GameObject: {fileID: 7750343048217335021}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 7114436525467455154}
   m_RootOrder: 0
@@ -225,14 +226,6 @@ MeshRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &7312043594967677391
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7750343048217335021}
-  m_CullTransparentMesh: 0
 --- !u!114 &81231537577819391
 MonoBehaviour:
   m_ObjectHideFlags: 0

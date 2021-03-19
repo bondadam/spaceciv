@@ -9,7 +9,7 @@ public class Spaceship : MonoBehaviour
     private Team team;
     private SpriteRenderer m_SpriteRenderer;
 
-    private float speed = 1f;
+    private float speed = 1.5f;
 
     private TextMeshPro population_display;
 
@@ -104,6 +104,10 @@ public class Spaceship : MonoBehaviour
         this.set_population(0);
         this.destroyable = true;
         this.gameObject.SetActive(false);
+    }
+
+    public Team get_team(){
+        return this.team;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

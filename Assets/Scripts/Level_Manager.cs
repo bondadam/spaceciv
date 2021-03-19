@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
 
 public class Level_Manager : MonoBehaviour
 {
@@ -25,6 +24,14 @@ public class Level_Manager : MonoBehaviour
 
     private Planet currently_selected_planet;
 
+    private Bot[] bots;
+    
+    private int game_over_delay_check = 6;
+
+    private int game_over_delay_check_counter = 0;
+
+    private bool game_over = false;
+
     public void select(Planet planet){
         if (!this.selected_planets.Contains(planet)){
             if (this.selected_planets.Count == 0 ){
@@ -42,6 +49,10 @@ public class Level_Manager : MonoBehaviour
         } else if (this.selected_planets.Count > 0 && this.selected_planets[0].get_team() == planet.get_team()){
             this.currently_selected_planet = planet;
         }
+    }
+
+    public Game_State get_state_copy(){
+        return new Game_State(this.planets, this.spaceships);
     }
 
     public void unselect(Planet planet){
@@ -83,7 +94,7 @@ public class Level_Manager : MonoBehaviour
                 if (from_planet == target_planet){
                     // Don't send a ship from planet A to planet A
                     // DUH
-                    target_planet.grow(incoming_units);
+                    target_planet.grow_back(incoming_units);
                 } else {
                     Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position , Quaternion.identity);
                     spaceship.Initialize(from_planet.get_team(), incoming_units, target_planet);
@@ -92,6 +103,13 @@ public class Level_Manager : MonoBehaviour
             }
             this.unselect_planets();
         }
+    }
+
+    public void send_spaceship_to_planet_bot(Planet from_planet, Planet target_planet, int incoming_units){
+        from_planet.ungrow(incoming_units);
+        Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position , Quaternion.identity);
+        spaceship.Initialize(from_planet.get_team(), incoming_units, target_planet);
+        this.spaceships.Add(spaceship);
     }
 
 
@@ -112,6 +130,21 @@ public class Level_Manager : MonoBehaviour
         for (int i = 0; i < planets_as_game_objects.Length; i++){
             this.planets.Add(planets_as_game_objects[i].GetComponent<Planet>());
         }
+
+        this.bots = new Bot[3];
+        Bot blitzBot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
+        blitzBot.Initialize(this, Team.CPU1);
+
+        Bot blitzBot2 = gameObject.AddComponent<BlitzBot>() as BlitzBot;
+        blitzBot2.Initialize(this, Team.CPU2);
+
+        Bot blitzBot3 = gameObject.AddComponent<BlitzBot>() as BlitzBot;
+        blitzBot3.Initialize(this, Team.CPU3);
+
+
+        bots[0] = blitzBot;
+        bots[1] = blitzBot2;
+        bots[2] = blitzBot3;
     }
 
     // Update is called once per frame
@@ -125,27 +158,70 @@ public class Level_Manager : MonoBehaviour
 
         // Check if we have reached beyond 16ms.
         // Subtracting is more accurate over time than resetting to zero.
-        if (this.timer > this.update_frequency)
-        {
-            for(int i = 0; i < this.planets.Count; i++){
-                this.planets[i].Update_Custom(this.get_units_taken(this.planets[i]));
-            }
-
-            for(int i = 0; i < this.spaceships.Count; i++){
-                this.spaceships[i].custom_update(this.update_frequency);
-                if (this.spaceships[i].destroyable){
-                    Destroy(this.spaceships[i]);
-                    this.spaceships.Remove(this.spaceships[i]);
+        // Every 6*16ms (~1 sec), check that we are not in game over state
+        if (!this.game_over){ 
+            if (this.timer > this.update_frequency)
+            {
+                this.game_over_delay_check_counter++;
+                if (this.game_over_delay_check_counter >= this.game_over_delay_check){
+                    this.game_over_delay_check_counter = 0;
+                    bool game_over = this.check_game_over();
+                    if (game_over){
+                        Debug.Log("Game over!");
+                    }
+                    this.game_over = game_over;
                 }
+                
+                for(int i = 0; i < this.planets.Count; i++){
+                    this.planets[i].Update_Custom(this.get_units_taken(this.planets[i]));
+                }
+
+                for(int i = 0; i < this.spaceships.Count; i++){
+                    this.spaceships[i].custom_update(this.update_frequency);
+                    if (this.spaceships[i].destroyable){
+                        Destroy(this.spaceships[i]);
+                        this.spaceships.Remove(this.spaceships[i]);
+                    }
+                }
+
+                if (this.currently_selected_planet != null){
+                    this.units_taken.add(this.currently_selected_planet, this.currently_selected_planet.take_available_units());
+                }
+
+
+                // Remove the recorded 16ms.
+                this.timer = this.timer - this.update_frequency;
             }
-
-            if (this.currently_selected_planet != null){
-                this.units_taken.add(this.currently_selected_planet, this.currently_selected_planet.take_available_units());
-            }
-
-
-            // Remove the recorded 16ms.
-            this.timer = this.timer - this.update_frequency;
+        }
+        else {
+            Debug.Log("Game over!");
         }
     }
+
+    public bool check_game_over(){
+        bool game_over = true;
+        Game_State game_State = this.get_state_copy();
+        bool player_alive = Utils.check_alive(Team.Player, game_State);
+        if (player_alive){
+            for (int i = 0; i < this.bots.Length; i++){
+                if (Utils.check_alive(bots[i].get_team(), game_State)){
+                    game_over = false;
+                    break;
+                }
+            }
+        }
+        return game_over;
+    }
+}
+
+public class Game_State{
+
+    public List<Spaceship> spaceships;
+    public List<Planet> planets;
+
+    public Game_State(List<Planet> planets, List<Spaceship> spaceships){
+        this.planets = planets;
+        this.spaceships = spaceships;
+    }
+
 }
