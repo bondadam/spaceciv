@@ -70,11 +70,29 @@ public abstract class Bot : MonoBehaviour
         return (my_planets, enemy_planets);
     }
 
+    public (List<Spaceship>, List<Spaceship>) separate_spaceships(List<Spaceship> all_spaceships){
+        List<Spaceship> my_spaceships = new List<Spaceship>();
+        List<Spaceship> enemy_spaceships = new List<Spaceship>();
+        foreach (Spaceship s in all_spaceships){
+            if(s.get_team() == this.team){
+                my_spaceships.Add(s);
+            } else {
+                enemy_spaceships.Add(s);
+            }
+        }
+        return (my_spaceships, enemy_spaceships);
+    }
+
     public void Initialize(Level_Manager level_Manager, Team team){
         this.level_Manager = level_Manager;
         this.team = team;
         this.alive = true;
         this.CustomInitialize();
+    }
+
+    public void Initialize(Level_Manager level_Manager, Team team, float update_frequency){
+        this.set_update_frequency(update_frequency);
+        this.Initialize(level_Manager, team);
     }
 
     public virtual void CustomInitialize(){

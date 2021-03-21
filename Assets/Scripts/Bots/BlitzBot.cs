@@ -21,6 +21,6 @@ public class BlitzBot : Bot
     }
 
     public override void CustomInitialize(){
-        this.set_update_frequency(5.0f);
+        //this.set_update_frequency(5.0f);
     }
 }

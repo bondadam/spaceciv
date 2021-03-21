@@ -8,6 +8,9 @@ public class Parallax : MonoBehaviour
 
     private float velocity_x, velocity_y;
     private float max_velocity, min_velocity;
+
+    private float counter_x;
+    private float counter_y;
     public float parallaxEffect;
     // Start is called before the first frame update
     void Start()
@@ -22,8 +25,25 @@ public class Parallax : MonoBehaviour
 
         //velocity_x = (Random.value*max_velocity) - (max_velocity/2.0f);
         //velocity_y = (Random.value*max_velocity) - (max_velocity/2.0f);
-        velocity_x = 1.0f;
-        velocity_y = 1.0f;
+        //velocity_x = 1.0f;
+        //velocity_y = 1.0f;
+
+
+        // sin(radian) = value
+        // 0   -> 0
+        // 0.5 -> 0.5
+        // 1.5 -> 1
+        // 3.1 -> 0
+        // 4.7 -> -1
+        // 6.3 -> 0
+        //counter_x = Random.value*6.283f;
+        //counter_y = Random.value*6.283f;
+
+        counter_x = 0;
+        counter_y = 4.7f;
+
+        velocity_x = Mathf.Sin(counter_x);
+        velocity_y = Mathf.Sin(counter_y);
     }
 
     // Update is called once per frame
@@ -45,6 +65,11 @@ public class Parallax : MonoBehaviour
             velocity_y = Mathf.Max(velocity_y, min_velocity);
         }*/
 
+        counter_x += 0.001f;
+        counter_y += 0.001f;
+        velocity_x = Mathf.Sin(counter_x);
+        velocity_y = Mathf.Sin(counter_y);
+
         float new_x = transform.position.x + parallaxEffect * Time.deltaTime * velocity_x;
         if (new_x > startpos_x + length_x || new_x < startpos_x - length_x){
             new_x = startpos_x;
@@ -54,6 +79,5 @@ public class Parallax : MonoBehaviour
             new_y = startpos_y;
         }
         transform.position = new Vector3(new_x, new_y, transform.position.z);
-        Debug.Log(velocity_x);
     }
 }

@@ -86,6 +86,7 @@ public class Planet : MonoBehaviour
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
         this.update_population_display();
     }
+    /*
     public void Awake(){
         this.tag = "Planet";
 
@@ -101,10 +102,37 @@ public class Planet : MonoBehaviour
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
 
         //planet size grows proportionally to planet growth rate
-        this.growth_factor = (this.planet_size * 25);
+        this.growth_factor = (this.planet_size * 10);
 
 
         this.transform.localScale = new Vector3(this.planet_size,this.planet_size,this.planet_size);
+    }*/
+
+    public void Initialize(SerializedPlanet serializedPlanet){
+
+        this.team = serializedPlanet.team;
+        this.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
+        this.initial_population = serializedPlanet.initial_population;
+        this.population_max = serializedPlanet.population_max;
+        this.planet_size = serializedPlanet.planet_size;
+
+        this.tag = "Planet";
+
+        this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
+        this.population_display = this.GetComponentInChildren<TextMeshPro>();
+
+        this.population = initial_population;
+
+        this.units_taken_from_planet = 0;
+
+        this.selected = false;
+
+        this.m_SpriteRenderer.color = Constants.team_colors[this.team];
+
+        this.growth_factor = (this.planet_size * 10);
+        this.transform.localScale = new Vector3(this.planet_size,this.planet_size,this.planet_size);
+
+
     }
 
     public int take_available_units(){

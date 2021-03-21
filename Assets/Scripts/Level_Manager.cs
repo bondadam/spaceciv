@@ -24,13 +24,15 @@ public class Level_Manager : MonoBehaviour
 
     private Planet currently_selected_planet;
 
-    private Bot[] bots;
+    private List<Bot> bots;
     
     private int game_over_delay_check = 6;
 
     private int game_over_delay_check_counter = 0;
 
     private bool game_over = false;
+
+    public Game_Over_Menu game_Over_Menu;
 
     public void select(Planet planet){
         if (!this.selected_planets.Contains(planet)){
@@ -97,7 +99,7 @@ public class Level_Manager : MonoBehaviour
                     target_planet.grow_back(incoming_units);
                 } else {
                     Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position , Quaternion.identity);
-                    spaceship.Initialize(from_planet.get_team(), incoming_units, target_planet);
+                    spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet);
                     this.spaceships.Add(spaceship);
                 }
             }
@@ -108,7 +110,7 @@ public class Level_Manager : MonoBehaviour
     public void send_spaceship_to_planet_bot(Planet from_planet, Planet target_planet, int incoming_units){
         from_planet.ungrow(incoming_units);
         Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position , Quaternion.identity);
-        spaceship.Initialize(from_planet.get_team(), incoming_units, target_planet);
+        spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet);
         this.spaceships.Add(spaceship);
     }
 
@@ -116,35 +118,62 @@ public class Level_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.Initialize();
+    }
+
+    public void Initialize(){
         this.units_taken = Instantiate(this.units_taken_prefab, Utils.getMousePosition(), Quaternion.identity);
         this.planets = new List<Planet>();
         this.spaceships = new List<Spaceship>();
         this.selected_planets = new List<Planet>();
+
+        this.game_over = false;
+
+        // OLD RANDOM PLANET INSTANTIATION CODE
         /*for (int i = 0; i < 10; i++){
             Planet planet = Instantiate(planet_prefab, new Vector3(Utils.floatRange(-4.0f, 4.0f), Utils.floatRange(-4.0f, 4.0f), 0), Quaternion.identity);
             planet.Initialize(this, Utils.randomEnumValue<Team>());
             planet.growth_factor =  Mathf.FloorToInt(Utils.floatRange(1f,20f));
             this.planets.Add(planet);
         }*/
-        GameObject[] planets_as_game_objects = GameObject.FindGameObjectsWithTag("Planet");
+
+       // OLD FIND PLANETS FROM EDITOR CODE
+       // GameObject[] planets_as_game_objects = GameObject.FindGameObjectsWithTag("Planet");
+       /*
+
         for (int i = 0; i < planets_as_game_objects.Length; i++){
             this.planets.Add(planets_as_game_objects[i].GetComponent<Planet>());
         }
+        */
 
-        this.bots = new Bot[3];
-        Bot blitzBot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
-        blitzBot.Initialize(this, Team.CPU1);
+        TextAsset myTextAsset = Resources.Load("Levels/level1") as TextAsset; 
+        Level level =  JsonUtility.FromJson<Level>(myTextAsset.text);
 
-        Bot blitzBot2 = gameObject.AddComponent<BlitzBot>() as BlitzBot;
-        blitzBot2.Initialize(this, Team.CPU2);
+        foreach (SerializedPlanet sp in level.planets){
+            Planet planet = Instantiate(planet_prefab, new Vector3(sp.position_x, sp.position_y, 0), Quaternion.identity);
+            planet.Initialize(sp);
+            this.planets.Add(planet.GetComponent<Planet>());
+        }
 
-        Bot blitzBot3 = gameObject.AddComponent<BlitzBot>() as BlitzBot;
-        blitzBot3.Initialize(this, Team.CPU3);
+        this.bots = new List<Bot>();
 
-
-        bots[0] = blitzBot;
-        bots[1] = blitzBot2;
-        bots[2] = blitzBot3;
+        // Handle Bot Types
+        foreach (SerializedBot sb in level.bots){
+            Bot new_bot;
+            switch(sb.type){
+                case "BlitzBot":
+                    new_bot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
+                    break;
+                case "DefensiveBot":
+                    new_bot = gameObject.AddComponent<DefensiveBot>() as DefensiveBot;
+                    break;
+                default:
+                     new_bot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
+                     break;
+            }
+            new_bot.Initialize(this, sb.team, sb.decision_interval);
+            this.bots.Add(new_bot);
+        }
     }
 
     // Update is called once per frame
@@ -165,9 +194,10 @@ public class Level_Manager : MonoBehaviour
                 this.game_over_delay_check_counter++;
                 if (this.game_over_delay_check_counter >= this.game_over_delay_check){
                     this.game_over_delay_check_counter = 0;
-                    bool game_over = this.check_game_over();
+                    (bool game_over, bool player_alive) = this.check_game_over();
                     if (game_over){
                         Debug.Log("Game over!");
+                        this.game_Over_Menu.end_game(player_alive); // player_alive == true --> we won
                     }
                     this.game_over = game_over;
                 }
@@ -194,23 +224,23 @@ public class Level_Manager : MonoBehaviour
             }
         }
         else {
-            Debug.Log("Game over!");
+            //Debug.Log("Game over!");
         }
     }
 
-    public bool check_game_over(){
+    public (bool, bool) check_game_over(){
         bool game_over = true;
         Game_State game_State = this.get_state_copy();
         bool player_alive = Utils.check_alive(Team.Player, game_State);
         if (player_alive){
-            for (int i = 0; i < this.bots.Length; i++){
-                if (Utils.check_alive(bots[i].get_team(), game_State)){
+            foreach (Bot b in this.bots){
+                if (Utils.check_alive(b.get_team(), game_State)){
                     game_over = false;
                     break;
                 }
             }
         }
-        return game_over;
+        return (game_over, player_alive);
     }
 }
 

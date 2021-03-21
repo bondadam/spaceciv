@@ -15,6 +15,8 @@ public class Spaceship : MonoBehaviour
 
     private Planet target;
 
+    private Planet origin;
+
     private Vector2 target_position;
 
     private Vector2 current_position;
@@ -25,7 +27,7 @@ public class Spaceship : MonoBehaviour
 
     public bool destroyable;
 
-     public void Initialize(Team team, int population, Planet target){
+     public void Initialize(Team team, int population, Planet origin, Planet target){
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
@@ -37,6 +39,7 @@ public class Spaceship : MonoBehaviour
 
         // Set positions
 
+        this.origin = origin;
         this.target = target;
         this.target_position = this.target.transform.position;
         this.current_position = new Vector2(this.transform.position.x, this.transform.position.y);
@@ -108,6 +111,14 @@ public class Spaceship : MonoBehaviour
 
     public Team get_team(){
         return this.team;
+    }
+    
+    public Planet get_target(){
+        return this.target;
+    }
+
+    public Planet get_source(){
+        return this.origin;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
