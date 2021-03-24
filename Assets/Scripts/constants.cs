@@ -22,8 +22,13 @@ public static class Constants
                 {Team.CPU2,  Color.magenta},
                 {Team.CPU3, Color.Lerp(Color.cyan, Color.white, 0.2f)},
                 {Team.CPU4, Color.red}
-        }
-
-    ;
+        };
+    
+    public static Dictionary<int, String> level_paths = new Dictionary<int, string>(){
+        {1, "Levels/level1"},
+        {2, "Levels/Level2"},
+        {3, "Levels/level3"},
+        {4, "Levels/Level4"}
+    };
 
 }

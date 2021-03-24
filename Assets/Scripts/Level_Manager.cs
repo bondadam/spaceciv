@@ -146,7 +146,7 @@ public class Level_Manager : MonoBehaviour
         }
         */
 
-        TextAsset myTextAsset = Resources.Load("Levels/level1") as TextAsset; 
+        TextAsset myTextAsset = Resources.Load(Constants.level_paths[1]) as TextAsset; 
         Level level =  JsonUtility.FromJson<Level>(myTextAsset.text);
 
         foreach (SerializedPlanet sp in level.planets){
