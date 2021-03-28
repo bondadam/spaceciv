@@ -41,7 +41,13 @@ public class units_taken : MonoBehaviour
     }
 
     public void set_position_to_mouse(){
-        this.transform.position = Utils.getMousePosition();
+        //this.transform.position = Utils.getMousePosition();
+
+        /* Have selection show up next to mouse for phones */
+        Vector3 position = Utils.getMousePosition();
+        position.x += 1;
+        position.y += 1;
+        this.transform.position = position;
     }
 
     public void display_units(){

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -7,6 +7,7 @@ using System;
 public static class Utils
 {
 
+    public static int selected_level = 1;
     public static System.Random _R = new System.Random();
 
     public static Vector3 getMousePosition(){
@@ -14,6 +15,7 @@ public static class Utils
         mousePos.z = Camera.main.nearClipPlane;
         return Camera.main.ScreenToWorldPoint(mousePos);
     }
+    
 
     public static Vector2 getMousePosition2D(){
         Vector3 mousePos = getMousePosition();
