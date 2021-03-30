@@ -22,7 +22,9 @@ public class Input_Manager : MonoBehaviour
                 if (hit.collider != null && hit.collider.gameObject.tag == "Planet") {
                     Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
                     if (Input.GetMouseButton(0)){
-                        this.level_manager.select(clicked_planet);
+                        if (clicked_planet.team == Team.Player){
+                            this.level_manager.select(clicked_planet);
+                        } 
                     } else {
                         this.level_manager.send_spaceship_to_planet(clicked_planet);
                         this.dragging = false;
@@ -41,8 +43,10 @@ public class Input_Manager : MonoBehaviour
                     RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
                     if (hit.collider != null && hit.collider.gameObject.tag == "Planet") {
                         Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
-                        this.level_manager.select(clicked_planet);
-                        this.dragging = true;
+                        if (clicked_planet.team == Team.Player){
+                            this.level_manager.select(clicked_planet);
+                            this.dragging = true;
+                        }
                     }
                 }
             }

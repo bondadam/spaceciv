@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -10,13 +11,19 @@ public class Planet : MonoBehaviour
 
     private int units_taken_from_planet;
 
+    private int level;
+
     public Team team;
 
     public const int min_selected = 1;
 
     private SpriteRenderer m_SpriteRenderer;
 
-    private TextMeshPro population_display;
+    public TextMeshPro population_display;
+
+    public Text upgrades_display;
+
+    public Button upgrades_button;
 
     private bool over_planet;
     public float planet_size = 1f;
@@ -77,6 +84,10 @@ public class Planet : MonoBehaviour
         this.population_display.text = this.population.ToString();
     }
 
+    private void update_upgrades_display(){
+        this.upgrades_display.text = new String('*', this.level);
+    }
+
     void Start()
     {   
     
@@ -120,6 +131,7 @@ public class Planet : MonoBehaviour
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
+        //this.upgrades
 
         this.population = initial_population;
 
@@ -129,9 +141,12 @@ public class Planet : MonoBehaviour
 
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
 
-        this.growth_factor = (this.planet_size * 10);
-        this.transform.localScale = new Vector3(this.planet_size,this.planet_size,this.planet_size);
+        this.level = 0;
 
+        this.upgrades_button.gameObject.SetActive(this.can_upgrade());
+        this.set_growth_factor();
+        this.update_upgrades_display();
+        this.transform.localScale = new Vector3(this.planet_size,this.planet_size,this.planet_size);
 
     }
 
@@ -150,9 +165,15 @@ public class Planet : MonoBehaviour
         else {
                 this.growth_queue += this.growth_factor/100;
         }
+
+        this.upgrades_button.gameObject.SetActive(this.can_upgrade());
         
         this.update_population_display();
 
+    }
+
+    public bool can_upgrade(){
+        return this.population == this.population_max;
     }
 
     public void Update(){
@@ -173,6 +194,7 @@ public class Planet : MonoBehaviour
 
     public void set_population(int new_pop){
         this.population = new_pop;
+        this.update_population_display();
     }
 
     public Team get_team(){
@@ -181,5 +203,26 @@ public class Planet : MonoBehaviour
 
     public void set_team(Team team){
         this.team = team;
+    }
+
+    public int get_level(){
+        return this.level;
+    }
+
+    public void set_level(int level){
+        this.level = level;
+    }
+
+    public void upgrade(){
+        if(this.can_upgrade()){
+            this.level++;
+            this.set_population(0);
+            this.set_growth_factor();
+            this.update_upgrades_display();
+        }
+    }
+
+    public void set_growth_factor(){
+        this.growth_factor = this.planet_size * 10 * (this.level+1);
     }
 }
