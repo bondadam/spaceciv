@@ -17,7 +17,11 @@ public class BlitzBot : Bot
                     this.level_Manager.send_spaceship_to_planet_bot(p, ep, p.get_population());
                 }
             }
+            if (p.can_upgrade()){
+                p.upgrade();
+            }
         }
+
     }
 
     public override void CustomInitialize(){

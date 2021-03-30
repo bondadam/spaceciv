@@ -30,6 +30,9 @@ public class DefensiveBot : Bot
                             int reinforcements = Mathf.FloorToInt(p.get_population() / 2.0f);
                             this.level_Manager.send_spaceship_to_planet_bot(p, es.get_target(), reinforcements);
                         }
+                        if (p.can_upgrade()){
+                            p.upgrade();
+                        }
                     }
                 }
             }
@@ -41,6 +44,9 @@ public class DefensiveBot : Bot
                         //Debug.Log("Move chosen. From planet " + p.ToString() + " to planet " + ep.ToString());
                         this.level_Manager.send_spaceship_to_planet_bot(p, ep, p.get_population());
                     }
+                }
+                if (p.can_upgrade()){
+                    p.upgrade();
                 }
             }
         }

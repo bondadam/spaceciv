@@ -13,6 +13,8 @@ public class Planet : MonoBehaviour
 
     private int level;
 
+    private int max_level;
+
     public Team team;
 
     public const int min_selected = 1;
@@ -142,6 +144,7 @@ public class Planet : MonoBehaviour
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
 
         this.level = 0;
+        this.max_level = 3;
 
         this.upgrades_button.gameObject.SetActive(this.can_upgrade());
         this.set_growth_factor();
@@ -165,15 +168,16 @@ public class Planet : MonoBehaviour
         else {
                 this.growth_queue += this.growth_factor/100;
         }
-
-        this.upgrades_button.gameObject.SetActive(this.can_upgrade());
+        if (this.team == Team.Player){
+            this.upgrades_button.gameObject.SetActive(this.can_upgrade());
+        }
         
         this.update_population_display();
 
     }
 
     public bool can_upgrade(){
-        return this.population == this.population_max;
+        return this.population == this.population_max && this.level < this.max_level;
     }
 
     public void Update(){
@@ -210,7 +214,7 @@ public class Planet : MonoBehaviour
     }
 
     public void set_level(int level){
-        this.level = level;
+        this.level = Math.Min(level, this.max_level);
     }
 
     public void upgrade(){
