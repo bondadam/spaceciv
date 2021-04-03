@@ -22,6 +22,13 @@ public static class Utils
         return new Vector2(mousePos.x, mousePos.y);
     }
 
+    public static Vector2 deep_copy_vector2(Vector2 to_copy){
+        Vector2 result = new Vector2();
+        result.x = to_copy.x;
+        result.y = to_copy.y;
+        return result;
+    }
+
 
     public static float floatRange(float minNumber, float maxNumber) {
         return (float)_R.NextDouble() * (maxNumber - minNumber) + minNumber;

@@ -3046,6 +3046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level_manager: {fileID: 1467773700}
+  camera: {fileID: 756619492}
 --- !u!4 &901682744
 Transform:
   m_ObjectHideFlags: 0
