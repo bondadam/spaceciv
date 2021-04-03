@@ -50,6 +50,7 @@ public class Input_Manager : MonoBehaviour
             }
             else
             {
+                
                 if (this.dragging)
                 {
                     RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
