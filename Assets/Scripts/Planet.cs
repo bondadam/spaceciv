@@ -210,8 +210,13 @@ public class Planet : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     public void set_growth_factor()
     {
         this.growth_factor = this.planet_size * 3 * (this.level + 1);
+=======
+    public void set_growth_factor(){
+        this.growth_factor = this.planet_size * Constants.PLANET_BASE_GROWTH * (this.level+1) ;
+>>>>>>> 5ae20321100674b3dcece9e1c00275a70987cfb6
     }
 }
