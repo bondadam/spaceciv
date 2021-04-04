@@ -137,6 +137,7 @@ public class Spaceship : MonoBehaviour
                         collided_planet.set_population(this.population - defending_units);
                         collided_planet.set_team(this.team);
                         collided_planet.update_identity();
+                        collided_planet.unselect();
                         Debug.Log("invasion success");
                     } else{
                         // invasion defeat

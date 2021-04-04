@@ -11,16 +11,27 @@ public enum Team{
         CPU4,
         Neutral
     }
+
+public enum Selected_State{
+    Unselected,
+    Half,
+    Full
+}
 public static class Constants
 {
+    public static Color bluegreen = new Color(0.5f, 1.0f, 1.0f);
+    public static Color bluey = new Color(0.25f, 0.25f, 1.0f);
+    public static Color greeny = new Color(0.25f, 1.0f, 0.25f);
+
+    public static float Long_Click_Duration = 1.0f;
 
     public static Dictionary<Team, Color> team_colors = new Dictionary<Team, Color>()
         {
-                {Team.Neutral, Color.black},
+                {Team.Neutral, bluegreen},
                 {Team.Player, Color.white},
-                {Team.CPU1,  Color.Lerp(Color.red, Color.green, 0.7f)},
+                {Team.CPU1,  bluey},
                 {Team.CPU2,  Color.magenta},
-                {Team.CPU3, Color.Lerp(Color.cyan, Color.white, 0.2f)},
+                {Team.CPU3, greeny},
                 {Team.CPU4, Color.red}
         };
     
@@ -28,6 +39,20 @@ public static class Constants
         {1, "Levels/level1"},
         {2, "Levels/Level2"},
         {3, "Levels/level3"}
+        };
+
+        public static int states_num =  Enum.GetNames(typeof(Selected_State)).Length;
+
+        public static Dictionary<Selected_State, float> selected_value = new Dictionary<Selected_State, float>(){
+        {Selected_State.Unselected, 0},
+        {Selected_State.Half, 0.5f},
+        {Selected_State.Full, 1}
+        };
+
+        public static Dictionary<Selected_State, Color> selected_color = new Dictionary<Selected_State, Color>(){
+        {Selected_State.Unselected, Color.white},
+        {Selected_State.Half, Color.gray},
+        {Selected_State.Full, Color.black}
         };
 
 }

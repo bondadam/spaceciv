@@ -7,7 +7,7 @@ using System;
 public static class Utils
 {
 
-    public static int selected_level = 1;
+    public static int selected_level = 2;
     public static System.Random _R = new System.Random();
 
     public static Vector3 getMousePosition(){

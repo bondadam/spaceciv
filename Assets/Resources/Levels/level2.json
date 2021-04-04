@@ -1,35 +1,35 @@
 { "planets": [
   {
-    "position_x": -15,
-    "position_y": 7.5,
+    "position_x": -7.5,
+    "position_y": 5,
     "team": 1,
     "initial_population": 0,
     "population_max": 99,
-    "planet_size": 3
+    "planet_size": 2
   },
   {
-    "position_x": -15,
-    "position_y": -7.5,
+    "position_x": -7.5,
+    "position_y": -5,
     "team": 0,
     "initial_population": 0,
     "population_max": 99,
-    "planet_size": 3
+    "planet_size": 2
   },
   {
-    "position_x": 15,
-    "position_y": 7.5,
+    "position_x": 7.5,
+    "position_y": 5,
     "team": 2,
     "initial_population": 0,
     "population_max": 99,
-    "planet_size": 3
+    "planet_size": 2
   },
   {
-    "position_x": 15,
-    "position_y": -7.5,
+    "position_x": 7.5,
+    "position_y": -5,
     "team": 3,
     "initial_population": 0,
     "population_max": 99,
-    "planet_size": 3
+    "planet_size": 2
   },
   {
     "position_x": 0,
@@ -37,39 +37,39 @@
     "team": 5,
     "initial_population": 75,
     "population_max": 99,
-    "planet_size": 6
+    "planet_size": 4
   },
   {
     "position_x": 0,
-    "position_y": -7.5,
+    "position_y": -5,
     "team": 5,
     "initial_population": 25,
     "population_max": 99,
-    "planet_size": 1.5
+    "planet_size": 1
   },
   {
-    "position_x": -15,
+    "position_x": -7.5,
     "position_y": 0,
     "team": 5,
     "initial_population": 25,
     "population_max": 99,
-    "planet_size": 1.5
+    "planet_size": 1
   },
   {
     "position_x": 0,
-    "position_y": 7.5,
+    "position_y": 5,
     "team": 5,
     "initial_population": 25,
     "population_max": 99,
-    "planet_size": 1.5
+    "planet_size": 1
   },
   {
-    "position_x": 15,
+    "position_x": 7.5,
     "position_y": 0,
     "team": 5,
     "initial_population": 25,
     "population_max": 99,
-    "planet_size": 1.5
+    "planet_size": 1
   }
 ],
 "bots" : [
