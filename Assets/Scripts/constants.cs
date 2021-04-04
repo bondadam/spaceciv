@@ -13,7 +13,7 @@ public enum Team{
     }
 public static class Constants
 {
-
+    public const float PLANET_BASE_GROWTH = 15;
     public static Dictionary<Team, Color> team_colors = new Dictionary<Team, Color>()
         {
                 {Team.Neutral, Color.black},

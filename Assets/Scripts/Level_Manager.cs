@@ -167,6 +167,9 @@ public class Level_Manager : MonoBehaviour
                 case "DefensiveBot":
                     new_bot = gameObject.AddComponent<DefensiveBot>() as DefensiveBot;
                     break;
+                case "ExpandingBot":
+                    new_bot = gameObject.AddComponent<ExpandingBot>() as ExpandingBot;
+                    break;
                 default:
                      new_bot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
                      break;
