@@ -8,50 +8,88 @@ using TMPro;
 public class Editor_Planet : MonoBehaviour
 {
     private SerializedPlanet data;
-    public Data_Box_Manager data_Box;
+    public Canvas data_Box;
     private SpriteRenderer m_SpriteRenderer;
+    public TMP_Dropdown team_dropdown;
+
+    public Slider initPopSlider;
+
+    public TextMeshProUGUI initialPopValue;
+    public Slider maxPopSlider;
+
+    public TextMeshProUGUI maxPopValue;
+    public Slider sizeSlider;
+
+    public TextMeshProUGUI sizeValue;
     // Start is called before the first frame update
     void Start()
     {
     }
 
+    void Awake(){
+        this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
+    }
+
     public void Initialize(Vector2 coords)
     {
-        this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
 
         this.data = new SerializedPlanet();
         this.data.team = Team.Neutral;
         this.data.position_x = coords.x;
         this.data.position_y = coords.y;
-        this.data.initial_population = Constants.PLANET_INITIAL_POPULATION;
-        this.data.population_max = Constants.PLANET_MAX_POPULATION;
+        this.data.initial_population = Constants.PLANET_DEFAULT_INITIAL_POPULATION;
+        this.data.population_max = Constants.PLANET_DEFAULT_MAX_POPULATION;
         this.data.planet_size = 1;
 
-        this.data_Box.Initialize(this.data);
-        this.open_databox();
+        this.initPopSlider.maxValue = Constants.PLANET_DEFAULT_MAX_POPULATION;
+        this.initPopSlider.value = Constants.PLANET_DEFAULT_INITIAL_POPULATION;
+        this.initialPopValue.text = Constants.PLANET_DEFAULT_INITIAL_POPULATION.ToString();
 
+        this.maxPopSlider.maxValue = Constants.PLANET_ABSOLUTE_MAX_POPULATION;
+        this.maxPopSlider.value = Constants.PLANET_DEFAULT_MAX_POPULATION;
+        this.maxPopValue.text = Constants.PLANET_DEFAULT_MAX_POPULATION.ToString();
+
+        this.sizeSlider.maxValue = Constants.PLANET_MAX_SIZE * 2.0f;
+        this.sizeSlider.value = Constants.PLANET_DEFAULT_SIZE * 2.0f;
+        this.sizeValue.text = Constants.PLANET_DEFAULT_SIZE.ToString();
+
+        this.open_databox();
         this.update_identity();
     }
     public void update_identity()
     {
+        this.transform.localScale = new Vector3(this.data.planet_size, this.data.planet_size, this.data.planet_size);
         this.m_SpriteRenderer.color = Constants.team_colors[this.data.team];
     }
+
+    public void change_team(int unused_value){
+        this.data.team = (Team) this.team_dropdown.value;
+        this.update_identity();
+    }
+
+    public void change_initPop(){
+        this.data.initial_population = Mathf.FloorToInt(this.initPopSlider.value);
+        this.initialPopValue.text = this.data.initial_population.ToString();
+        this.update_identity();
+    }
+
+    public void change_maxPop(){
+        this.data.population_max = Mathf.FloorToInt(this.maxPopSlider.value);
+        this.maxPopValue.text = this.data.population_max.ToString();
+        this.initPopSlider.maxValue = this.data.population_max;
+        this.update_identity();
+    }
+
+    public void changeSize(){
+        this.data.planet_size = this.sizeSlider.value / 2.0f;
+        this.sizeValue.text =  this.data.planet_size.ToString();
+        this.update_identity();
+    }
+
     
     public SerializedPlanet get_data(){
         return this.data;
     }
-
-    public void save_data(){
-        SerializedPlanet temp_data = this.data_Box.get_data();
-        this.data.team = temp_data.team;
-        this.data.position_x = temp_data.position_x;
-        this.data.position_y = temp_data.position_y;
-        this.data.initial_population = temp_data.initial_population;
-        this.data.population_max = temp_data.population_max;
-        this.data.planet_size = temp_data.planet_size;
-        this.update_identity();
-    }
-
     public void open_databox()
     {
         this.data_Box.gameObject.SetActive(true);
@@ -60,6 +98,10 @@ public class Editor_Planet : MonoBehaviour
     public void close_databox()
     {
         this.data_Box.gameObject.SetActive(false);
+    }
+
+    public void destroy(){
+        GameObject.Destroy(this.gameObject);
     }
 
     // Update is called once per frame

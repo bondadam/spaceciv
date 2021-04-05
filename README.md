@@ -13,4 +13,16 @@
 
 - Strategy : DefensiveBot send % of attacked planet to meet attacking spaceship to allow for growth in case of max. pop. reached
 
-- Add Level Editor?
+- Add Level Editor  -- DONE
+
+	- Intercepter UI Elements -- DONE
+
+	- Move planet
+
+	- Load level
+
+	- Delete Button -- DONE
+
+	- Exit on save (remove save button, autosave on change) -- DONE
+
+	- Add Bot Editing

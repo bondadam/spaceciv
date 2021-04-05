@@ -69,6 +69,7 @@ public class Level_Editor_Manager : MonoBehaviour
     }
 
     public void place_selected(Vector2 coords){
+        this.close_all_databoxes();
         switch (this.selected_object){
             case Object_Type.Planet:
                 Editor_Planet planet = Instantiate(editor_planet_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);

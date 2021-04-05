@@ -204,7 +204,7 @@ public class Planet : MonoBehaviour
         if (this.can_upgrade())
         {
             this.level++;
-            this.set_population(Constants.PLANET_INITIAL_POPULATION);
+            this.set_population(Constants.PLANET_DEFAULT_INITIAL_POPULATION);
             this.set_growth_factor();
             this.update_upgrades_display();
         }

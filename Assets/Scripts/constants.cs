@@ -32,8 +32,15 @@ public static class Constants
 
     public const float PLANET_BASE_GROWTH = 15;
 
-    public const int PLANET_INITIAL_POPULATION = 0;
-    public const int PLANET_MAX_POPULATION = 99;
+    public const int PLANET_DEFAULT_INITIAL_POPULATION = 0;
+    public const int PLANET_DEFAULT_MAX_POPULATION = 99;
+
+    public const int PLANET_ABSOLUTE_MAX_POPULATION = 199;
+
+    public const float PLANET_MAX_SIZE = 5;
+
+    public const float PLANET_MIN_SIZE = 0.5f;
+    public const float PLANET_DEFAULT_SIZE = 1f;
 
     public static string USER_LEVEL_DIRECTORY_PATH = Application.persistentDataPath;
     public const string USER_LEVEL_DEFAULT_FILE_PATH = "/levels/saved_level.json";
