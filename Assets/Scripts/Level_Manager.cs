@@ -71,9 +71,15 @@ public class Level_Manager : MonoBehaviour
         this.spaceships = new List<Spaceship>();
 
         this.game_over = false;
-
+        String level_json;
+        if (Utils.selected_level == Constants.USER_LEVEL_CODE && System.IO.File.Exists(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH)){
+            // User made level
+            level_json = System.IO.File.ReadAllText(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH);
+        } else {
         TextAsset myTextAsset = Resources.Load(Constants.level_paths[Utils.selected_level]) as TextAsset;
-        Level level = JsonUtility.FromJson<Level>(myTextAsset.text);
+        level_json = myTextAsset.text;
+        }
+        Level level = JsonUtility.FromJson<Level>(level_json);
 
         foreach (SerializedPlanet sp in level.planets)
         {

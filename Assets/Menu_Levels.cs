@@ -26,6 +26,12 @@ public class Menu_Levels : MonoBehaviour
                 goButton.GetComponentInChildren<TextMeshProUGUI>().text = "Level " + entry.Key.ToString();
                 tempButton.onClick.AddListener(() => ButtonClicked(entry.Key));
             }
+        GameObject userLevelButton = (GameObject)Instantiate(prefabButton);
+        userLevelButton.transform.SetParent(ParentPanel, false);
+        userLevelButton.transform.localScale = new Vector3(1, 1, 1);
+        Button userLevelTempButton = userLevelButton.GetComponent<Button>();
+        userLevelButton.GetComponentInChildren<TextMeshProUGUI>().text = "User Made Level";
+        userLevelTempButton.onClick.AddListener(() => ButtonClicked(Constants.USER_LEVEL_CODE));
         this.disable();          
      
      }

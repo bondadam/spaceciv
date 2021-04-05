@@ -13,6 +13,10 @@ public class Main_Menu : MonoBehaviour
         this.gameObject.SetActive(false);
         //SceneManager.LoadScene("DemoLevel");
     }
+    
+    public void StartEditor(){
+        SceneManager.LoadScene("Level_Editor");
+    }
 
     public void ExitGame(){
         //UnityEditor.EditorApplication.isPlaying = false;

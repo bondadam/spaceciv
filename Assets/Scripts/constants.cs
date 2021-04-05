@@ -34,6 +34,14 @@ public static class Constants
 
     public const int PLANET_INITIAL_POPULATION = 0;
     public const int PLANET_MAX_POPULATION = 99;
+
+    public static string USER_LEVEL_DIRECTORY_PATH = Application.persistentDataPath;
+    public const string USER_LEVEL_DEFAULT_FILE_PATH = "/levels/saved_level.json";
+
+    public const int USER_LEVEL_CODE = 99;
+
+    public static string USER_LEVEL_DEFAULT_COMPLETE_PATH = String.Concat(USER_LEVEL_DIRECTORY_PATH, USER_LEVEL_DEFAULT_FILE_PATH);
+
     public static Dictionary<Team, Color> team_colors = new Dictionary<Team, Color>()
         {
                 {Team.Neutral, bluegreen},
