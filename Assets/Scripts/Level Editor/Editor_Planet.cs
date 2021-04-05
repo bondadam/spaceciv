@@ -9,7 +9,8 @@ public class Editor_Planet : MonoBehaviour
 {
     private SerializedPlanet data;
     public Canvas data_Box;
-    private SpriteRenderer m_SpriteRenderer;
+
+    public SpriteRenderer m_SpriteRenderer;
     public TMP_Dropdown team_dropdown;
 
     public Slider initPopSlider;
@@ -21,13 +22,14 @@ public class Editor_Planet : MonoBehaviour
     public Slider sizeSlider;
 
     public TextMeshProUGUI sizeValue;
+
+    public TextMeshProUGUI positionValue;
     // Start is called before the first frame update
     void Start()
     {
     }
 
     void Awake(){
-        this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
     }
 
     public void Initialize(Vector2 coords)
@@ -41,6 +43,8 @@ public class Editor_Planet : MonoBehaviour
         this.data.population_max = Constants.PLANET_DEFAULT_MAX_POPULATION;
         this.data.planet_size = 1;
 
+        this.team_dropdown.value = (int) this.data.team;
+
         this.initPopSlider.maxValue = Constants.PLANET_DEFAULT_MAX_POPULATION;
         this.initPopSlider.value = Constants.PLANET_DEFAULT_INITIAL_POPULATION;
         this.initialPopValue.text = Constants.PLANET_DEFAULT_INITIAL_POPULATION.ToString();
@@ -51,6 +55,7 @@ public class Editor_Planet : MonoBehaviour
 
         this.sizeSlider.maxValue = Constants.PLANET_MAX_SIZE * 2.0f;
         this.sizeSlider.value = Constants.PLANET_DEFAULT_SIZE * 2.0f;
+        this.sizeSlider.minValue = Constants.PLANET_MIN_SIZE * 2.0f;
         this.sizeValue.text = Constants.PLANET_DEFAULT_SIZE.ToString();
 
         this.open_databox();
@@ -58,8 +63,20 @@ public class Editor_Planet : MonoBehaviour
     }
     public void update_identity()
     {
-        this.transform.localScale = new Vector3(this.data.planet_size, this.data.planet_size, this.data.planet_size);
+        this.m_SpriteRenderer.transform.localScale = new Vector3(this.data.planet_size * 0.1f, this.data.planet_size * 0.1f, this.data.planet_size * 0.1f);
         this.m_SpriteRenderer.color = Constants.team_colors[this.data.team];
+        this.update_position();
+    }
+
+    public void update_position(){
+        this.data.position_x = this.transform.position.x;
+        this.data.position_y = this.transform.position.y;
+        this.positionValue.text = "X : " + this.data.position_x + "\nY : " + this.data.position_y;
+    }
+
+    public void move(Vector2 new_position){
+        this.transform.position = new Vector3(new_position.x, new_position.y, this.transform.position.z);
+        this.update_position();
     }
 
     public void change_team(int unused_value){

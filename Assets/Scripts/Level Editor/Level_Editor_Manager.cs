@@ -9,18 +9,22 @@ public class Level_Editor_Manager : MonoBehaviour
     private Object_Type selected_object;
     private List<Editor_Planet> planets;
     public Camera camera;
+    private Editor_Planet chosen_planet;
     public Editor_Planet editor_planet_prefab;
 
     // Start is called before the first frame update
     void Start()
     {
         this.planets = new List<Editor_Planet>();
+        this.chosen_planet = null;
     }
 
     public void save(){
-        SerializedPlanet[] serializedPlanets = new SerializedPlanet[this.planets.Count];
-        for(int i = 0; i < this.planets.Count; i++){
-            serializedPlanets[i] = this.planets[i].get_data();
+        GameObject[] planets_as_objects = GameObject.FindGameObjectsWithTag("Planet");
+        SerializedPlanet[] serializedPlanets = new SerializedPlanet[planets_as_objects.Length];
+        for(int i = 0; i < planets_as_objects.Length; i++){
+            Editor_Planet intermediary = (Editor_Planet) planets_as_objects[i].GetComponent<Editor_Planet>();
+            serializedPlanets[i] = intermediary.get_data();
         }
 
         SerializedBot[] bots = new SerializedBot[4];
@@ -58,20 +62,31 @@ public class Level_Editor_Manager : MonoBehaviour
         this.select(Object_Type.Planet);
     }
 
+    public void choose_planet(Editor_Planet planet){
+        this.chosen_planet = planet;
+        this.selected_object = Object_Type.None;
+    }
+
+    public void move_chosen_planet(Vector2 new_coords){
+        this.chosen_planet.move(new_coords);
+    }
+
     public void unselect(){
         this.selected_object = Object_Type.None;
     }
 
     public void close_all_databoxes(){
         foreach (Editor_Planet ep in this.planets){
-            ep.close_databox();
+            if (ep != null){
+                ep.close_databox();
+            }
         }
     }
 
     public void place_selected(Vector2 coords){
-        this.close_all_databoxes();
         switch (this.selected_object){
             case Object_Type.Planet:
+                this.close_all_databoxes();
                 Editor_Planet planet = Instantiate(editor_planet_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
                 planet.Initialize(coords);
                 this.planets.Add(planet);

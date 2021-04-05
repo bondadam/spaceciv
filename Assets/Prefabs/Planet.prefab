@@ -291,7 +291,6 @@ MonoBehaviour:
   population_display: {fileID: 1454024635848560354}
   upgrades_display: {fileID: 723273293765119749}
   upgrades_button: {fileID: 5672128772764171472}
-  selected_units_display: {fileID: 0}
   planet_size: 1
   initial_population: 0
   growth_factor: 5
@@ -479,7 +478,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 2}
+  m_SizeDelta: {x: 1.5, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &220771279637777128
 MeshRenderer:

@@ -20,6 +20,7 @@ public enum Selected_State{
 
 public enum Object_Type{
     None,
+    Move,
     Planet
 }
 public static class Constants

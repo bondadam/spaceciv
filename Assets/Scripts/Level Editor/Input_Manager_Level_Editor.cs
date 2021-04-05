@@ -9,12 +9,14 @@ public class Input_Manager_Level_Editor : MonoBehaviour
     public Level_Editor_Manager level_Editor_Manager;
     private Vector2 old_mouse_position;
     private bool holding;
+    private bool moving_planet;
     public Camera camera;
     // Start is called before the first frame update
     void Start()
     {
         move_dragging = false;
         holding = false;
+        moving_planet = false;
         old_mouse_position = new Vector2();
     }
 
@@ -31,6 +33,9 @@ public class Input_Manager_Level_Editor : MonoBehaviour
 
         if (noUIControlsInUse)
         {
+            if (this.holding && Input.GetMouseButton(0)){
+
+            }
             if (this.move_dragging && !holding)
             {
                 Vector3 mousePos = Input.mousePosition;
@@ -74,11 +79,18 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                     // Close all other databoxes before opening this one
                     level_Editor_Manager.close_all_databoxes();
                     clicked_planet.open_databox();
+                    this.holding = true;
+                    level_Editor_Manager.choose_planet(clicked_planet);
                 }
+            }
+            else if (holding && Input.GetMouseButton(0)){
+                level_Editor_Manager.move_chosen_planet(mousePos2D);
             }
             else if (!Input.GetMouseButton(0))
             {
                 move_dragging = false;
+            } else if (holding && Input.GetMouseButtonUp(0)){
+                holding = false;
             }
         }
     }
