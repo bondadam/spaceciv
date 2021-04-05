@@ -29,7 +29,7 @@ public class Planet : MonoBehaviour
 
     private int population;
 
-    private int population_max = 99;
+    private int population_max;
     public const int population_min = 1;
 
     public float growth_factor = 50f;
@@ -204,19 +204,13 @@ public class Planet : MonoBehaviour
         if (this.can_upgrade())
         {
             this.level++;
-            this.set_population(0);
+            this.set_population(Constants.PLANET_INITIAL_POPULATION);
             this.set_growth_factor();
             this.update_upgrades_display();
         }
     }
 
-<<<<<<< HEAD
-    public void set_growth_factor()
-    {
-        this.growth_factor = this.planet_size * 3 * (this.level + 1);
-=======
     public void set_growth_factor(){
         this.growth_factor = this.planet_size * Constants.PLANET_BASE_GROWTH * (this.level+1) ;
->>>>>>> 5ae20321100674b3dcece9e1c00275a70987cfb6
     }
 }

@@ -17,18 +17,23 @@ public enum Selected_State{
     Half,
     Full
 }
+
+public enum Object_Type{
+    None,
+    Planet
+}
 public static class Constants
 {
-<<<<<<< HEAD
     public static Color bluegreen = new Color(0.5f, 1.0f, 1.0f);
     public static Color bluey = new Color(0.25f, 0.25f, 1.0f);
     public static Color greeny = new Color(0.25f, 1.0f, 0.25f);
 
     public static float Long_Click_Duration = 1.0f;
 
-=======
     public const float PLANET_BASE_GROWTH = 15;
->>>>>>> 5ae20321100674b3dcece9e1c00275a70987cfb6
+
+    public const int PLANET_INITIAL_POPULATION = 0;
+    public const int PLANET_MAX_POPULATION = 99;
     public static Dictionary<Team, Color> team_colors = new Dictionary<Team, Color>()
         {
                 {Team.Neutral, bluegreen},
