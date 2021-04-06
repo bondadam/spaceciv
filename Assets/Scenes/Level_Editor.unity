@@ -372,7 +372,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1945186953}
         m_TargetAssemblyTypeName: Level_Editor_Manager, Assembly-CSharp
-        m_MethodName: save
+        m_MethodName: load
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35408506, g: 0.6886792, b: 0.3677383, a: 1}
+  m_Color: {r: 0.3529412, g: 0.6351553, b: 0.6901961, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
