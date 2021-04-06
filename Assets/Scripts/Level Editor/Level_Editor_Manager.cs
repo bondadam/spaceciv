@@ -19,11 +19,13 @@ public class Level_Editor_Manager : MonoBehaviour
         this.chosen_planet = null;
     }
 
-    public void save(){
+    public void save()
+    {
         GameObject[] planets_as_objects = GameObject.FindGameObjectsWithTag("Planet");
         SerializedPlanet[] serializedPlanets = new SerializedPlanet[planets_as_objects.Length];
-        for(int i = 0; i < planets_as_objects.Length; i++){
-            Editor_Planet intermediary = (Editor_Planet) planets_as_objects[i].GetComponent<Editor_Planet>();
+        for (int i = 0; i < planets_as_objects.Length; i++)
+        {
+            Editor_Planet intermediary = (Editor_Planet)planets_as_objects[i].GetComponent<Editor_Planet>();
             serializedPlanets[i] = intermediary.get_data();
         }
 
@@ -40,51 +42,83 @@ public class Level_Editor_Manager : MonoBehaviour
         System.IO.File.WriteAllText(file.FullName, serialized_level);
     }
 
-    public void exit(){
+    public void load()
+    {
+        string level_json = System.IO.File.ReadAllText(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH);
+        Level level = JsonUtility.FromJson<Level>(level_json);
+
+        foreach (Editor_Planet ep in this.planets)
+        {
+            ep.destroy();
+        }
+        this.planets = new List<Editor_Planet>();
+
+        foreach (SerializedPlanet sp in level.planets)
+        {
+            Editor_Planet planet = Instantiate(editor_planet_prefab, new Vector3(sp.position_x, sp.position_y, 0), Quaternion.identity);
+            Editor_Planet actual_planet  = planet.GetComponent<Editor_Planet>();
+            actual_planet.Initialize_Load(sp);
+            this.planets.Add(actual_planet);
+        }
+    }
+
+    public void exit()
+    {
         SceneManager.LoadScene("MainMenu");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void center_camera(){
+    public void center_camera()
+    {
         this.camera.transform.position = new Vector3(0, 0, this.camera.transform.position.z);
     }
 
-    public void select(Object_Type selection){
+    public void select(Object_Type selection)
+    {
         this.selected_object = selection;
     }
 
-    public void select_planet(){
+    public void select_planet()
+    {
         this.select(Object_Type.Planet);
     }
 
-    public void choose_planet(Editor_Planet planet){
+    public void choose_planet(Editor_Planet planet)
+    {
         this.chosen_planet = planet;
         this.selected_object = Object_Type.None;
     }
 
-    public void move_chosen_planet(Vector2 new_coords){
+    public void move_chosen_planet(Vector2 new_coords)
+    {
         this.chosen_planet.move(new_coords);
     }
 
-    public void unselect(){
+    public void unselect()
+    {
         this.selected_object = Object_Type.None;
     }
 
-    public void close_all_databoxes(){
-        foreach (Editor_Planet ep in this.planets){
-            if (ep != null){
+    public void close_all_databoxes()
+    {
+        foreach (Editor_Planet ep in this.planets)
+        {
+            if (ep != null)
+            {
                 ep.close_databox();
             }
         }
     }
 
-    public void place_selected(Vector2 coords){
-        switch (this.selected_object){
+    public void place_selected(Vector2 coords)
+    {
+        switch (this.selected_object)
+        {
             case Object_Type.Planet:
                 this.close_all_databoxes();
                 Editor_Planet planet = Instantiate(editor_planet_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);

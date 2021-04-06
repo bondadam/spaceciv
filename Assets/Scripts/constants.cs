@@ -33,7 +33,7 @@ public static class Constants
 
     public const float PLANET_BASE_GROWTH = 15;
 
-    public const int PLANET_DEFAULT_INITIAL_POPULATION = 0;
+    public const int PLANET_DEFAULT_INITIAL_POPULATION = 25;
     public const int PLANET_DEFAULT_MAX_POPULATION = 99;
 
     public const int PLANET_ABSOLUTE_MAX_POPULATION = 199;

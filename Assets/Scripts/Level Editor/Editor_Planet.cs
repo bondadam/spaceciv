@@ -61,6 +61,29 @@ public class Editor_Planet : MonoBehaviour
         this.open_databox();
         this.update_identity();
     }
+
+    public void Initialize_Load(SerializedPlanet data){
+        this.data = data;
+
+        this.team_dropdown.value = (int) this.data.team;
+
+        this.initPopSlider.maxValue = Constants.PLANET_DEFAULT_MAX_POPULATION;
+        this.initPopSlider.value = this.data.initial_population;
+        this.initialPopValue.text = this.initPopSlider.value.ToString();
+
+        this.maxPopSlider.maxValue = Constants.PLANET_ABSOLUTE_MAX_POPULATION;
+        this.maxPopSlider.value = this.data.population_max;
+        this.maxPopValue.text = this.maxPopSlider.value.ToString();
+
+        this.sizeSlider.maxValue = Constants.PLANET_MAX_SIZE * 2.0f;
+        this.sizeSlider.value = this.data.planet_size * 2.0f;
+        this.sizeSlider.minValue = Constants.PLANET_MIN_SIZE * 2.0f;
+        this.sizeValue.text = this.sizeSlider.value.ToString();
+
+        this.close_databox();
+        this.update_position();
+        this.update_identity();
+    }
     public void update_identity()
     {
         this.m_SpriteRenderer.transform.localScale = new Vector3(this.data.planet_size * 0.1f, this.data.planet_size * 0.1f, this.data.planet_size * 0.1f);

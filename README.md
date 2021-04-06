@@ -17,9 +17,9 @@
 
 	- Intercepter UI Elements -- DONE
 
-	- Move planet
+	- Move planet -- DONE
 
-	- Load level
+	- Load level -- DONE
 
 	- Delete Button -- DONE
 
