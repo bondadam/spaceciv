@@ -49,7 +49,6 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                     Vector3 diff_position = new Vector3(mousePos.x - old_mouse_position.x, mousePos.y - old_mouse_position.y, 0);
                     camera.transform.position = new Vector3(this.camera.transform.position.x - diff_position.x * 0.0125f, this.camera.transform.position.y - diff_position.y * 0.0125f, this.camera.transform.position.z);
                 }
-                old_mouse_position = new Vector2(mousePos.x, mousePos.y);
             }
             else if (Input.GetMouseButtonDown(0))
             {
@@ -68,8 +67,6 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                     {
                         // Just clicked in empty space, start move dragging
                         this.move_dragging = true;
-                        Vector3 mousePos = Input.mousePosition;
-                        this.old_mouse_position = new Vector2(mousePos.x, mousePos.y);
                     }
                 }
                 else
@@ -84,7 +81,10 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                 }
             }
             else if (holding && Input.GetMouseButton(0)){
-                level_Editor_Manager.move_chosen_planet(mousePos2D);
+                if(old_mouse_position[0] != Input.mousePosition.x || old_mouse_position[1] != Input.mousePosition.y)
+                {
+                    level_Editor_Manager.move_chosen_planet(mousePos2D);
+                }
             }
             else if (!Input.GetMouseButton(0))
             {
@@ -93,5 +93,6 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                 holding = false;
             }
         }
+        old_mouse_position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
     }
 }
