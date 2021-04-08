@@ -74,15 +74,22 @@ public class Input_Manager : MonoBehaviour
             else if (holding && Input.GetMouseButton(0))
             {
                 RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-                Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
-                if (clicked_planet.team == Team.Player)
+                if (hit.collider != null)
                 {
-                    holding_time += Time.deltaTime;
-                    if (holding_time >= Constants.Long_Click_Duration){
-                        holding_time = 0;
+                    Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
+                    if (clicked_planet.team == Team.Player)
+                    {
+                        holding_time += Time.deltaTime;
+                        if (holding_time >= Constants.Long_Click_Duration){
+                            holding_time = 0;
+                            holding = false;
+                            this.level_manager.send_spaceship_to_planet(clicked_planet);
+                            clicked_planet.unselect();
+                        }
+                    }
+                    else
+                    {
                         holding = false;
-                        this.level_manager.send_spaceship_to_planet(clicked_planet);
-                        clicked_planet.unselect();
                     }
                 }
                 else
