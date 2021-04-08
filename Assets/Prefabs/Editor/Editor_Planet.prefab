@@ -622,7 +622,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4699134907828000266}
         m_TargetAssemblyTypeName: Editor_Planet, Assembly-CSharp
         m_MethodName: change_team
-        m_Mode: 3
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2735,7 +2735,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4949572878928044542}
   m_HandleRect: {fileID: 430867585857367483}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999994
   m_Size: 0.8181818
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3208,7 +3208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 131.8, y: 182.7}
+  m_AnchoredPosition: {x: 132.4, y: 232}
   m_SizeDelta: {x: 25.6874, y: 26.6754}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2211571268438654136
@@ -5278,7 +5278,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 'X : 0
+
+    Y : 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -63,7 +63,8 @@ public static class Constants
     public static Dictionary<int, String> level_paths = new Dictionary<int, string>(){
         {1, "Levels/level1"},
         {2, "Levels/Level2"},
-        {3, "Levels/level3"}
+        {3, "Levels/level3"},
+        {4, "Levels/level4"}
         };
 
         public static int states_num =  Enum.GetNames(typeof(Selected_State)).Length;

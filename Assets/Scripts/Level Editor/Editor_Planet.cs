@@ -102,8 +102,8 @@ public class Editor_Planet : MonoBehaviour
         this.update_position();
     }
 
-    public void change_team(int unused_value){
-        this.data.team = (Team) this.team_dropdown.value;
+    public void change_team(int new_team){
+        this.data.team = (Team) new_team;
         this.update_identity();
     }
 
