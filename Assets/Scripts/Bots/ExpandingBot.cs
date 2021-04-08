@@ -19,22 +19,27 @@ public class ExpandingBot : Bot
 
         // ExpandingBot will only attack enemy planets if there are no more neutral planets left to conquer
         List<Planet> neutral_planets = (from p in planets.enemy_planets where p.team == Team.Neutral select p).ToList();
+        Debug.Log("initial count" + neutral_planets.Count.ToString());
         if(neutral_planets.Count > 0){
             List<Planet> candidate_planets = (from p in neutral_planets select p).ToList();
             foreach(Spaceship p in spaceships.my_spaceships){
-                candidate_planets = candidate_planets.Where(planet => planet != p.get_target()).ToList();
+                // remove neutral planets to which I have already sent a colonizing force
+                candidate_planets = candidate_planets.Where(planet => !planet.Equals(p.get_target())).ToList();
             }
+            Debug.Log("after counting ships" + candidate_planets.Count.ToString());
             foreach(Planet pl in planets.my_planets){
-                Planet target_planet = neutral_planets[0];
+                Planet target_planet = candidate_planets[0];
                 double min_dist =  double.MaxValue; // find closest neutral planet
-                foreach(Planet p in neutral_planets){
+                foreach(Planet p in candidate_planets){
                     double dist = Mathf.Sqrt(Mathf.Pow(pl.transform.position.y - p.transform.position.y,2) + Mathf.Pow(pl.transform.position.x - p.transform.position.x,2)) + p.get_population()/15;
 
                     if(dist < min_dist){ min_dist = dist; target_planet = p;}
                 }
                 if(pl.get_population() > target_planet.get_population()){
-                   // move_chosen = true;
-                    candidate_planets = candidate_planets.Where(planet => planet != target_planet).ToList();
+
+                    // move_chosen = true;
+                    candidate_planets = candidate_planets.Where(planet => !planet.Equals(target_planet)).ToList();
+                    Debug.Log("after sending an attack" + candidate_planets.Count.ToString());
                     this.level_Manager.send_spaceship_to_planet_bot(pl, target_planet, pl.get_population());
                 }
             }
