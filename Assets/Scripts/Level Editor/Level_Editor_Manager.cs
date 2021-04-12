@@ -68,15 +68,7 @@ public class Level_Editor_Manager : MonoBehaviour
 
     public void load(string level_filename)
     {
-        string level_path;
-        if(level_filename == "")
-        {
-            level_path = Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH; 
-        }
-        else
-        {
-            level_path = Constants.USER_LEVEL_DIRECTORY_PATH + "/levels/" + level_filename + ".json"; 
-        }
+        string level_path = Save_File_Manager.getFullPath(level_filename);
         string level_json = System.IO.File.ReadAllText(level_path);
         Level level = JsonUtility.FromJson<Level>(level_json);
 
