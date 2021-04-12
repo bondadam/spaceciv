@@ -36,6 +36,9 @@ public class Planet : MonoBehaviour
 
     private float growth_queue = 0.0f;
     private Selected_State state;
+
+    private String name;
+    
     public void grow(int num_pop)
     {
         if (this.team != Team.Neutral)

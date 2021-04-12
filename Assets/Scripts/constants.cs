@@ -31,7 +31,7 @@ public static class Constants
 
     public static float Long_Click_Duration = 1.0f;
 
-    public const float PLANET_BASE_GROWTH = 15;
+    public const float PLANET_BASE_GROWTH = 10;
 
     public const int PLANET_DEFAULT_INITIAL_POPULATION = 25;
     public const int PLANET_DEFAULT_MAX_POPULATION = 99;
@@ -45,7 +45,7 @@ public static class Constants
 
     public static string USER_LEVEL_DIRECTORY_PATH = Application.persistentDataPath;
     public const string USER_LEVEL_DEFAULT_FILE_PATH = "/levels/saved_level.json";
-
+    public const string EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF = "editor_current_level_name";
     public const int USER_LEVEL_CODE = 99;
 
     public static string USER_LEVEL_DEFAULT_COMPLETE_PATH = String.Concat(USER_LEVEL_DIRECTORY_PATH, USER_LEVEL_DEFAULT_FILE_PATH);

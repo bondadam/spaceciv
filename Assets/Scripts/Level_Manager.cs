@@ -75,7 +75,8 @@ public class Level_Manager : MonoBehaviour
         if (Utils.selected_level == Constants.USER_LEVEL_CODE && System.IO.File.Exists(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH))
         {
             // User made level
-            level_json = System.IO.File.ReadAllText(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH);
+            string level_path = Save_File_Manager.getFullPath(Utils.selected_custom_level);
+            level_json = System.IO.File.ReadAllText(level_path);
         }
         else
         {
