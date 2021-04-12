@@ -9,7 +9,7 @@ public class Spaceship : MonoBehaviour
     private Team team;
     private SpriteRenderer m_SpriteRenderer;
 
-    private float speed = 1.5f;
+    private float speed = 0.75f;
 
     private TextMeshPro population_display;
 

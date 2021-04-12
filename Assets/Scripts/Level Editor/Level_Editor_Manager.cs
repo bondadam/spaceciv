@@ -11,12 +11,19 @@ public class Level_Editor_Manager : MonoBehaviour
     public Camera camera;
     private Editor_Planet chosen_planet;
     public Editor_Planet editor_planet_prefab;
+    
+    private string chosen_level;
 
     // Start is called before the first frame update
     void Start()
     {
         this.planets = new List<Editor_Planet>();
         this.chosen_planet = null;
+        chosen_level = PlayerPrefs.GetString(Constants.EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF);
+        if(chosen_level != null && chosen_level != "")
+        {
+            load(chosen_level);
+        }
     }
 
     public void save()
@@ -37,14 +44,40 @@ public class Level_Editor_Manager : MonoBehaviour
 
         Level new_level = new Level(serializedPlanets, bots);
         string serialized_level = JsonUtility.ToJson(new_level);
-        System.IO.FileInfo file = new System.IO.FileInfo(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH);
+        System.IO.FileInfo file;
+        if(chosen_level == null || chosen_level == "")
+        {
+            List<string> paths_list = new List<string>(System.IO.Directory.GetFiles(Constants.USER_LEVEL_DIRECTORY_PATH + "/levels/"));
+            int postfix  = 1;
+            string file_path = Constants.USER_LEVEL_DIRECTORY_PATH + "/levels/saved_level"+postfix.ToString()+".json";
+            while(paths_list.Contains(file_path))
+            {
+                postfix += 1;
+                file_path = Constants.USER_LEVEL_DIRECTORY_PATH + "/levels/saved_level"+postfix.ToString()+".json";
+            }
+
+            file = new System.IO.FileInfo(file_path);
+        }
+        else
+        {
+            file = new System.IO.FileInfo(Constants.USER_LEVEL_DIRECTORY_PATH + "/levels" + chosen_level + ".json");
+        }
         file.Directory.Create();
         System.IO.File.WriteAllText(file.FullName, serialized_level);
     }
 
-    public void load()
+    public void load(string level_filename)
     {
-        string level_json = System.IO.File.ReadAllText(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH);
+        string level_path;
+        if(level_filename == "")
+        {
+            level_path = Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH; 
+        }
+        else
+        {
+            level_path = Constants.USER_LEVEL_DIRECTORY_PATH + "/levels/" + level_filename + ".json"; 
+        }
+        string level_json = System.IO.File.ReadAllText(level_path);
         Level level = JsonUtility.FromJson<Level>(level_json);
 
         foreach (Editor_Planet ep in this.planets)

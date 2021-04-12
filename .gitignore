@@ -58,3 +58,12 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Firebase/Plugins/iOS.meta
+Assets/Firebase/Plugins.meta
+Assets/Firebase/Editor.meta
+Assets/Firebase.meta
+Assets/ExternalDependencyManager/Editor.meta
+Assets/ExternalDependencyManager.meta
+
+Space Civ_Data/
+Space Civ.exe
