@@ -60,7 +60,7 @@ public class Level_Editor_Manager : MonoBehaviour
         }
         else
         {
-            file = new System.IO.FileInfo(Constants.USER_LEVEL_DIRECTORY_PATH + "/levels" + chosen_level + ".json");
+            file = new System.IO.FileInfo(Constants.USER_LEVEL_DIRECTORY_PATH + "/levels/" + chosen_level + ".json");
         }
         file.Directory.Create();
         System.IO.File.WriteAllText(file.FullName, serialized_level);
