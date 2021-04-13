@@ -196,7 +196,10 @@ public class Planet : MonoBehaviour
     {
         return this.level;
     }
-
+    public float get_planet_size()
+    {
+        return this.planet_size;
+    }
     public void set_level(int level)
     {
         this.level = Math.Min(level, this.max_level);

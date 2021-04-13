@@ -41,7 +41,15 @@ public class Level_Manager : MonoBehaviour
                 int incoming_units = from_planet.take_selected_units();
                 if (incoming_units != 0)
                 {
-                    Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position, Quaternion.identity);
+                    double diffx = from_planet.transform.position.x - target_planet.transform.position.x;
+                    double diffy = from_planet.transform.position.y - target_planet.transform.position.y;
+                    double angle = Math.Atan2(diffy, diffx) + Math.PI;
+                    
+                    double posx = from_planet.transform.position.x + Math.Cos(angle)*from_planet.get_planet_size()*0.5;
+                    double posy = from_planet.transform.position.y + Math.Sin(angle)*from_planet.get_planet_size()*0.5;
+                    Vector3 spaceship_launch_pos = new Vector3((float) posx, (float) posy, 0);
+                    
+                    Spaceship spaceship = Instantiate(spaceship_prefab, spaceship_launch_pos, Quaternion.identity);
                     spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet);
                     this.spaceships.Add(spaceship);
                 }
