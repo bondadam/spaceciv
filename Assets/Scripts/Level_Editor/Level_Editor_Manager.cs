@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class Level_Editor_Manager : MonoBehaviour
 {
     private Object_Type selected_object;
@@ -100,6 +99,7 @@ public class Level_Editor_Manager : MonoBehaviour
 
     public void center_camera()
     {
+        Debug.Log("There are "+planets.Count.ToString()+" planets in the editor");
         this.camera.transform.position = new Vector3(0, 0, this.camera.transform.position.z);
     }
 
@@ -147,13 +147,18 @@ public class Level_Editor_Manager : MonoBehaviour
             case Object_Type.Planet:
                 this.close_all_databoxes();
                 Editor_Planet planet = Instantiate(editor_planet_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
-                planet.Initialize(coords);
+                Editor_Planet.On_Destroy_Callback on_destroy = new Editor_Planet.On_Destroy_Callback(remove_planet_from_list);
+                planet.Initialize(coords, on_destroy);
                 this.planets.Add(planet);
                 break;
             default: // case null
                 break;
         }
         this.unselect();
+    }
+    public void remove_planet_from_list(Editor_Planet planet_to_remove)
+    {
+        planets.Remove(planet_to_remove);
     }
 
 }

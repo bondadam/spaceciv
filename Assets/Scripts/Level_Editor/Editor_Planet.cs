@@ -24,6 +24,10 @@ public class Editor_Planet : MonoBehaviour
     public TextMeshProUGUI sizeValue;
 
     public TextMeshProUGUI positionValue;
+    public delegate void On_Destroy_Callback(Editor_Planet planet);  
+
+    private On_Destroy_Callback notify_destroy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +36,7 @@ public class Editor_Planet : MonoBehaviour
     void Awake(){
     }
 
-    public void Initialize(Vector2 coords)
+    public void Initialize(Vector2 coords, On_Destroy_Callback on_destroy)
     {
 
         this.data = new SerializedPlanet();
@@ -42,7 +46,7 @@ public class Editor_Planet : MonoBehaviour
         this.data.initial_population = Constants.PLANET_DEFAULT_INITIAL_POPULATION;
         this.data.population_max = Constants.PLANET_DEFAULT_MAX_POPULATION;
         this.data.planet_size = 1;
-
+        
         this.team_dropdown.value = (int) this.data.team;
 
         this.initPopSlider.maxValue = Constants.PLANET_DEFAULT_MAX_POPULATION;
@@ -57,6 +61,8 @@ public class Editor_Planet : MonoBehaviour
         this.sizeSlider.value = Constants.PLANET_DEFAULT_SIZE * 2.0f;
         this.sizeSlider.minValue = Constants.PLANET_MIN_SIZE * 2.0f;
         this.sizeValue.text = Constants.PLANET_DEFAULT_SIZE.ToString();
+
+        this.notify_destroy = on_destroy;
 
         this.open_databox();
         this.update_identity();
@@ -141,6 +147,11 @@ public class Editor_Planet : MonoBehaviour
     }
 
     public void destroy(){
+        if (notify_destroy != null)
+        {
+            notify_destroy(this);  
+        }
+        
         GameObject.Destroy(this.gameObject);
     }
 
