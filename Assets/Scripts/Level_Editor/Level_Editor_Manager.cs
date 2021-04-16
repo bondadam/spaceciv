@@ -99,7 +99,6 @@ public class Level_Editor_Manager : MonoBehaviour
 
     public void center_camera()
     {
-        Debug.Log("There are "+planets.Count.ToString()+" planets in the editor");
         this.camera.transform.position = new Vector3(0, 0, this.camera.transform.position.z);
     }
 
