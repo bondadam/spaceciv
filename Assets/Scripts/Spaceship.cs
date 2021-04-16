@@ -9,7 +9,7 @@ public class Spaceship : MonoBehaviour
     private Team team;
     private SpriteRenderer m_SpriteRenderer;
 
-    private float speed = 0.75f;
+    private float speed;
 
     private TextMeshPro population_display;
 
@@ -27,13 +27,14 @@ public class Spaceship : MonoBehaviour
 
     public bool destroyable;
 
-     public void Initialize(Team team, int population, Planet origin, Planet target){
+     public void Initialize(Team team, int population, Planet origin, Planet target, float speed){
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
 
         this.moving = true;
         this.destroyable = false;
+        this.speed = speed;
 
         this.battling = new List<Spaceship>();
 

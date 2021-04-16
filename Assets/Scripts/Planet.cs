@@ -196,7 +196,10 @@ public class Planet : MonoBehaviour
     {
         return this.level;
     }
-
+    public float get_planet_size()
+    {
+        return this.planet_size;
+    }
     public void set_level(int level)
     {
         this.level = Math.Min(level, this.max_level);
@@ -214,6 +217,6 @@ public class Planet : MonoBehaviour
     }
 
     public void set_growth_factor(){
-        this.growth_factor = this.planet_size * Constants.PLANET_BASE_GROWTH * (this.level+1) ;
+        this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level+1) ;
     }
 }
