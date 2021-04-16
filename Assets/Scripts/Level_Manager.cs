@@ -17,6 +17,8 @@ public class Level_Manager : MonoBehaviour
     private float timer = 0.0f;
     private List<Bot> bots;
 
+    private float spaceship_speed;
+
     private int game_over_delay_check = 6;
 
     private int game_over_delay_check_counter = 0;
@@ -50,7 +52,7 @@ public class Level_Manager : MonoBehaviour
                     Vector3 spaceship_launch_pos = new Vector3((float) posx, (float) posy, 0);
                     
                     Spaceship spaceship = Instantiate(spaceship_prefab, spaceship_launch_pos, Quaternion.identity);
-                    spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet);
+                    spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed);
                     this.spaceships.Add(spaceship);
                 }
                 from_planet.unselect();
@@ -62,7 +64,7 @@ public class Level_Manager : MonoBehaviour
     {
         from_planet.ungrow(incoming_units);
         Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position, Quaternion.identity);
-        spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet);
+        spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed);
         this.spaceships.Add(spaceship);
     }
 
@@ -77,6 +79,7 @@ public class Level_Manager : MonoBehaviour
     {
         this.planets = new List<Planet>();
         this.spaceships = new List<Spaceship>();
+        this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
 
         this.game_over = false;
         String level_json;
@@ -147,7 +150,7 @@ public class Level_Manager : MonoBehaviour
                     if (game_over)
                     {
                         Debug.Log("Game over!");
-                        this.game_Over_Menu.end_game(player_alive); // player_alive == true --> we won
+                        this.game_Over_Menu.end_game(player_alive, timer); // player_alive == true --> we won
                     }
                     this.game_over = game_over;
                 }

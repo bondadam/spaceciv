@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 using TMPro;
 
 public class Game_Over_Menu : MonoBehaviour
@@ -10,7 +12,16 @@ public class Game_Over_Menu : MonoBehaviour
     private GameObject game_over_panel;
     public GameObject win_label;
     public GameObject loss_label;
+
+    public Text time_taken_field;
+
+    public Text ships_lost_field;
+
+    public Text planets_conquered_field;
+
     public Level_Manager level_Manager;
+
+    private float time_taken;
     void Start()
     {
         game_over_panel = this.gameObject;
@@ -49,9 +60,10 @@ public class Game_Over_Menu : MonoBehaviour
     }
 
 
-    public void end_game(bool won)
+    public void end_game(bool won, float time_taken)
     {
         game_over_panel.SetActive(true);
+        time_taken_field.text = "Time taken: " + Math.Round(time_taken, 2).ToString();
         if(won){
             show_label(victory.win);
         } else {

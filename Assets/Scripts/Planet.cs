@@ -217,6 +217,6 @@ public class Planet : MonoBehaviour
     }
 
     public void set_growth_factor(){
-        this.growth_factor = this.planet_size * Constants.PLANET_BASE_GROWTH * (this.level+1) ;
+        this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level+1) ;
     }
 }
