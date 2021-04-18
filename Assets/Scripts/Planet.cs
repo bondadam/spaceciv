@@ -53,13 +53,13 @@ public class Planet : MonoBehaviour
         {
             // If this planet has enough people on it
             num_sent = num_pop;
-            this.population -= num_sent;
+            this.set_population(this.population-num_sent);
         }
         else
         {
             // Otherwise, send everyone while accounting for minimum pop
             num_sent = this.population - Planet.population_min;
-            this.population -= num_sent;
+            this.set_population(this.population-num_sent);
         }
         return num_sent;
     }
@@ -162,6 +162,7 @@ public class Planet : MonoBehaviour
 
     public bool can_upgrade()
     {
+        if (this.get_team().Equals(Team.Neutral)){ return false;}
         return this.population == this.population_max && this.level < this.max_level;
     }
 
