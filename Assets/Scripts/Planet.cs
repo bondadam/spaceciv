@@ -103,9 +103,9 @@ public class Planet : MonoBehaviour
         this.update_population_display();
     }
 
-    public void Initialize(SerializedPlanet serializedPlanet)
+    public void Initialize(SerializedPlanet serializedPlanet, string name)
     {
-
+        this.name = name;
         this.team = serializedPlanet.team;
         this.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
         this.initial_population = serializedPlanet.initial_population;
@@ -149,7 +149,7 @@ public class Planet : MonoBehaviour
         }
         else
         {
-            this.growth_queue += this.growth_factor / 100;
+            this.growth_queue += this.growth_factor;
         }
         if (this.team == Team.Player)
         {
@@ -175,6 +175,11 @@ public class Planet : MonoBehaviour
     public int get_population()
     {
         return this.population;
+    }
+
+    public Vector2 get_position()
+    {
+        return this.transform.position;
     }
 
     public void set_population(int new_pop)
@@ -218,6 +223,14 @@ public class Planet : MonoBehaviour
     }
 
     public void set_growth_factor(){
-        this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level+1) ;
+        this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level+1) / 100;
+    }
+    public float get_growth_factor()
+    {
+        return this.growth_factor;
+    }
+    public string get_name()
+    {
+        return this.name;
     }
 }

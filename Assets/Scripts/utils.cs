@@ -69,5 +69,18 @@ public static bool check_alive(Team team, Game_State game_state){
         }
         return still_alive;
     }
-
+    public static Vector2 find_center_of_weighted_points(List<Vector2> pts, List<float> weights)
+    {
+        float x = 0;
+        float y = 0;
+        float total_weights = 0;
+        for (int i = 0; i < pts.Count; i++)
+        {
+            x += pts[i][0]*weights[i];
+            y += pts[i][1]*weights[i];
+            total_weights += weights[i];
+        }
+        Vector2 average_point = new Vector2(x/total_weights, y/total_weights);
+        return average_point;
+    }
 }

@@ -95,12 +95,13 @@ public class Level_Manager : MonoBehaviour
             level_json = myTextAsset.text;
         }
         Level level = JsonUtility.FromJson<Level>(level_json);
-
+        int planet_counter = 0;
         foreach (SerializedPlanet sp in level.planets)
         {
             Planet planet = Instantiate(planet_prefab, new Vector3(sp.position_x, sp.position_y, 0), Quaternion.identity);
-            planet.Initialize(sp);
+            planet.Initialize(sp, "planet"+planet_counter.ToString());
             this.planets.Add(planet.GetComponent<Planet>());
+            planet_counter += 1;
         }
 
         this.bots = new List<Bot>();
