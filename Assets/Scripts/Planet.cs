@@ -30,7 +30,7 @@ public class Planet : MonoBehaviour
     private int population;
 
     private int population_max;
-    public const int population_min = 1;
+    public const int population_min = 0;
 
     public float growth_factor = 50f;
 
