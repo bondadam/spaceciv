@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public enum Team{
-        Player,
-        CPU1,
-        CPU2,
-        CPU3,
-        CPU4,
-        Neutral
-    }
+public enum Team
+{
+    Player,
+    CPU1,
+    CPU2,
+    CPU3,
+    CPU4,
+    Neutral
+}
 
-public enum Selected_State{
+public enum Bot_Type
+{
+    BlitzBot,
+    DefensiveBot,
+    ExpandingBot,
+    HumanBot
+}
+
+public enum Selected_State
+{
     Unselected,
     Half,
     Full
 }
 
-public enum Object_Type{
+public enum Object_Type
+{
     None,
     Move,
     Planet
@@ -43,6 +54,11 @@ public static class Constants
     public const float PLANET_MIN_SIZE = 0.5f;
     public const float PLANET_DEFAULT_SIZE = 1f;
 
+    public const float BOT_DEFAULT_MAX_SPEED = 10f;
+    public const float BOT_DEFAULT_SPEED = 5f;
+    public const float BOT_DEFAULT_MIN_SPEED = 0.5f;
+
+    public const Bot_Type BOT_DEFAULT_TYPE = Bot_Type.ExpandingBot;
     public static string USER_LEVEL_DIRECTORY_PATH = Application.persistentDataPath;
     public const string USER_LEVEL_DEFAULT_FILE_PATH = "/levels/saved_level.json";
     public const string EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF = "editor_current_level_name";
@@ -59,7 +75,17 @@ public static class Constants
                 {Team.CPU3, greeny},
                 {Team.CPU4, Color.red}
         };
-    
+
+    public static Dictionary<Team, string> team_names = new Dictionary<Team, string>()
+        {
+                {Team.Neutral, "Neutral"},
+                {Team.Player, "Player"},
+                {Team.CPU1, "CPU 1"},
+                {Team.CPU2, "CPU 2"},
+                {Team.CPU3, "CPU 3"},
+                {Team.CPU4, "CPU 4"}
+        };
+
     public static Dictionary<int, String> level_paths = new Dictionary<int, string>(){
         {1, "Levels/level1"},
         {2, "Levels/Level2"},
@@ -67,15 +93,15 @@ public static class Constants
         {4, "Levels/level4"}
         };
 
-        public static int states_num =  Enum.GetNames(typeof(Selected_State)).Length;
+    public static int states_num = Enum.GetNames(typeof(Selected_State)).Length;
 
-        public static Dictionary<Selected_State, float> selected_value = new Dictionary<Selected_State, float>(){
+    public static Dictionary<Selected_State, float> selected_value = new Dictionary<Selected_State, float>(){
         {Selected_State.Unselected, 0},
         {Selected_State.Half, 0.5f},
         {Selected_State.Full, 1}
         };
 
-        public static Dictionary<Selected_State, Color> selected_color = new Dictionary<Selected_State, Color>(){
+    public static Dictionary<Selected_State, Color> selected_color = new Dictionary<Selected_State, Color>(){
         {Selected_State.Unselected, Color.white},
         {Selected_State.Half, Color.gray},
         {Selected_State.Full, Color.black}

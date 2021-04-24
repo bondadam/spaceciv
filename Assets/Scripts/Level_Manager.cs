@@ -121,13 +121,13 @@ public class Level_Manager : MonoBehaviour
             Bot new_bot;
             switch (sb.type)
             {
-                case "BlitzBot":
+                case Bot_Type.BlitzBot:
                     new_bot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
                     break;
-                case "DefensiveBot":
+                case Bot_Type.DefensiveBot:
                     new_bot = gameObject.AddComponent<DefensiveBot>() as DefensiveBot;
                     break;
-                case "ExpandingBot":
+                case Bot_Type.ExpandingBot:
                     new_bot = gameObject.AddComponent<ExpandingBot>() as ExpandingBot;
                     break;
                 default:
