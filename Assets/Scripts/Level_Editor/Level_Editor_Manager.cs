@@ -40,8 +40,8 @@ public class Level_Editor_Manager : MonoBehaviour
         bots[1] = new SerializedBot(Team.CPU2, "BlitzBot", 9);
         bots[2] = new SerializedBot(Team.CPU3, "BlitzBot", 8);
         bots[3] = new SerializedBot(Team.CPU4, "BlitzBot", 7);
-
-        Level new_level = new Level(serializedPlanets, bots);
+        SerializedTurret[] turrets = new SerializedTurret[0];
+        Level new_level = new Level(serializedPlanets, bots, turrets);
         string serialized_level = JsonUtility.ToJson(new_level);
         System.IO.FileInfo file;
         if(chosen_level == null || chosen_level == "")

@@ -7,6 +7,8 @@ public class Level_Manager : MonoBehaviour
 {
     public Planet planet_prefab;
 
+    public Turret turret_prefab;
+
     public Spaceship spaceship_prefab;
     // TODO: Change List<Planet> to Array for perf gains
     // see https://blogs.unity3d.com/2015/12/23/1k-update-calls/
@@ -103,7 +105,14 @@ public class Level_Manager : MonoBehaviour
             this.planets.Add(planet.GetComponent<Planet>());
             planet_counter += 1;
         }
-
+        foreach (SerializedTurret st in level.turrets)
+        {
+            Debug.Log(st.position_x.ToString());
+            Turret turret = Instantiate(turret_prefab, new Vector3(st.position_x, st.position_y, 0), Quaternion.identity);
+            turret.Initialize(st, "turret"+planet_counter.ToString());
+            //this.planets.Add(turret.GetComponent<Planet>());
+            planet_counter += 1;
+        }
         this.bots = new List<Bot>();
 
         // Handle Bot Types
