@@ -18,7 +18,13 @@ public class Turret : Structure
     private Level_Manager.Get_Nearest_Spaceship_Callback get_target;
     
     LineRenderer lineRenderer;
+    LineRenderer laser_beam;
     
+    Vector2 laser_beam_start;
+
+    Vector2 laser_beam_end;
+
+    float laser_beam_alpha;
 
     private void update_population_display()
     {
@@ -53,11 +59,12 @@ public class Turret : Structure
 
         this.transform.localScale = new Vector3(1, 1, 1);
 
+        GameObject obj = new GameObject("perimeter");
         float theta_scale = 0.01f;
         float sizeValue = (2.0f * Mathf.PI) / theta_scale;
         int number_of_points = (int)Mathf.Floor(sizeValue)+1;
         float radius = 2f;
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer = obj.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("UI/Default"));
         lineRenderer.startColor = Color.gray;
         lineRenderer.endColor = Color.gray;
@@ -74,7 +81,16 @@ public class Turret : Structure
             float y = radius * Mathf.Sin(theta) + this.transform.position.y;
             lineRenderer.SetPosition(i, new Vector2(x, y));
         }
-
+        
+        laser_beam = gameObject.AddComponent<LineRenderer>();
+        laser_beam.material = new Material(Shader.Find("UI/Default"));
+        laser_beam.startColor = Color.yellow;
+        laser_beam.endColor = Color.yellow;
+        laser_beam.startWidth = 0.1f;
+        laser_beam.endWidth = 0.1f;
+        laser_beam.positionCount = 2;
+        laser_beam.sortingLayerID = m_SpriteRenderer.sortingLayerID;
+        laser_beam.sortingOrder = m_SpriteRenderer.sortingOrder;
     }
 
     public int take_selected_units()
@@ -87,20 +103,36 @@ public class Turret : Structure
     // Update is called once per frame
     public void Update_Custom()
     {
+        Color color = Color.yellow;
+        laser_beam_alpha -= 0.2f;
+        color.a = laser_beam_alpha;
+        color = Color.yellow;
+        color.a = laser_beam_alpha;
+        laser_beam.startColor = color;
+        laser_beam.endColor = color;
+        laser_beam.SetPosition(0, laser_beam_start);
+        laser_beam.SetPosition(1, laser_beam_end);
         if(this.team.Equals(Team.Neutral))
         {
             return;
         }
         // todo: only call get_target if there's not already a non-null target_spaceship in range
         this.target_spaceship = get_target(this.transform.position, 2, this.team);
-        /*if(nearest_spaceship != null)
-        {
-            Debug.Log("I'm a turret and I'm alive and my fire rate is "+((int) this.reload_queue).ToString());
-        }*/
+       
         if(this.reload_queue > 1)
         {
             if(this.target_spaceship != null)
             {   
+
+                laser_beam_alpha = 3.7f;
+                color = Color.yellow;
+                color.a = laser_beam_alpha;
+                laser_beam.startColor = color;
+                laser_beam.endColor = color;
+                laser_beam_start = this.transform.position;
+                laser_beam_end = target_spaceship.transform.position;
+                laser_beam.SetPosition(0, laser_beam_start);
+                laser_beam.SetPosition(1, laser_beam_end);
                 if(this.target_spaceship.get_population() <= this.firepower)
                 {
                     this.target_spaceship.die();
