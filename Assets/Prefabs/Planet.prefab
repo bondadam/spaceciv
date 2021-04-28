@@ -288,11 +288,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
+  m_SpriteRenderer: {fileID: 0}
   population_display: {fileID: 1454024635848560354}
+  initial_population: 0
+  population: 0
+  population_max: 0
+  state: 0
+  name: 
   upgrades_display: {fileID: 723273293765119749}
   upgrades_button: {fileID: 5672128772764171472}
   planet_size: 1
-  initial_population: 0
   growth_factor: 5
 --- !u!58 &9059287597222409563
 CircleCollider2D:

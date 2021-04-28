@@ -11,23 +11,23 @@ public class Structure : MonoBehaviour
 
     public const int min_selected = 1;
 
-    private SpriteRenderer m_SpriteRenderer;
+    public SpriteRenderer m_SpriteRenderer;
 
     public TextMeshPro population_display;
 
     public int initial_population;
 
-    private int population;
+    public int population;
 
-    private int population_max;
+    public int population_max;
     public const int population_min = 0;
 
-    private Selected_State state;
+    public Selected_State state;
 
-    private String name;
+    public String name;
     
     
-    public void Initialize(SerializedPlanet serializedPlanet, string name)
+   /* public void Initialize(SerializedPlanet serializedPlanet, string name)
     {
         this.name = name;
         this.team = serializedPlanet.team;
@@ -39,8 +39,15 @@ public class Structure : MonoBehaviour
 
 
     }
+*/
 
-
+    public void grow(int num_pop)
+    {
+        if (this.team != Team.Neutral)
+        {
+            this.population = Math.Min(this.population_max, this.population + num_pop);
+        }
+    }
     public int ungrow(int num_pop)
     {
         int num_sent = 0; // people we end up sending from this planet
@@ -79,7 +86,8 @@ public class Structure : MonoBehaviour
 
     private void update_population_display()
     {
-        this.population_display.text = this.population.ToString();
+        string my_pop = this.population.ToString();
+        this.population_display.text = my_pop;
     }
 
     void Start()
@@ -94,17 +102,7 @@ public class Structure : MonoBehaviour
     }
 
 
-    public int take_selected_units()
-    {
-        int selected_units = (int)Math.Floor(Constants.selected_value[this.state] * this.population);
-        this.ungrow(selected_units);
-        return selected_units;
-    }
 
-    public void Update()
-    {
-
-    }
 
     public int get_population()
     {

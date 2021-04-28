@@ -58,7 +58,7 @@ public class Input_Manager : MonoBehaviour
                 else
                 {
                     // Clicked on a planet
-                    Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
+                    Structure clicked_planet = hit.collider.gameObject.GetComponent<Structure>();
                     if (clicked_planet.team == Team.Player)
                     {
                         this.holding = true;
@@ -76,7 +76,7 @@ public class Input_Manager : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
                 if (hit.collider != null)
                 {
-                    Planet clicked_planet = hit.collider.gameObject.GetComponent<Planet>();
+                    Structure clicked_planet = hit.collider.gameObject.GetComponent<Structure>();
                     if (clicked_planet.team == Team.Player)
                     {
                         holding_time += Time.deltaTime;

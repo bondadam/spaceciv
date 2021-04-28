@@ -5,70 +5,20 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class Turret : MonoBehaviour
+public class Turret : Structure
 {
+    private float reload_speed = 0.01f;
 
-    public Team team;
+    private float reload_queue = 0f;
 
-    public const int min_selected = 1;
+    private Spaceship target_spaceship;
 
-    private SpriteRenderer m_SpriteRenderer;
-
-    public TextMeshPro population_display;
-
-    public int initial_population;
-
-    private int population;
-
-    private int population_max;
-    public const int population_min = 0;
-
-    private Selected_State state;
-
-    private String name;
+    private float firepower = 3f;
     
-    public void grow(int num_pop)
-    {
-        if (this.team != Team.Neutral)
-        {
-            this.population = Math.Min(this.population_max, this.population + num_pop);
-        }
-    }
-    public int ungrow(int num_pop)
-    {
-        int num_sent = 0; // people we end up sending from this planet
-        if ((this.population - num_pop) >= Planet.population_min)
-        {
-            // If this planet has enough people on it
-            num_sent = num_pop;
-            this.set_population(this.population-num_sent);
-        }
-        else
-        {
-            // Otherwise, send everyone while accounting for minimum pop
-            num_sent = this.population - Planet.population_min;
-            this.set_population(this.population-num_sent);
-        }
-        return num_sent;
-    }
-
-    public void select()
-    {
-        if (this.team == Team.Player)
-        {
-            this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
-            this.m_SpriteRenderer.color = Constants.selected_color[this.state];
-        }
-    }
-
-    public void unselect()
-    {
-        if (this.team == Team.Player)
-        {
-            this.state = Selected_State.Unselected;
-            this.m_SpriteRenderer.color = Constants.selected_color[this.state];
-        }
-    }
+    private Level_Manager.Get_Nearest_Spaceship_Callback get_target;
+    
+    LineRenderer lineRenderer;
+    
 
     private void update_population_display()
     {
@@ -80,31 +30,50 @@ public class Turret : MonoBehaviour
 
     }
 
-    public void update_identity()
-    {
-        this.m_SpriteRenderer.color = Constants.team_colors[this.team];
-        this.update_population_display();
-    }
 
-    public void Initialize(SerializedTurret serializedTurret, string name)
+    public void Initialize(SerializedTurret serializedTurret, string name, Level_Manager.Get_Nearest_Spaceship_Callback get_nearest_spaceship_callback)
     {
+
         this.name = name;
         this.team = serializedTurret.team;
         this.transform.position = new Vector3(serializedTurret.position_x, serializedTurret.position_y, 0);
         this.initial_population = serializedTurret.initial_population;
         this.population_max = serializedTurret.population_max;
-
+        this.get_target = get_nearest_spaceship_callback;
         this.tag = "Turret";
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
+        this.population_display.text = "55";
         //this.upgrades
 
         this.population = initial_population;
 
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
 
-        this.transform.localScale = new Vector3(10, 10, 10);
+        this.transform.localScale = new Vector3(1, 1, 1);
+
+        float theta_scale = 0.01f;
+        float sizeValue = (2.0f * Mathf.PI) / theta_scale;
+        int number_of_points = (int)Mathf.Floor(sizeValue)+1;
+        float radius = 2f;
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("UI/Default"));
+        lineRenderer.startColor = Color.gray;
+        lineRenderer.endColor = Color.gray;
+        lineRenderer.startWidth = 0.02f;
+        lineRenderer.endWidth = 0.02f;
+        lineRenderer.positionCount = number_of_points;
+        lineRenderer.sortingLayerID = m_SpriteRenderer.sortingLayerID;
+        lineRenderer.sortingOrder = m_SpriteRenderer.sortingOrder;
+        float theta = 0f;
+        for (int i = 0; i < number_of_points; i++)
+        {
+            theta += (2.0f * Mathf.PI * theta_scale);
+            float x = radius * Mathf.Cos(theta) + this.transform.position.x;
+            float y = radius * Mathf.Sin(theta) + this.transform.position.y;
+            lineRenderer.SetPosition(i, new Vector2(x, y));
+        }
 
     }
 
@@ -118,6 +87,36 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     public void Update_Custom()
     {
+        if(this.team.Equals(Team.Neutral))
+        {
+            return;
+        }
+        // todo: only call get_target if there's not already a non-null target_spaceship in range
+        this.target_spaceship = get_target(this.transform.position, 2, this.team);
+        /*if(nearest_spaceship != null)
+        {
+            Debug.Log("I'm a turret and I'm alive and my fire rate is "+((int) this.reload_queue).ToString());
+        }*/
+        if(this.reload_queue > 1)
+        {
+            if(this.target_spaceship != null)
+            {   
+                if(this.target_spaceship.get_population() <= this.firepower)
+                {
+                    this.target_spaceship.die();
+                }
+                else
+                {
+                    this.target_spaceship.set_population(this.target_spaceship.get_population()- (int) Mathf.Floor(this.firepower));
+                }
+                this.reload_queue = 0.0f;
+            }
+        }
+        else
+        {
+            this.reload_queue += this.reload_speed;
+        }
+
     }
 
     public void Update()
@@ -126,34 +125,4 @@ public class Turret : MonoBehaviour
     }
 
 
-    public int get_population()
-    {
-        return this.population;
-    }
-
-    public Vector2 get_position()
-    {
-        return this.transform.position;
-    }
-
-    public void set_population(int new_pop)
-    {
-        this.population = new_pop;
-        this.update_population_display();
-    }
-
-    public Team get_team()
-    {
-        return this.team;
-    }
-
-    public void set_team(Team team)
-    {
-        this.team = team;
-    }
-
-    public string get_name()
-    {
-        return this.name;
-    }
 }

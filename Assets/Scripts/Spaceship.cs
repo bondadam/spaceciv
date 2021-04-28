@@ -13,7 +13,7 @@ public class Spaceship : MonoBehaviour
 
     private TextMeshPro population_display;
 
-    private Planet target;
+    private Structure target;
 
     private Planet origin;
 
@@ -26,8 +26,9 @@ public class Spaceship : MonoBehaviour
     private int population;
 
     public bool destroyable;
+    private string Name;
 
-     public void Initialize(Team team, int population, Planet origin, Planet target, float speed){
+     public void Initialize(Team team, int population, Planet origin, Structure target, float speed, string name){
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
@@ -35,6 +36,7 @@ public class Spaceship : MonoBehaviour
         this.moving = true;
         this.destroyable = false;
         this.speed = speed;
+        this.Name = name;
 
         this.battling = new List<Spaceship>();
 
@@ -114,7 +116,7 @@ public class Spaceship : MonoBehaviour
         return this.team;
     }
     
-    public Planet get_target(){
+    public Structure get_target(){
         return this.target;
     }
 
@@ -124,8 +126,9 @@ public class Spaceship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Planet"){
-            Planet collided_planet = other.gameObject.GetComponent<Planet>();
+        if (other.gameObject.tag == "Planet" || other.gameObject.tag == "Turret"){
+            Debug.Log("Fleet touched a "+other.gameObject.tag);
+            Structure collided_planet = other.gameObject.GetComponent<Structure>();
             if (collided_planet == this.target){
                 this.moving = false;
                 if (collided_planet.get_team() == this.team){
@@ -187,5 +190,9 @@ public class Spaceship : MonoBehaviour
     // Update is called once per frame  
     void Update()
     {
+    }
+    public string get_Name()
+    {
+        return this.Name;
     }
 }

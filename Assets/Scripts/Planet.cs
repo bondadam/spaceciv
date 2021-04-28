@@ -5,19 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class Planet : MonoBehaviour
+public class Planet : Structure
 {
     private int level;
 
     private int max_level;
 
-    public Team team;
 
-    public const int min_selected = 1;
 
-    private SpriteRenderer m_SpriteRenderer;
-
-    public TextMeshPro population_display;
 
     public Text upgrades_display;
 
@@ -25,46 +20,14 @@ public class Planet : MonoBehaviour
 
     public float planet_size = 1f;
 
-    public int initial_population;
 
-    private int population;
-
-    private int population_max;
-    public const int population_min = 0;
 
     public float growth_factor = 50f;
 
     private float growth_queue = 0.0f;
-    private Selected_State state;
-
-    private String name;
     
-    public void grow(int num_pop)
-    {
-        if (this.team != Team.Neutral)
-        {
-            this.population = Math.Min(this.population_max, this.population + num_pop);
-        }
-    }
-    public int ungrow(int num_pop)
-    {
-        int num_sent = 0; // people we end up sending from this planet
-        if ((this.population - num_pop) >= Planet.population_min)
-        {
-            // If this planet has enough people on it
-            num_sent = num_pop;
-            this.set_population(this.population-num_sent);
-        }
-        else
-        {
-            // Otherwise, send everyone while accounting for minimum pop
-            num_sent = this.population - Planet.population_min;
-            this.set_population(this.population-num_sent);
-        }
-        return num_sent;
-    }
 
-    public void select()
+    new public void select()
     {
         if (this.team == Team.Player)
         {
@@ -73,7 +36,7 @@ public class Planet : MonoBehaviour
         }
     }
 
-    public void unselect()
+    new public void unselect()
     {
         if (this.team == Team.Player)
         {
@@ -96,13 +59,6 @@ public class Planet : MonoBehaviour
     {
 
     }
-
-    public void update_identity()
-    {
-        this.m_SpriteRenderer.color = Constants.team_colors[this.team];
-        this.update_population_display();
-    }
-
     public void Initialize(SerializedPlanet serializedPlanet, string name)
     {
         this.name = name;
@@ -171,33 +127,6 @@ public class Planet : MonoBehaviour
 
     }
 
-
-    public int get_population()
-    {
-        return this.population;
-    }
-
-    public Vector2 get_position()
-    {
-        return this.transform.position;
-    }
-
-    public void set_population(int new_pop)
-    {
-        this.population = new_pop;
-        this.update_population_display();
-    }
-
-    public Team get_team()
-    {
-        return this.team;
-    }
-
-    public void set_team(Team team)
-    {
-        this.team = team;
-    }
-
     public int get_level()
     {
         return this.level;
@@ -228,9 +157,5 @@ public class Planet : MonoBehaviour
     public float get_growth_factor()
     {
         return this.growth_factor;
-    }
-    public string get_name()
-    {
-        return this.name;
     }
 }

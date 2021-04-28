@@ -15,11 +15,13 @@ public class Level_Manager : MonoBehaviour
 
     private List<Spaceship> spaceships;
     private List<Planet> planets;
+    private List<Turret> turrets;
     private float update_frequency = 0.016f; // 60 times/s
     private float timer = 0.0f;
     private List<Bot> bots;
 
     private float spaceship_speed;
+    private int spaceship_count = 0;
 
     private int game_over_delay_check = 6;
 
@@ -28,6 +30,8 @@ public class Level_Manager : MonoBehaviour
     private bool game_over = false;
 
     public Game_Over_Menu game_Over_Menu;
+    public delegate Spaceship Get_Nearest_Spaceship_Callback(Vector2 pos, float radius, Team except_team);  
+
 
     public Game_State get_state_copy()
     {
@@ -35,7 +39,7 @@ public class Level_Manager : MonoBehaviour
     }
 
 
-    public void send_spaceship_to_planet(Planet target_planet)
+    public void send_spaceship_to_planet(Structure target_planet)
     {
 
         foreach (Planet from_planet in this.planets)
@@ -54,7 +58,8 @@ public class Level_Manager : MonoBehaviour
                     Vector3 spaceship_launch_pos = new Vector3((float) posx, (float) posy, 0);
                     
                     Spaceship spaceship = Instantiate(spaceship_prefab, spaceship_launch_pos, Quaternion.identity);
-                    spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed);
+                    this.spaceship_count ++;
+                    spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString());
                     this.spaceships.Add(spaceship);
                 }
                 from_planet.unselect();
@@ -62,11 +67,12 @@ public class Level_Manager : MonoBehaviour
         }
     }
 
-    public void send_spaceship_to_planet_bot(Planet from_planet, Planet target_planet, int incoming_units)
+    public void send_spaceship_to_planet_bot(Planet from_planet, Structure target_planet, int incoming_units)
     {
         from_planet.ungrow(incoming_units);
         Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position, Quaternion.identity);
-        spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed);
+                    this.spaceship_count ++;
+        spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString());
         this.spaceships.Add(spaceship);
     }
 
@@ -80,19 +86,32 @@ public class Level_Manager : MonoBehaviour
     public void Initialize()
     {
         this.planets = new List<Planet>();
+        this.turrets = new List<Turret>();
         this.spaceships = new List<Spaceship>();
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
 
         this.game_over = false;
         String level_json;
-        if (Utils.selected_level == Constants.USER_LEVEL_CODE && System.IO.File.Exists(Constants.USER_LEVEL_DEFAULT_COMPLETE_PATH))
+        Debug.Log(Utils.selected_level);
+        if (Utils.selected_level == Constants.USER_LEVEL_CODE)
         {
             // User made level
             string level_path = Save_File_Manager.getFullPath(Utils.selected_custom_level);
-            level_json = System.IO.File.ReadAllText(level_path);
+            if(System.IO.File.Exists(level_path))
+            {
+                level_json = System.IO.File.ReadAllText(level_path);
+            }
+            else
+            {
+                // TODO: show panel saying "Level could not be loaded"? (or save file could not be found)
+                Debug.Log("Save file could not be found");
+                TextAsset myTextAsset = Resources.Load(Constants.level_paths[1]) as TextAsset;
+                level_json = myTextAsset.text;
+            }
         }
         else
         {
+            // Level from game's binaries
             TextAsset myTextAsset = Resources.Load(Constants.level_paths[Utils.selected_level]) as TextAsset;
             level_json = myTextAsset.text;
         }
@@ -109,8 +128,9 @@ public class Level_Manager : MonoBehaviour
         {
             Debug.Log(st.position_x.ToString());
             Turret turret = Instantiate(turret_prefab, new Vector3(st.position_x, st.position_y, 0), Quaternion.identity);
-            turret.Initialize(st, "turret"+planet_counter.ToString());
-            //this.planets.Add(turret.GetComponent<Planet>());
+            Get_Nearest_Spaceship_Callback callback = new Get_Nearest_Spaceship_Callback(get_nearest_spaceship_within_radius);
+            turret.Initialize(st, "turret"+planet_counter.ToString(), callback);
+            this.turrets.Add(turret.GetComponent<Turret>());
             planet_counter += 1;
         }
         this.bots = new List<Bot>();
@@ -170,6 +190,10 @@ public class Level_Manager : MonoBehaviour
                     this.planets[i].Update_Custom();
                 }
 
+                foreach (Turret turret in this.turrets)
+                {
+                    turret.Update_Custom();
+                }
                 for (int i = 0; i < this.spaceships.Count; i++)
                 {
                     this.spaceships[i].custom_update(this.update_frequency);
@@ -207,6 +231,37 @@ public class Level_Manager : MonoBehaviour
             }
         }
         return (game_over, player_alive);
+    }
+
+    public Spaceship get_nearest_spaceship_within_radius(Vector2 pos, float radius, Team except_team)
+    {
+        Spaceship nearest_spaceship;
+        if(this.spaceships.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            nearest_spaceship = this.spaceships[0];
+            double min_dist = double.MaxValue;
+            foreach (Spaceship sp in this.spaceships)
+            {
+                double dist = Mathf.Sqrt(Mathf.Pow(pos[1] - sp.transform.position.y,2) + Mathf.Pow(pos[0] - sp.transform.position.x,2));
+                if(dist < min_dist && !sp.get_team().Equals(except_team))
+                {
+                    nearest_spaceship = sp;
+                    min_dist = dist;
+                }
+            }
+            if(min_dist >= radius)
+            {
+                return null;
+            }
+            else
+            {
+                return nearest_spaceship;
+            }
+        }
     }
 }
 
