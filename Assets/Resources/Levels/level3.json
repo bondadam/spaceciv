@@ -1,4 +1,7 @@
-{ "planets": [
+{ 
+  "spaceguns": [],
+  "turrets": [],
+  "planets": [
   {
     "position_x": -5,
     "position_y": 2.5,

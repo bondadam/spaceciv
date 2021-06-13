@@ -8,6 +8,7 @@ public class Level_Manager : MonoBehaviour
     public Planet planet_prefab;
 
     public Turret turret_prefab;
+    public Spacegun spacegun_prefab;
 
     public Spaceship spaceship_prefab;
     // TODO: Change List<Planet> to Array for perf gains
@@ -16,6 +17,7 @@ public class Level_Manager : MonoBehaviour
     private List<Spaceship> spaceships;
     private List<Planet> planets;
     private List<Turret> turrets;
+    private List<Spacegun> spaceguns;
     private float update_frequency = 0.016f; // 60 times/s
     private float timer = 0.0f;
     private List<Bot> bots;
@@ -30,7 +32,8 @@ public class Level_Manager : MonoBehaviour
     private bool game_over = false;
 
     public Game_Over_Menu game_Over_Menu;
-    public delegate Spaceship Get_Nearest_Spaceship_Callback(Vector2 pos, float radius, Team except_team);  
+    public delegate Spaceship Get_Nearest_Spaceship_Callback(Vector2 pos, float radius, Team except_team); 
+    public delegate Planet Get_Nearest_Planet_Callback(Vector2 pos, float radius, Team except_team);   
 
 
     public Game_State get_state_copy()
@@ -87,6 +90,7 @@ public class Level_Manager : MonoBehaviour
     {
         this.planets = new List<Planet>();
         this.turrets = new List<Turret>();
+        this.spaceguns = new List<Spacegun>();
         this.spaceships = new List<Spaceship>();
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
 
@@ -116,22 +120,29 @@ public class Level_Manager : MonoBehaviour
             level_json = myTextAsset.text;
         }
         Level level = JsonUtility.FromJson<Level>(level_json);
-        int planet_counter = 0;
+        int structure_counter = 0;
+        foreach (SerializedSpacegun ssg in level.spaceguns)
+        {
+            Spacegun spacegun = Instantiate(spacegun_prefab, new Vector3(ssg.position_x, ssg.position_y, 0), Quaternion.identity);
+            Get_Nearest_Planet_Callback callback = new Get_Nearest_Planet_Callback(get_nearest_planet_within_radius);
+            spacegun.Initialize(ssg, "spacegun"+structure_counter.ToString(), callback);
+            this.spaceguns.Add(spacegun.GetComponent<Spacegun>());
+            structure_counter += 1;
+        }
         foreach (SerializedPlanet sp in level.planets)
         {
             Planet planet = Instantiate(planet_prefab, new Vector3(sp.position_x, sp.position_y, 0), Quaternion.identity);
-            planet.Initialize(sp, "planet"+planet_counter.ToString());
+            planet.Initialize(sp, "planet"+structure_counter.ToString());
             this.planets.Add(planet.GetComponent<Planet>());
-            planet_counter += 1;
+            structure_counter += 1;
         }
         foreach (SerializedTurret st in level.turrets)
         {
-            Debug.Log(st.position_x.ToString());
             Turret turret = Instantiate(turret_prefab, new Vector3(st.position_x, st.position_y, 0), Quaternion.identity);
             Get_Nearest_Spaceship_Callback callback = new Get_Nearest_Spaceship_Callback(get_nearest_spaceship_within_radius);
-            turret.Initialize(st, "turret"+planet_counter.ToString(), callback);
+            turret.Initialize(st, "turret"+structure_counter.ToString(), callback);
             this.turrets.Add(turret.GetComponent<Turret>());
-            planet_counter += 1;
+            structure_counter += 1;
         }
         this.bots = new List<Bot>();
 
@@ -193,6 +204,10 @@ public class Level_Manager : MonoBehaviour
                 foreach (Turret turret in this.turrets)
                 {
                     turret.Update_Custom();
+                }
+                foreach (Spacegun spacegun in this.spaceguns)
+                {
+                    spacegun.Update_Custom();
                 }
                 for (int i = 0; i < this.spaceships.Count; i++)
                 {
@@ -260,6 +275,36 @@ public class Level_Manager : MonoBehaviour
             else
             {
                 return nearest_spaceship;
+            }
+        }
+    }
+     public Planet get_nearest_planet_within_radius(Vector2 pos, float radius, Team except_team)
+    {
+        Planet nearest_planet;
+        if(this.planets.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            nearest_planet = this.planets[0];
+            double min_dist = double.MaxValue;
+            foreach (Planet pl in this.planets)
+            {
+                double dist = Mathf.Sqrt(Mathf.Pow(pos[1] - pl.transform.position.y,2) + Mathf.Pow(pos[0] - pl.transform.position.x,2));
+                if(dist < min_dist && !pl.get_team().Equals(except_team))
+                {
+                    nearest_planet = pl;
+                    min_dist = dist;
+                }
+            }
+            if(min_dist >= radius)
+            {
+                return null;
+            }
+            else
+            {
+                return nearest_planet;
             }
         }
     }

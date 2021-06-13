@@ -14,7 +14,8 @@ public class Level
         this.turrets = turrets;
     }
 
-    public SerializedPlanet[] planets;    
+    public SerializedPlanet[] planets;
+    public SerializedSpacegun[] spaceguns;    
     public SerializedTurret[] turrets;
     public SerializedBot[] bots;
 

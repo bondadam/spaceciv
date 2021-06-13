@@ -3665,6 +3665,8 @@ MonoBehaviour:
     type: 3}
   turret_prefab: {fileID: -226036876853196607, guid: 9580c48bd40c3224a930a1ab02a69cf0,
     type: 3}
+  spacegun_prefab: {fileID: 1152758847731552906, guid: c7085b5d21bfac6468ed48bc05f4962e,
+    type: 3}
   spaceship_prefab: {fileID: 4442517011592253217, guid: 4a7cf32846d485c42a7e592315777b12,
     type: 3}
   game_Over_Menu: {fileID: 832859147}

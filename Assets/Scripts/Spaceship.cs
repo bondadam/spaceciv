@@ -126,7 +126,7 @@ public class Spaceship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Planet" || other.gameObject.tag == "Turret"){
+        if (other.gameObject.tag == "Planet" || other.gameObject.tag == "Turret" || other.gameObject.tag == "Spacegun"){
             Debug.Log("Fleet touched a "+other.gameObject.tag);
             Structure collided_planet = other.gameObject.GetComponent<Structure>();
             if (collided_planet == this.target){

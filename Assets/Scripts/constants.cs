@@ -90,7 +90,8 @@ public static class Constants
         {1, "Levels/level1"},
         {2, "Levels/Level2"},
         {3, "Levels/level3"},
-        {4, "Levels/level4"}
+        {4, "Levels/level4"},
+        {5, "Levels/faceoff"}
         };
 
     public static int states_num = Enum.GetNames(typeof(Selected_State)).Length;
