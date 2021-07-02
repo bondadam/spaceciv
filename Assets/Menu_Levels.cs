@@ -8,24 +8,15 @@ using TMPro;
 
 public class Menu_Levels : MonoBehaviour
 {
-    public GameObject content;
     public GameObject prefabButton;
-    public RectTransform ParentPanel;
+    public Transform grid;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach(KeyValuePair<int, string> entry in Constants.level_paths)
-        {
-            GameObject goButton = (GameObject)Instantiate(prefabButton);
-            goButton.transform.SetParent(ParentPanel, false);
-            goButton.transform.localScale = new Vector3(1, 1, 1);
-            Button tempButton = goButton.GetComponent<Button>();
-            goButton.GetComponentInChildren<TextMeshProUGUI>().text = "Level " + entry.Key.ToString();
-            tempButton.onClick.AddListener(() => ButtonClicked(entry.Key, ""));
-        }
+        /*
         List<string> save_file_names = Save_File_Manager.getSimpleFileNames();
         foreach(string file_name in save_file_names)
         {
@@ -37,14 +28,29 @@ public class Menu_Levels : MonoBehaviour
             userLevelTempButton.onClick.AddListener(() => ButtonClicked(Constants.USER_LEVEL_CODE, file_name));
         }
         this.disable();          
-     
+        */
+
+        foreach(KeyValuePair<int, string> entry in Constants.level_paths)
+        {
+            var custom = false;
+
+            GameObject button_object = Instantiate(this.prefabButton) as GameObject;
+			button_object.AddComponent<level_button>();
+			button_object.SetActive(true);
+		    level_button lb = button_object.GetComponent<level_button>();
+			lb.initialize(custom, entry.Key, Constants.level_difficulties[entry.Key]);
+			button_object.transform.SetParent(grid);
+            Button button = button_object.GetComponent<Button>();
+            button.onClick.AddListener(() => level_clicked(entry.Key, custom));
+        }
+
+        this.disable();
+
      }
 
-     void ButtonClicked(int buttonNo, string level_name)
-     {
-         Debug.Log ("Button clicked = " + buttonNo);
-         start_level(buttonNo, level_name);
-     }  
+    public void level_clicked(int number, bool custom){
+        this.start_level(number, "");
+    }
 
     // Update is called once per frame
     void Update()

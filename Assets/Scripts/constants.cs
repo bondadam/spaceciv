@@ -34,6 +34,14 @@ public enum Object_Type
     Move,
     Planet
 }
+
+public enum Level_Difficulty
+{
+    Easy,
+    Medium,
+    Hard,
+    Impossible
+}
 public static class Constants
 {
     public static Color bluegreen = new Color(0.5f, 1.0f, 1.0f);
@@ -76,6 +84,14 @@ public static class Constants
                 {Team.CPU4, Color.red}
         };
 
+    public static Dictionary<Level_Difficulty, String> level_difficulty_icons = new Dictionary<Level_Difficulty, String>()
+        {
+                {Level_Difficulty.Easy, "Level_Icons/easy"},
+                {Level_Difficulty.Medium, "Level_Icons/medium"},
+                {Level_Difficulty.Hard, "Level_Icons/hard"},
+                {Level_Difficulty.Impossible, "Level_Icons/impossible"}
+        };
+
     public static Dictionary<Team, string> team_names = new Dictionary<Team, string>()
         {
                 {Team.Neutral, "Neutral"},
@@ -92,6 +108,14 @@ public static class Constants
         {3, "Levels/level3"},
         {4, "Levels/level4"},
         {5, "Levels/faceoff"}
+        };
+
+    public static Dictionary<int, Level_Difficulty> level_difficulties = new Dictionary<int, Level_Difficulty>(){
+        {1, Level_Difficulty.Easy},
+        {2, Level_Difficulty.Medium},
+        {3, Level_Difficulty.Medium},
+        {4, Level_Difficulty.Hard},
+        {5, Level_Difficulty.Impossible}
         };
 
     public static int states_num = Enum.GetNames(typeof(Selected_State)).Length;
