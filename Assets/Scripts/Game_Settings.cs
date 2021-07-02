@@ -11,7 +11,7 @@ public static class Game_Settings
     // slow, tactical game -> 3f
     
     
-
+    public static float DEFAULT_TURRET_RADIUS = 2f;
 
     // planet pixel size ratio to planet_size variable
 }

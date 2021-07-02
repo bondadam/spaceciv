@@ -1,0 +1,152 @@
+{
+    "name": "Bonanza",
+    "planets": [
+        {
+            "team": 0,
+            "position_x": -7.043716907501221,
+            "position_y": 0.2901592254638672,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 1.5
+        },
+        {
+            "team": 1,
+            "position_x": -0.2,
+            "position_y": -3.6895804405212404,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 1.5
+        },
+        {
+            "team": 2,
+            "position_x": -0.2,
+            "position_y": 3.655860137939453,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 1.5
+        },
+        {
+            "team": 4,
+            "position_x": 6.328459739685059,
+            "position_y": 0.2901592254638672,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 1.5
+        },
+        {
+            "team": 5,
+            "position_x": -2.6310168504714966,
+            "position_y": 3.564399242401123,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": -2.793871521949768,
+            "position_y": -3.8342981338500978,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 2.435572862625122,
+            "position_y": 3.636757850646973,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 2.4717633724212648,
+            "position_y": -3.9247469902038576,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": -4.585272789001465,
+            "position_y": 1.3574531078338625,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": -4.600897789001465,
+            "position_y": -1.15050649642944337,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": -1.41865411400794985,
+            "position_y": -1.8082491159439087,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 1.295590400695801,
+            "position_y": -1.9348770976066589,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 4.247539520263672,
+            "position_y": -1.1324164867401123,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 4.335544109344482,
+            "position_y": 1.1765553951263429,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 0.9698809385299683,
+            "position_y": 2.062952756881714,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": -1.31008434295654299,
+            "position_y": 2.044862747192383,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        }
+    ],
+    "spaceguns": [],
+    "turrets": [],
+    "bots": [
+        {
+            "team": 1,
+            "type": 0,
+            "decision_interval": 4.0
+        },
+        {
+            "team": 2,
+            "type": 1,
+            "decision_interval": 4.0
+        },
+        {
+            "team": 4,
+            "type": 2,
+            "decision_interval": 2.5
+        }
+    ]
+}

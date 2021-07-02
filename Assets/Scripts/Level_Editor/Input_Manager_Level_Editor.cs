@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Input_Manager_Level_Editor : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Input_Manager_Level_Editor : MonoBehaviour
     private bool holding;
     private bool moving_planet;
     public Camera camera;
+    
+    public Text xpos;
+    public Text ypos;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +32,11 @@ public class Input_Manager_Level_Editor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 mousePos2D = Utils.getMousePosition2D();
+        Vector2 rawMousePos2D = Utils.getMousePosition2D();
+        Vector2 mousePos2D = new Vector2((float) System.Math.Round(rawMousePos2D.x, 1), (float) System.Math.Round(rawMousePos2D.y, 1));
+        xpos.text = "x: " + mousePos2D[0].ToString("0.0");
+        ypos.text = "y: " + mousePos2D[1].ToString("0.0");
+
         bool noUIControlsInUse = EventSystem.current.currentSelectedGameObject == null;
 
         if (noUIControlsInUse)

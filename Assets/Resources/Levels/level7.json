@@ -1,0 +1,70 @@
+{
+    "name": "Central Garden",
+    "planets": [
+        {
+            "team": 0,
+            "position_x": -6.5,
+            "position_y": 0,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 1.5
+        },
+        {
+            "team": 1,
+            "position_x": 6.5,
+            "position_y": 0,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 1.5
+        },
+        {
+            "team": 5,
+            "position_x": 0,
+            "position_y": 2,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": -1.7,
+            "position_y": 0,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 1.7,
+            "position_y": 0,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        },
+        {
+            "team": 5,
+            "position_x": 0,
+            "position_y": -2,
+            "initial_population": 25,
+            "population_max": 99,
+            "planet_size": 0.5
+        }
+    ],
+    "spaceguns": [],
+    "turrets": [  {
+        "team": 5,
+        "position_x": 0,
+        "position_y": 0,
+        "initial_population": 15,
+        "population_max": 99,
+        "radius": 3
+    }],
+    "bots": [
+        {
+            "team": 1,
+            "type": 0,
+            "decision_interval": 5.0
+        } 
+        
+    ]
+}

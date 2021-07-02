@@ -88,10 +88,19 @@ public static class Constants
 
     public static Dictionary<int, String> level_paths = new Dictionary<int, string>(){
         {1, "Levels/level1"},
-        {2, "Levels/Level2"},
+        {2, "Levels/level2"},
         {3, "Levels/level3"},
         {4, "Levels/level4"},
-        {5, "Levels/faceoff"}
+        {5, "Levels/level5"},
+        {6, "Levels/level6"},
+        {7, "Levels/level7"},
+        {8, "Levels/level8"},
+        {9, "Levels/level9"},
+        {10, "Levels/level10"},
+        {11, "Levels/level11"},
+        {12, "Levels/level12"},
+        {13, "Levels/level13"},
+        {15, "Levels/level15"}
         };
 
     public static int states_num = Enum.GetNames(typeof(Selected_State)).Length;

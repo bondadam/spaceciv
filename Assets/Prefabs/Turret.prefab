@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 9172600958092860588}
   - component: {fileID: 3249642943142707234}
   - component: {fileID: 4321098911928673918}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: units
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.0014343262, y: -0.0007171631}
   m_SizeDelta: {x: 2, y: 2.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3249642943142707234

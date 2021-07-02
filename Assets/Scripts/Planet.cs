@@ -84,7 +84,8 @@ public class Planet : Structure
         this.upgrades_button.gameObject.SetActive(this.can_upgrade());
         this.set_growth_factor();
         this.update_upgrades_display();
-        this.transform.localScale = new Vector3(this.planet_size, this.planet_size, this.planet_size);
+        float planet_scale = 0.5f + planet_size*0.75f;
+        this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
     }
 

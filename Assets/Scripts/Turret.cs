@@ -10,6 +10,7 @@ public class Turret : Structure
     private float reload_speed = 0.01f;
 
     private float reload_queue = 0f;
+    private float radius = 2f;
 
     private Spaceship target_spaceship;
 
@@ -46,6 +47,7 @@ public class Turret : Structure
         this.initial_population = serializedTurret.initial_population;
         this.population_max = serializedTurret.population_max;
         this.get_target = get_nearest_spaceship_callback;
+        this.radius = serializedTurret.radius;
         this.tag = "Turret";
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
@@ -63,7 +65,6 @@ public class Turret : Structure
         float theta_scale = 0.01f;
         float sizeValue = (2.0f * Mathf.PI) / theta_scale;
         int number_of_points = (int)Mathf.Floor(sizeValue)+1;
-        float radius = 2f;
         lineRenderer = obj.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("UI/Default"));
         lineRenderer.startColor = Color.gray;
@@ -77,8 +78,8 @@ public class Turret : Structure
         for (int i = 0; i < number_of_points; i++)
         {
             theta += (2.0f * Mathf.PI * theta_scale);
-            float x = radius * Mathf.Cos(theta) + this.transform.position.x;
-            float y = radius * Mathf.Sin(theta) + this.transform.position.y;
+            float x = this.radius * Mathf.Cos(theta) + this.transform.position.x;
+            float y = this.radius * Mathf.Sin(theta) + this.transform.position.y;
             lineRenderer.SetPosition(i, new Vector2(x, y));
         }
         
@@ -117,7 +118,7 @@ public class Turret : Structure
             return;
         }
         // todo: only call get_target if there's not already a non-null target_spaceship in range
-        this.target_spaceship = get_target(this.transform.position, 2, this.team);
+        this.target_spaceship = get_target(this.transform.position, this.radius, this.team);
        
         if(this.reload_queue > 1)
         {
