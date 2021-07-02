@@ -51,8 +51,6 @@ public class Turret : Structure
         this.tag = "Turret";
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
-        this.population_display = this.GetComponentInChildren<TextMeshPro>();
-        this.population_display.text = "55";
         //this.upgrades
 
         this.population = initial_population;
@@ -103,7 +101,8 @@ public class Turret : Structure
 
     // Update is called once per frame
     public void Update_Custom()
-    {
+    {   
+        this.update_population_display();        
         Color color = Color.yellow;
         laser_beam_alpha -= 0.2f;
         color.a = laser_beam_alpha;
@@ -149,6 +148,7 @@ public class Turret : Structure
         {
             this.reload_queue += this.reload_speed;
         }
+        
 
     }
 

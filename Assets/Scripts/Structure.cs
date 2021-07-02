@@ -13,7 +13,7 @@ public class Structure : MonoBehaviour
 
     public SpriteRenderer m_SpriteRenderer;
 
-    public TextMeshPro population_display;
+    public TMP_Text population_display;
 
     public int initial_population;
 

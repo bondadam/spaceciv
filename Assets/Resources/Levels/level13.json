@@ -47,7 +47,7 @@
             "team": 5,
             "position_x": 2.7323389053344728,
             "position_y": 3.6755385398864748,
-            "initial_population": 25,
+            "initial_population": 10,
             "population_max": 99,
             "planet_size": 1.0
         },
@@ -55,7 +55,7 @@
             "team": 5,
             "position_x": 2.8409087657928469,
             "position_y": -1.642841100692749,
-            "initial_population": 25,
+            "initial_population": 10,
             "population_max": 99,
             "planet_size": 1.0
         }

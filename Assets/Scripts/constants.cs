@@ -116,15 +116,26 @@ public static class Constants
         {11, "Levels/level11"},
         {12, "Levels/level12"},
         {13, "Levels/level13"},
+        {14, "Levels/level14"},
         {15, "Levels/level15"}
         };
 
     public static Dictionary<int, Level_Difficulty> level_difficulties = new Dictionary<int, Level_Difficulty>(){
         {1, Level_Difficulty.Easy},
-        {2, Level_Difficulty.Medium},
-        {3, Level_Difficulty.Medium},
-        {4, Level_Difficulty.Hard},
-        {5, Level_Difficulty.Impossible}
+        {2, Level_Difficulty.Easy},
+        {3, Level_Difficulty.Easy},
+        {4, Level_Difficulty.Easy},
+        {5, Level_Difficulty.Medium},
+        {6, Level_Difficulty.Medium},
+        {7, Level_Difficulty.Medium},
+        {8, Level_Difficulty.Medium},
+        {9, Level_Difficulty.Medium},
+        {10, Level_Difficulty.Medium},
+        {11, Level_Difficulty.Hard},
+        {12, Level_Difficulty.Hard},
+        {13, Level_Difficulty.Hard},
+        {14, Level_Difficulty.Impossible},
+        {15, Level_Difficulty.Impossible}
         };
 
     public static int states_num = Enum.GetNames(typeof(Selected_State)).Length;

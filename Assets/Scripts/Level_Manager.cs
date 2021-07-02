@@ -31,6 +31,8 @@ public class Level_Manager : MonoBehaviour
 
     private bool game_over = false;
 
+    public TMP_Text level_indicator;
+
     public Game_Over_Menu game_Over_Menu;
     public delegate Spaceship Get_Nearest_Spaceship_Callback(Vector2 pos, float radius, Team except_team); 
     public delegate Planet Get_Nearest_Planet_Callback(Vector2 pos, float radius, Team except_team);   
@@ -118,7 +120,9 @@ public class Level_Manager : MonoBehaviour
             // Level from game's binaries
             TextAsset myTextAsset = Resources.Load(Constants.level_paths[Utils.selected_level]) as TextAsset;
             level_json = myTextAsset.text;
+            
         }
+        this.level_indicator.text = "level " + Utils.selected_level.ToString();
         Level level = JsonUtility.FromJson<Level>(level_json);
         int structure_counter = 0;
         foreach (SerializedSpacegun ssg in level.spaceguns)
