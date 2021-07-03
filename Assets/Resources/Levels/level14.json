@@ -61,6 +61,6 @@
   "bots": [{
     "team": 1,
     "type": 2,
-    "decision_interval": 8.0
+    "decision_interval": 3.0
   }]
 }

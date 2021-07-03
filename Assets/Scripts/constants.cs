@@ -104,21 +104,21 @@ public static class Constants
 
     public static List<(string, Level_Difficulty)> level_paths = new List<(string, Level_Difficulty)>{
         ("Levels/level1", Level_Difficulty.Easy),
-        ("Levels/level2", Level_Difficulty.Easy),
         ("Levels/level3", Level_Difficulty.Hard),
-        ("Levels/level4", Level_Difficulty.Easy),
+        ("Levels/level4", Level_Difficulty.Medium),
         ("Levels/level5", Level_Difficulty.Medium),
         ("Levels/level6", Level_Difficulty.Medium),
         ("Levels/level7", Level_Difficulty.Medium),
         ("Levels/level8", Level_Difficulty.Medium),
+        ("Levels/level2", Level_Difficulty.Hard),
         ("Levels/level9", Level_Difficulty.Hard),
-        ("Levels/level10", Level_Difficulty.Hard),
+        ("Levels/level10", Level_Difficulty.Medium),
         ("Levels/level11", Level_Difficulty.Hard),
-        ("Levels/level12", Level_Difficulty.Hard),
+        ("Levels/level12", Level_Difficulty.Medium),
         ("Levels/level13", Level_Difficulty.Hard),
         ("Levels/level14", Level_Difficulty.Hard),
         ("Levels/level15", Level_Difficulty.Impossible),
-        ("Levels/level16", Level_Difficulty.Impossible),
+        ("Levels/level16", Level_Difficulty.Medium),
         ("Levels/level17", Level_Difficulty.Impossible)
     };
 
