@@ -128,7 +128,7 @@ public class ExpandingBot : Bot
                 if(sending_planet != null){
                     // this next line is not needed anymore, because only one target neutral planet is considered per turn
                     candidate_planets = candidate_planets.Where(planet => !planet.Equals(target_planet)).ToList();
-                    this.level_Manager.send_spaceship_to_planet_bot(sending_planet, target_planet, sending_planet.get_population());
+                    this.level_Manager.send_spaceship_to_planet_bot(sending_planet, target_planet, army_to_send);
                 }
             }                 
 
