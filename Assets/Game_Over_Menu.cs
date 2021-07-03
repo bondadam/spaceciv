@@ -67,9 +67,6 @@ public class Game_Over_Menu : MonoBehaviour
     public void restart_game()
     {
         SceneManager.LoadScene("DemoLevel");
-        //game_over_panel.SetActive(false);
-        //show_label(victory.hide_all);
-        //level_Manager.Initialize();
     }
     public void play_next_level()
     {
