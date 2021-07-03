@@ -65,16 +65,16 @@
         "team": 1,
         "position_x": -1.6466418504714966,
         "position_y": -0.6454414129257202,
-        "initial_population": 99,
-        "population_max": 99,
+        "initial_population": 150,
+        "population_max": 150,
         "radius": 2.5
     },
     {
         "team": 1,
         "position_x": -1.6466418504714966,
         "position_y": 2.2308249473571779,
-        "initial_population": 99,
-        "population_max": 99,
+        "initial_population": 150,
+        "population_max": 150,
         "radius": 2.5
     }],
     "bots": [
