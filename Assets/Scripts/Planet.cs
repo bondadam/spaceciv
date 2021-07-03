@@ -11,6 +11,7 @@ public class Planet : Structure
 
     private int max_level;
 
+    private float planet_scale;
 
 
 
@@ -84,7 +85,7 @@ public class Planet : Structure
         this.upgrades_button.gameObject.SetActive(this.can_upgrade());
         this.set_growth_factor();
         this.update_upgrades_display();
-        float planet_scale = 0.5f + planet_size*0.75f;
+        this.planet_scale = 0.5f + planet_size*0.75f;
         this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
     }
@@ -158,5 +159,9 @@ public class Planet : Structure
     public float get_growth_factor()
     {
         return this.growth_factor;
+    }
+    public float get_planet_scale()
+    {
+        return this.planet_scale;
     }
 }
