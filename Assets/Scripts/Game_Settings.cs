@@ -12,6 +12,7 @@ public static class Game_Settings
     
     
     public static float DEFAULT_TURRET_RADIUS = 2f;
+    public static float DEFAULT_SPACEGUN_RADIUS = 3f;
 
     // planet pixel size ratio to planet_size variable
 }

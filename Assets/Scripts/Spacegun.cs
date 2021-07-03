@@ -14,6 +14,7 @@ public class Spacegun : Structure
     private Planet target_planet;
 
     private float firepower = 3f;
+    private float radius;
     
     private Level_Manager.Get_Nearest_Planet_Callback get_target;
     
@@ -46,6 +47,7 @@ public class Spacegun : Structure
         this.initial_population = serializedSpacegun.initial_population;
         this.population_max = serializedSpacegun.population_max;
         this.get_target = get_nearest_planet_callback;
+        this.radius = serializedSpacegun.radius;
         this.tag = "Spacegun";
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
@@ -63,7 +65,6 @@ public class Spacegun : Structure
         float theta_scale = 0.01f;
         float sizeValue = (2.0f * Mathf.PI) / theta_scale;
         int number_of_points = (int)Mathf.Floor(sizeValue)+1;
-        float radius = 2f;
         lineRenderer = obj.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("UI/Default"));
         lineRenderer.startColor = Color.gray;
@@ -117,7 +118,7 @@ public class Spacegun : Structure
             return;
         }
         // todo: only call get_target if there's not already a non-null target_spaceship in range
-        this.target_planet = get_target(this.transform.position, 2, this.team);
+        this.target_planet = get_target(this.transform.position, this.radius, this.team);
         if(this.reload_queue > 1)
         {
             if(this.target_planet != null && !this.target_planet.team.Equals(Team.Neutral))
