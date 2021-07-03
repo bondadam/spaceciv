@@ -56,21 +56,8 @@
     "population_max": 99,
     "planet_size": 0.5
   }],
-  "spaceguns": [{
-    "team": 5,
-    "position_x": 3.299999952316284,
-    "position_y": 1.399999976158142,
-    "initial_population": 15,
-    "population_max": 99,
-    "radius": 3.0
-  }],
-  "turrets": [{
-    "team": 5,
-    "position_x": 0,
-    "position_y": 0,
-    "initial_population": 15,
-    "population_max": 99
-  }],
+  "spaceguns": [],
+  "turrets": [],
   "bots": [{
     "team": 1,
     "type": 2,

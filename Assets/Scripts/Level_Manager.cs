@@ -69,6 +69,7 @@ public class Level_Manager : MonoBehaviour
 
     public void send_spaceship_to_planet_bot(Planet from_planet, Structure target_planet, int incoming_units)
     {
+        if(incoming_units == 0){ return;}
         double diffx = from_planet.transform.position.x - target_planet.transform.position.x;
         double diffy = from_planet.transform.position.y - target_planet.transform.position.y;
         double angle = Math.Atan2(diffy, diffx) + Math.PI;
@@ -100,7 +101,9 @@ public class Level_Manager : MonoBehaviour
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
         this.time_taken = 0; 
         this.game_over = false;
-        String level_json;
+        String level_json;        
+        Debug.Log("selected level");
+
         Debug.Log(Utils.selected_level);
         if (Utils.selected_level == Constants.USER_LEVEL_CODE)
         {
@@ -114,14 +117,14 @@ public class Level_Manager : MonoBehaviour
             {
                 // TODO: show panel saying "Level could not be loaded"? (or save file could not be found)
                 Debug.Log("Save file could not be found");
-                TextAsset myTextAsset = Resources.Load(Constants.level_paths[1]) as TextAsset;
+                TextAsset myTextAsset = Resources.Load(Constants.level_paths[1].Item1) as TextAsset;
                 level_json = myTextAsset.text;
             }
         }
         else
         {
             // Level from game's binaries
-            TextAsset myTextAsset = Resources.Load(Constants.level_paths[Utils.selected_level]) as TextAsset;
+            TextAsset myTextAsset = Resources.Load(Constants.level_paths[Utils.selected_level].Item1) as TextAsset;
             level_json = myTextAsset.text;
             
         }
