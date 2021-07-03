@@ -53,8 +53,8 @@ public class Level_Manager : MonoBehaviour
                     double diffy = from_planet.transform.position.y - target_planet.transform.position.y;
                     double angle = Math.Atan2(diffy, diffx) + Math.PI;
                     
-                    double posx = from_planet.transform.position.x + Math.Cos(angle)*from_planet.get_planet_size()*0.5;
-                    double posy = from_planet.transform.position.y + Math.Sin(angle)*from_planet.get_planet_size()*0.5;
+                    double posx = from_planet.transform.position.x + Math.Cos(angle)*from_planet.get_planet_scale()*0.5;
+                    double posy = from_planet.transform.position.y + Math.Sin(angle)*from_planet.get_planet_scale()*0.5;
                     Vector3 spaceship_launch_pos = new Vector3((float) posx, (float) posy, 0);
                     
                     Spaceship spaceship = Instantiate(spaceship_prefab, spaceship_launch_pos, Quaternion.identity);
@@ -69,8 +69,16 @@ public class Level_Manager : MonoBehaviour
 
     public void send_spaceship_to_planet_bot(Planet from_planet, Structure target_planet, int incoming_units)
     {
+        double diffx = from_planet.transform.position.x - target_planet.transform.position.x;
+        double diffy = from_planet.transform.position.y - target_planet.transform.position.y;
+        double angle = Math.Atan2(diffy, diffx) + Math.PI;
+        
+        double posx = from_planet.transform.position.x + Math.Cos(angle)*from_planet.get_planet_scale()*0.5;
+        double posy = from_planet.transform.position.y + Math.Sin(angle)*from_planet.get_planet_scale()*0.5;
+        Vector3 spaceship_launch_pos = new Vector3((float) posx, (float) posy, 0);
+                    
         from_planet.ungrow(incoming_units);
-        Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position, Quaternion.identity);
+        Spaceship spaceship = Instantiate(spaceship_prefab, spaceship_launch_pos, Quaternion.identity);
         this.spaceship_count ++;
         spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString());
         this.spaceships.Add(spaceship);
