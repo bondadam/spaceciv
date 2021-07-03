@@ -40,6 +40,11 @@ public class Pause_Menu : MonoBehaviour
 
     public void return_to_menu(){
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Menu_Main");
+    }
+
+    public void back(){
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu_Level");
     }
 }

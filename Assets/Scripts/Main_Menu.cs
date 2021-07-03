@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Main_Menu : MonoBehaviour
 {
-    public Menu_Levels menu_Levels;
 
     // Start is called before the first frame update
     public void StartGame(){
-        this.menu_Levels.enable();
         this.gameObject.SetActive(false);
-        //SceneManager.LoadScene("DemoLevel");
+        SceneManager.LoadScene("Menu_Level");
     }
     
     public void StartEditor(){

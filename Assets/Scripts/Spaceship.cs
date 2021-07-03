@@ -55,6 +55,10 @@ public class Spaceship : MonoBehaviour
         this.population = population;
         this.population_display.text = this.population.ToString();
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
+
+        if (this.team == Team.Player){
+            LevelStatsKeeper.sent_spaceship();
+        }
     }
 
     public void face(Vector3 target_position){
@@ -138,6 +142,15 @@ public class Spaceship : MonoBehaviour
                     int defending_units = collided_planet.get_population();
                     if (this.population > defending_units){
                         // invasion success
+
+                        // Update Stats
+
+                        if (this.team == Team.Player){
+                            LevelStatsKeeper.planet_conquered();
+                        } else if (collided_planet.team == Team.Player){
+                            LevelStatsKeeper.planet_lost();
+                        }
+
                         collided_planet.set_population(this.population - defending_units);
                         collided_planet.set_team(this.team);
                         collided_planet.update_identity();
@@ -168,6 +181,7 @@ public class Spaceship : MonoBehaviour
             for (int i = 0; i < this.battling.Count; i++){
                 bool other_spaceship_alive = this.battling[i].ungrow_one();
                 if (!other_spaceship_alive){
+                    LevelStatsKeeper.spaceship_destroyed();
                     this.remove_battling(this.battling[i]);
                 }
             }

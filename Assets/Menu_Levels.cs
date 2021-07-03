@@ -43,9 +43,6 @@ public class Menu_Levels : MonoBehaviour
             Button button = button_object.GetComponent<Button>();
             button.onClick.AddListener(() => level_clicked(entry.Key, custom));
         }
-
-        this.disable();
-
      }
 
     public void level_clicked(int number, bool custom){
@@ -64,11 +61,7 @@ public class Menu_Levels : MonoBehaviour
         SceneManager.LoadScene("DemoLevel");
     }
 
-    public void enable(){
-        this.gameObject.SetActive(true);
-    }
-
-    public void disable(){
-        this.gameObject.SetActive(false);
+    public void back(){
+        SceneManager.LoadScene("Menu_Main");
     }
 }

@@ -5,11 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Level_Editor_Menu : MonoBehaviour
 {
-    public Menu_Levels menu_Levels;
-
-    // Start is called before the first frame update
     public void StartGame(){
-        this.menu_Levels.enable();
         this.gameObject.SetActive(false);
         //SceneManager.LoadScene("DemoLevel");
     }
@@ -22,9 +18,8 @@ public class Level_Editor_Menu : MonoBehaviour
     public void StartLoadSelection(){
         SceneManager.LoadScene("Level_Editor_Load_Selection");
     }
-    public void ExitGame(){
-        //UnityEditor.EditorApplication.isPlaying = false;
-        Application.Quit();
+    public void back(){
+        SceneManager.LoadScene("Menu_Main");
     }
 
 }

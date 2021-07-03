@@ -108,7 +108,7 @@ public class Level_Editor_Manager : MonoBehaviour
 
     public void exit()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Menu_Main");
     }
 
     // Update is called once per frame

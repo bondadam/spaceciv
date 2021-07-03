@@ -14,6 +14,7 @@ public class Level_Manager : MonoBehaviour
     // TODO: Change List<Planet> to Array for perf gains
     // see https://blogs.unity3d.com/2015/12/23/1k-update-calls/
 
+    private float time_taken;
     private List<Spaceship> spaceships;
     private List<Planet> planets;
     private List<Turret> turrets;
@@ -21,18 +22,12 @@ public class Level_Manager : MonoBehaviour
     private float update_frequency = 0.016f; // 60 times/s
     private float timer = 0.0f;
     private List<Bot> bots;
-
     private float spaceship_speed;
     private int spaceship_count = 0;
-
     private int game_over_delay_check = 6;
-
     private int game_over_delay_check_counter = 0;
-
     private bool game_over = false;
-
     public TMP_Text level_indicator;
-
     public Game_Over_Menu game_Over_Menu;
     public delegate Spaceship Get_Nearest_Spaceship_Callback(Vector2 pos, float radius, Team except_team); 
     public delegate Planet Get_Nearest_Planet_Callback(Vector2 pos, float radius, Team except_team);   
@@ -76,7 +71,7 @@ public class Level_Manager : MonoBehaviour
     {
         from_planet.ungrow(incoming_units);
         Spaceship spaceship = Instantiate(spaceship_prefab, from_planet.transform.position, Quaternion.identity);
-                    this.spaceship_count ++;
+        this.spaceship_count ++;
         spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString());
         this.spaceships.Add(spaceship);
     }
@@ -95,7 +90,7 @@ public class Level_Manager : MonoBehaviour
         this.spaceguns = new List<Spacegun>();
         this.spaceships = new List<Spaceship>();
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
-
+        this.time_taken = 0; 
         this.game_over = false;
         String level_json;
         Debug.Log(Utils.selected_level);
@@ -125,6 +120,7 @@ public class Level_Manager : MonoBehaviour
         this.level_indicator.text = "level " + Utils.selected_level.ToString();
         Level level = JsonUtility.FromJson<Level>(level_json);
         int structure_counter = 0;
+
         foreach (SerializedSpacegun ssg in level.spaceguns)
         {
             Spacegun spacegun = Instantiate(spacegun_prefab, new Vector3(ssg.position_x, ssg.position_y, 0), Quaternion.identity);
@@ -148,6 +144,7 @@ public class Level_Manager : MonoBehaviour
             this.turrets.Add(turret.GetComponent<Turret>());
             structure_counter += 1;
         }
+
         this.bots = new List<Bot>();
 
         // Handle Bot Types
@@ -195,7 +192,8 @@ public class Level_Manager : MonoBehaviour
                     if (game_over)
                     {
                         Debug.Log("Game over!");
-                        this.game_Over_Menu.end_game(player_alive, timer); // player_alive == true --> we won
+                        LevelStatsKeeper.set_timer(this.time_taken);
+                        this.game_Over_Menu.end_game(player_alive); // player_alive == true --> we won
                     }
                     this.game_over = game_over;
                 }
@@ -225,6 +223,8 @@ public class Level_Manager : MonoBehaviour
 
                 // Remove the recorded 16ms.
                 this.timer = this.timer - this.update_frequency;
+                //And update level stats timer
+                this.time_taken += this.update_frequency;
             }
         }
         else

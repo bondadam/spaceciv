@@ -5,7 +5,6 @@ using UnityEngine;
 public class Parallax : MonoBehaviour
 {
     private float length_x, length_y, startpos_x, startpos_y;
-
     private float velocity_x, velocity_y;
     private float max_velocity, min_velocity;
 
@@ -15,6 +14,7 @@ public class Parallax : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         startpos_x = transform.position.x;
         startpos_y = transform.position.y;
         length_x = GetComponent<SpriteRenderer>().bounds.size.x;
