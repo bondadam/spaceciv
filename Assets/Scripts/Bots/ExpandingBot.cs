@@ -76,10 +76,12 @@ public class ExpandingBot : Bot
                     float my_x = my_planet.transform.position.x;
                     float my_y = my_planet.transform.position.y;
                     float dist = Mathf.Sqrt(Mathf.Pow(my_y - target_planet.transform.position.y,2) + Mathf.Pow(my_x - target_planet.transform.position.x,2));
+                    dist -= my_planet.get_planet_scale()/2 + target_planet.get_planet_scale()/2;
                     my_planet_dists_from_target.Add((my_planet,dist));
                 }
                 my_planet_dists_from_target.Sort((t1, t2) => t1.Item2.CompareTo(t2.Item2)); // sort planets based on distance from target
                 int army_count = 0;
+                int army_to_send = 0;
                 foreach(Spaceship sp in spaceships.my_spaceships)
                 {
                     if(sp.get_target().Equals(target_planet))
@@ -112,6 +114,7 @@ public class ExpandingBot : Bot
                                     }
                                 }
                                 if(!already_sent){
+                                    army_to_send = target_planet.get_population() - (army_count_from_limit_planet-my_planet.Item1.get_population()) + 1;
                                     sending_planet = limit_planet.Item1;
                                     loop_has_ended = true;
                                 }
