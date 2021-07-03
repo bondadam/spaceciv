@@ -120,6 +120,7 @@ public class Planet : Structure
 
     public bool can_upgrade()
     {
+        return false;
         if (this.get_team().Equals(Team.Neutral)){ return false;}
         return this.population == this.population_max && this.level < this.max_level;
     }
