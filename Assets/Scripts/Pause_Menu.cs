@@ -23,6 +23,12 @@ public class Pause_Menu : MonoBehaviour
         return Time.timeScale == 0;
     }
 
+    public void restart_game()
+    {
+        this.continue_game();
+        SceneManager.LoadScene("DemoLevel");
+    }
+
 
     public void pause_game()
     {

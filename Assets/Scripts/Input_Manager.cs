@@ -31,6 +31,7 @@ public class Input_Manager : MonoBehaviour
 
             if (this.move_dragging)
             {
+                Debug.Log(mousePos2D);
                 Vector3 mousePos = Input.mousePosition;
                 if (!Input.GetMouseButton(0))
                 {
@@ -40,7 +41,10 @@ public class Input_Manager : MonoBehaviour
                 {
                     // move camera along dragging axis
                     Vector3 diff_position = new Vector3(mousePos.x - old_mouse_position.x, mousePos.y - old_mouse_position.y, 0);
-                    this.camera.transform.position = new Vector3(this.camera.transform.position.x - diff_position.x * 0.0125f, this.camera.transform.position.y - diff_position.y * 0.0125f, this.camera.transform.position.z);
+                    Vector3 new_camera_position = new Vector3(this.camera.transform.position.x - diff_position.x * 0.0125f, this.camera.transform.position.y - diff_position.y * 0.0125f, this.camera.transform.position.z);
+                    if (new_camera_position.x > -15 && new_camera_position.x < 15 && new_camera_position.y < 10 && new_camera_position.y > -10){
+                        this.camera.transform.position = new_camera_position;
+                    }
                 }
                 old_mouse_position = new Vector2(mousePos.x, mousePos.y);
             }
