@@ -140,6 +140,12 @@ public static class Constants
 
     public static int states_num = Enum.GetNames(typeof(Selected_State)).Length;
 
+    public static List<String> space_colors = new List<String>(){
+        "aqua",
+        "blue",
+        "red"
+    };
+
     public static Dictionary<Selected_State, float> selected_value = new Dictionary<Selected_State, float>(){
         {Selected_State.Unselected, 0},
         {Selected_State.Half, 0.5f},

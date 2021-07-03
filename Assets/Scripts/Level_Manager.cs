@@ -169,6 +169,9 @@ public class Level_Manager : MonoBehaviour
             new_bot.Initialize(this, sb.team, sb.decision_interval);
             this.bots.Add(new_bot);
         }
+        var random = new System.Random();
+        int next_color_index = random.Next(Constants.space_colors.Count);
+        SpaceLoad.switchColors(Constants.space_colors[next_color_index]);
     }
 
     // Update is called once per frame
