@@ -137,6 +137,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 835246636827379808, guid: c9b73f846bb24ab48a31e5e160df5202,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 835246636827379808, guid: c9b73f846bb24ab48a31e5e160df5202,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 835246636827379808, guid: c9b73f846bb24ab48a31e5e160df5202,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -189,6 +199,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stars Small_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 835246636827379823, guid: c9b73f846bb24ab48a31e5e160df5202,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 835246637731438283, guid: c9b73f846bb24ab48a31e5e160df5202,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9b73f846bb24ab48a31e5e160df5202, type: 3}
@@ -731,15 +751,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 916200274}
     m_Modifications:
+    - target: {fileID: 5024634969310958028, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969310958028, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
     - target: {fileID: 5024634969536700512, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
         type: 3}
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
+    - target: {fileID: 5024634969536700512, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969536700512, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
     - target: {fileID: 5024634969536700518, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969536700518, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969536700518, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5024634969536700518, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
         type: 3}
@@ -790,6 +840,76 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969667477824, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969667477824, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969762119033, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969762119033, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969762874968, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969762874968, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969965797728, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969965797728, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969984694366, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634969984694366, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634970526214927, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634970526214927, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634970714399172, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024634970714399172, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceBackground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b0ccddf8a48cd249a6c31871d3ea0ec, type: 3}
@@ -1661,6 +1781,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Big Stars
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183697033197061443, guid: 5aa1e6de87651fd4fac5d8f50eee34f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183697033892531690, guid: 5aa1e6de87651fd4fac5d8f50eee34f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aa1e6de87651fd4fac5d8f50eee34f0, type: 3}
