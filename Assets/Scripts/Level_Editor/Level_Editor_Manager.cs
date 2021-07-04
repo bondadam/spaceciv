@@ -7,9 +7,13 @@ public class Level_Editor_Manager : MonoBehaviour
 {
     private Object_Type selected_object;
     private List<Editor_Planet> planets;
+    private List<Editor_Turret> turrets;
+    private List<Editor_Spacegun> spaceguns;
     private List<Bot_Config> bots;
-    private Editor_Planet chosen_planet;
+    private Editor_Structure chosen_structure;
     public Editor_Planet editor_planet_prefab;
+    public Editor_Turret editor_turret_prefab;
+    public Editor_Spacegun editor_spacegun_prefab;
 
     public Bot_Config bot_config_prefab;
 
@@ -25,8 +29,10 @@ public class Level_Editor_Manager : MonoBehaviour
     {
         this.show_bots_panel(false);
         this.planets = new List<Editor_Planet>();
+        this.turrets = new List<Editor_Turret>();
+        this.spaceguns = new List<Editor_Spacegun>();
         this.bots = new List<Bot_Config>();
-        this.chosen_planet = null;
+        this.chosen_structure = null;
         chosen_level = PlayerPrefs.GetString(Constants.EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF);
         if (chosen_level != null && chosen_level != "")
         {
@@ -179,16 +185,25 @@ public class Level_Editor_Manager : MonoBehaviour
     {
         this.select(Object_Type.Planet);
     }
-
-    public void choose_planet(Editor_Planet planet)
+    public void select_turret()
     {
-        this.chosen_planet = planet;
+        this.select(Object_Type.Turret);
+    }
+
+    public void select_spacegun()
+    {
+        this.select(Object_Type.Spacegun);
+    }
+
+    public void choose_structure(Editor_Structure structure)
+    {
+        this.chosen_structure = structure;
         this.selected_object = Object_Type.None;
     }
 
-    public void move_chosen_planet(Vector2 new_coords)
+    public void move_chosen_structure(Vector2 new_coords)
     {
-        this.chosen_planet.move(new_coords);
+        this.chosen_structure.move(new_coords);
     }
 
     public void unselect()
@@ -205,19 +220,45 @@ public class Level_Editor_Manager : MonoBehaviour
                 ep.close_databox();
             }
         }
+        foreach (Editor_Turret et in this.turrets)
+        {
+            if (et != null)
+            {
+                et.close_databox();
+            }
+        }
+        foreach (Editor_Spacegun es in this.spaceguns)
+        {
+            if (es != null)
+            {
+                es.close_databox();
+            }
+        }
     }
 
 
     public void place_selected(Vector2 coords)
     {
+        this.close_all_databoxes();
         switch (this.selected_object)
         {
             case Object_Type.Planet:
-                this.close_all_databoxes();
                 Editor_Planet planet = Instantiate(editor_planet_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
                 Editor_Planet.On_Destroy_Callback on_destroy = new Editor_Planet.On_Destroy_Callback(remove_planet_from_list);
                 planet.Initialize(coords, on_destroy);
                 this.planets.Add(planet);
+                break;
+            case Object_Type.Turret:
+                Editor_Turret turret = Instantiate(editor_turret_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
+                Editor_Turret.On_Destroy_Callback on_destroy_turret = new Editor_Turret.On_Destroy_Callback(remove_turret_from_list);
+                turret.Initialize(coords, on_destroy_turret);
+                this.turrets.Add(turret);
+                break;
+            case Object_Type.Spacegun:
+                Editor_Spacegun spacegun = Instantiate(editor_spacegun_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
+                Editor_Spacegun.On_Destroy_Callback on_destroy_spacegun = new Editor_Spacegun.On_Destroy_Callback(remove_spacegun_from_list);
+                spacegun.Initialize(coords, on_destroy_spacegun);
+                this.spaceguns.Add(spacegun);
                 break;
             default: // case null
                 break;
@@ -238,9 +279,18 @@ public class Level_Editor_Manager : MonoBehaviour
         }
         return present_teams;
     }
-    public void remove_planet_from_list(Editor_Planet planet_to_remove)
+    public void remove_planet_from_list(Editor_Structure structure_to_remove)
     {
-        planets.Remove(planet_to_remove);
+        this.planets.Remove((Editor_Planet)structure_to_remove);
     }
 
+    public void remove_turret_from_list(Editor_Structure structure_to_remove)
+    {
+        this.turrets.Remove((Editor_Turret)structure_to_remove);
+    }
+
+    public void remove_spacegun_from_list(Editor_Structure structure_to_remove)
+    {
+        this.spaceguns.Remove((Editor_Spacegun)structure_to_remove);
+    }
 }

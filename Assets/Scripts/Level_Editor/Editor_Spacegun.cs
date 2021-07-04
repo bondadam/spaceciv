@@ -5,15 +5,15 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class Editor_Turret : Editor_Structure
+public class Editor_Spacegun : Editor_Structure
 {
-    private SerializedTurret data;
+    private SerializedSpacegun data;
     public SpriteRenderer m_SpriteRenderer;
 
     override public void Initialize(Vector2 coords, On_Destroy_Callback on_destroy)
     {
 
-        this.data = new SerializedTurret();
+        this.data = new SerializedSpacegun();
         this.data.team = Team.Neutral;
         this.data.position_x = coords.x;
         this.data.position_y = coords.y;
@@ -36,7 +36,7 @@ public class Editor_Turret : Editor_Structure
         this.update_identity();
     }
 
-    public void Initialize_Load(SerializedTurret data){
+    public void Initialize_Load(SerializedSpacegun data){
         this.data = data;
 
         this.team_dropdown.value = (int) this.data.team;
@@ -86,7 +86,7 @@ public class Editor_Turret : Editor_Structure
         this.update_identity();
     }
 
-    public SerializedTurret get_data()
+    public SerializedSpacegun get_data()
     {
         return this.data;
     }

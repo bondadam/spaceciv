@@ -121,16 +121,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4dcf40a6b49354089ba89ca4e57ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data_Box: {fileID: 7190422427453391617}
-  m_SpriteRenderer: {fileID: 5842224615181661711}
   team_dropdown: {fileID: 4116971461996924957}
   initPopSlider: {fileID: 7878741529884978600}
   initialPopValue: {fileID: 6900279364725199710}
   maxPopSlider: {fileID: 7911856306464314549}
   maxPopValue: {fileID: 7972151002018311356}
+  positionValue: {fileID: 6980148144362933958}
+  data_Box: {fileID: 7190422427453391617}
+  m_SpriteRenderer: {fileID: 5842224615181661711}
   sizeSlider: {fileID: 1259176024148041228}
   sizeValue: {fileID: 2644928362381641063}
-  positionValue: {fileID: 6980148144362933958}
 --- !u!58 &5938842770895366643
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 6333183928807390484}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 7011295364084627754}
@@ -4487,7 +4487,7 @@ Transform:
   m_GameObject: {fileID: 8514020779128013233}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 3458118255010953471}
   m_RootOrder: 0

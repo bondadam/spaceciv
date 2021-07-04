@@ -32,7 +32,9 @@ public enum Object_Type
 {
     None,
     Move,
-    Planet
+    Planet,
+    Turret,
+    Spacegun
 }
 
 public enum Level_Difficulty
