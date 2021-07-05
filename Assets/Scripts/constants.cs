@@ -118,25 +118,25 @@ public static class Constants
                 {Team.CPU4, "CPU 4"}
         };
 
-    public static Dictionary<int, String> level_paths = new Dictionary<int, string>(){
-        {1, "Levels/level1"},
-        {2, "Levels/level2"},
-        {3, "Levels/level3"},
-        {4, "Levels/level4"},
-        {5, "Levels/level5"},
-        {6, "Levels/level6"},
-        {7, "Levels/level7"},
-        {8, "Levels/level8"},
-        {9, "Levels/level9"},
-        {10, "Levels/level10"},
-        {11, "Levels/level11"},
-        {12, "Levels/level12"},
-        {13, "Levels/level13"},
-        {14, "Levels/level14"},
-        {15, "Levels/level15"},
-        {16, "Levels/level16"},
-        {17, "Levels/level17"}
-        };
+    public static List<(string, Level_Difficulty)> level_paths = new List<(string, Level_Difficulty)>{
+        ("Levels/level1", Level_Difficulty.Easy),
+        ("Levels/level3", Level_Difficulty.Hard),
+        ("Levels/level4", Level_Difficulty.Medium),
+        ("Levels/level5", Level_Difficulty.Medium),
+        ("Levels/level6", Level_Difficulty.Medium),
+        ("Levels/level7", Level_Difficulty.Medium),
+        ("Levels/level8", Level_Difficulty.Medium),
+        ("Levels/level2", Level_Difficulty.Hard),
+        ("Levels/level9", Level_Difficulty.Hard),
+        ("Levels/level10", Level_Difficulty.Medium),
+        ("Levels/level11", Level_Difficulty.Hard),
+        ("Levels/level12", Level_Difficulty.Medium),
+        ("Levels/level13", Level_Difficulty.Hard),
+        ("Levels/level14", Level_Difficulty.Hard),
+        ("Levels/level15", Level_Difficulty.Impossible),
+        ("Levels/level16", Level_Difficulty.Medium),
+        ("Levels/level17", Level_Difficulty.Impossible)
+    };
 
     public static Dictionary<int, Level_Difficulty> level_difficulties = new Dictionary<int, Level_Difficulty>(){
         {1, Level_Difficulty.Easy},

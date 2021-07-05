@@ -29,23 +29,26 @@ public class Menu_Levels : MonoBehaviour
         }
         this.disable();          
         */
-
-        foreach(KeyValuePair<int, string> entry in Constants.level_paths)
+        int i = 0;
+        foreach((string, Level_Difficulty) entry in Constants.level_paths)
         {
             var custom = false;
-
+            int k = i;
             GameObject button_object = Instantiate(this.prefabButton) as GameObject;
 			button_object.AddComponent<level_button>();
 			button_object.SetActive(true);
 		    level_button lb = button_object.GetComponent<level_button>();
-			lb.initialize(custom, entry.Key, Constants.level_difficulties[entry.Key]);
+            Debug.Log(i);
+			lb.initialize(custom, k, entry.Item2);
 			button_object.transform.SetParent(grid);
             Button button = button_object.GetComponent<Button>();
-            button.onClick.AddListener(() => level_clicked(entry.Key, custom));
+            button.onClick.AddListener(() => level_clicked(k, custom));
+            i += 1;
         }
      }
 
     public void level_clicked(int number, bool custom){
+        Debug.Log(number);
         this.start_level(number, "");
     }
 

@@ -115,6 +115,7 @@ public class ExpandingBot : Bot
                                 }
                                 if(!already_sent){
                                     army_to_send = target_planet.get_population() - (army_count_from_limit_planet-my_planet.Item1.get_population()) + 1;
+                                    if (army_to_send<0){ army_to_send=0;}
                                     sending_planet = limit_planet.Item1;
                                     loop_has_ended = true;
                                 }
