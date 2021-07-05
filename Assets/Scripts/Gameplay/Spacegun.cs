@@ -107,6 +107,7 @@ public class Spacegun : Structure
     // Update is called once per frame
     public void Update_Custom()
     {
+        this.update_population_display();
         Color color = Color.yellow;
         laser_beam_alpha -= 0.2f;
         color.a = laser_beam_alpha;

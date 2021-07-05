@@ -42,6 +42,8 @@ public class Level_Editor_Manager : MonoBehaviour
         this.spaceguns = new List<Editor_Spacegun>();
         this.bots = new List<Bot_Config>();
         this.chosen_structure = null;
+        this.difficulty = Level_Difficulty.Easy;
+        this.background_Color = Background_Color.default_color;
         chosen_level = PlayerPrefs.GetString(Constants.EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF);
         if (chosen_level != null && chosen_level != "")
         {   
