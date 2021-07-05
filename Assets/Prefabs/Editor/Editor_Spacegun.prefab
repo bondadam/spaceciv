@@ -1071,7 +1071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000081913466, y: 100.00017}
+  m_AnchoredPosition: {x: -0.000081913466, y: 100.000046}
   m_SizeDelta: {x: 0, y: 550}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1177985396688839188
@@ -4166,8 +4166,8 @@ MonoBehaviour:
   data_Box: {fileID: 6959058422413472725}
   initPopDynamic: {fileID: 1229369195909247798}
   m_SpriteRenderer: {fileID: 6377591613815173650}
-  radiusSlider: {fileID: 0}
-  radiusValue: {fileID: 0}
+  radiusSlider: {fileID: 1747471551864160789}
+  radiusValue: {fileID: 6216324342108658348}
 --- !u!1 &7652278033467798918
 GameObject:
   m_ObjectHideFlags: 0
@@ -5266,7 +5266,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 873370703756662073}
   m_HandleRect: {fileID: 6738515703133436252}
   m_Direction: 2
-  m_Value: -0.0000015258807
+  m_Value: -0.00000030517614
   m_Size: 0.818182
   m_NumberOfSteps: 0
   m_OnValueChanged:

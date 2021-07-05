@@ -85,6 +85,7 @@ public class Editor_Turret : Editor_Structure
     public void draw_radius(float new_radius)
     {
         this.radius_object = new GameObject("perimeter");
+        this.radius_object.transform.SetParent(this.transform);
         float theta_scale = 0.01f;
         float sizeValue = (2.0f * Mathf.PI) / theta_scale;
         int number_of_points = (int)Mathf.Floor(sizeValue) + 1;
