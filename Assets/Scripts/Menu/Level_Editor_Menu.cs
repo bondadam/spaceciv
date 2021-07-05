@@ -22,4 +22,8 @@ public class Level_Editor_Menu : MonoBehaviour
         SceneManager.LoadScene("Menu_Main");
     }
 
+    public void play(){
+        SceneManager.LoadScene("Menu_Level_Custom");
+    }
+
 }

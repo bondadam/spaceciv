@@ -7,6 +7,7 @@ using TMPro;
 
 public class Editor_Planet : Editor_Structure
 {
+    public TMP_Text initPopDynamic;
     private SerializedPlanet data;
     public SpriteRenderer m_SpriteRenderer;
     public Slider sizeSlider;
@@ -28,6 +29,8 @@ public class Editor_Planet : Editor_Structure
         this.initPopSlider.maxValue = Constants.PLANET_DEFAULT_MAX_POPULATION;
         this.initPopSlider.value = Constants.PLANET_DEFAULT_INITIAL_POPULATION;
         this.initialPopValue.text = Constants.PLANET_DEFAULT_INITIAL_POPULATION.ToString();
+
+        this.initPopDynamic.text = this.initialPopValue.text;
 
         this.maxPopSlider.maxValue = Constants.PLANET_ABSOLUTE_MAX_POPULATION;
         this.maxPopSlider.value = Constants.PLANET_DEFAULT_MAX_POPULATION;
@@ -52,6 +55,8 @@ public class Editor_Planet : Editor_Structure
         this.initPopSlider.maxValue = Constants.PLANET_DEFAULT_MAX_POPULATION;
         this.initPopSlider.value = this.data.initial_population;
         this.initialPopValue.text = this.initPopSlider.value.ToString();
+
+        this.initPopDynamic.text = this.initialPopValue.text;
 
         this.maxPopSlider.maxValue = Constants.PLANET_ABSOLUTE_MAX_POPULATION;
         this.maxPopSlider.value = this.data.population_max;
@@ -95,6 +100,7 @@ public class Editor_Planet : Editor_Structure
     {
         this.data.initial_population = Mathf.FloorToInt(this.initPopSlider.value);
         this.initialPopValue.text = this.data.initial_population.ToString();
+        this.initPopDynamic.text = this.initialPopValue.text;
         this.update_identity();
     }
     override public void change_maxPop()

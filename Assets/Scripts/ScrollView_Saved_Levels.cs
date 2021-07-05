@@ -11,7 +11,7 @@ public class ScrollView_Saved_Levels : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        List<string> NameList = Save_File_Manager.getSimpleFileNames();
+        List<string> NameList = Save_File_Manager.getAllSimpleFileNames();
 		int i = 0;
 		foreach(string myStr in NameList)
 		{
@@ -35,7 +35,5 @@ public class ScrollView_Saved_Levels : MonoBehaviour {
 		Debug.Log(str + " button clicked.");
 		PlayerPrefs.SetString(Constants.EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF,str);
         SceneManager.LoadScene("Level_Editor");
-
-
 	}
 }

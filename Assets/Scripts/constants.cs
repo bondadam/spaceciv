@@ -28,13 +28,20 @@ public enum Selected_State
     Full
 }
 
-public enum Object_Type
+public enum Structure_Type
 {
     None,
     Move,
     Planet,
     Turret,
     Spacegun
+}
+
+public enum Background_Color{
+    default_color,
+    blue,
+    aqua,
+    red
 }
 
 public enum Level_Difficulty
@@ -72,7 +79,7 @@ public static class Constants
     public static string USER_LEVEL_DIRECTORY_PATH = Application.persistentDataPath;
     public const string USER_LEVEL_DEFAULT_FILE_PATH = "/levels/saved_level.json";
     public const string EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF = "editor_current_level_name";
-    public const int USER_LEVEL_CODE = 99;
+    public const int USER_LEVEL_CODE = 999;
 
     public static string USER_LEVEL_DEFAULT_COMPLETE_PATH = String.Concat(USER_LEVEL_DIRECTORY_PATH, USER_LEVEL_DEFAULT_FILE_PATH);
 
@@ -85,6 +92,13 @@ public static class Constants
                 {Team.CPU3, greeny},
                 {Team.CPU4, Color.red}
         };
+    
+    public static Dictionary<Background_Color, string> background_colors = new Dictionary<Background_Color, string>(){
+                {Background_Color.aqua, "aqua"},
+                {Background_Color.blue, "blue"},
+                {Background_Color.red, "red"},
+                {Background_Color.default_color, "blue"}
+    };
 
     public static Dictionary<Level_Difficulty, String> level_difficulty_icons = new Dictionary<Level_Difficulty, String>()
         {

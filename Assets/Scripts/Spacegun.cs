@@ -15,6 +15,8 @@ public class Spacegun : Structure
 
     private float firepower = 3f;
     private float radius;
+
+    private GameObject radius_object;
     
     private Level_Manager.Get_Nearest_Planet_Callback get_target;
     
@@ -61,11 +63,25 @@ public class Spacegun : Structure
 
         this.transform.localScale = new Vector3(1, 1, 1);
 
-        GameObject obj = new GameObject("perimeter");
+        this.draw_radius();
+        
+        laser_beam = gameObject.AddComponent<LineRenderer>();
+        laser_beam.material = new Material(Shader.Find("UI/Default"));
+        laser_beam.startColor = Color.red;
+        laser_beam.endColor = Color.red;
+        laser_beam.startWidth = 0.1f;
+        laser_beam.endWidth = 0.1f;
+        laser_beam.positionCount = 2;
+        laser_beam.sortingLayerID = m_SpriteRenderer.sortingLayerID;
+        laser_beam.sortingOrder = m_SpriteRenderer.sortingOrder;
+    }
+
+    public void draw_radius(){
+        this.radius_object = new GameObject("perimeter");
         float theta_scale = 0.01f;
         float sizeValue = (2.0f * Mathf.PI) / theta_scale;
         int number_of_points = (int)Mathf.Floor(sizeValue)+1;
-        lineRenderer = obj.AddComponent<LineRenderer>();
+        lineRenderer = this.radius_object.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("UI/Default"));
         lineRenderer.startColor = Color.gray;
         lineRenderer.endColor = Color.gray;
@@ -82,18 +98,7 @@ public class Spacegun : Structure
             float y = radius * Mathf.Sin(theta) + this.transform.position.y;
             lineRenderer.SetPosition(i, new Vector2(x, y));
         }
-        
-        laser_beam = gameObject.AddComponent<LineRenderer>();
-        laser_beam.material = new Material(Shader.Find("UI/Default"));
-        laser_beam.startColor = Color.red;
-        laser_beam.endColor = Color.red;
-        laser_beam.startWidth = 0.1f;
-        laser_beam.endWidth = 0.1f;
-        laser_beam.positionCount = 2;
-        laser_beam.sortingLayerID = m_SpriteRenderer.sortingLayerID;
-        laser_beam.sortingOrder = m_SpriteRenderer.sortingOrder;
     }
-
     public int take_selected_units()
     {
         int selected_units = (int)Math.Floor(Constants.selected_value[this.state] * this.population);

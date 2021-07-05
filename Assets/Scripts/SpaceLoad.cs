@@ -17,11 +17,11 @@ public class SpaceLoad : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public static void switchColors(string color){
+    public static void switchColors(Background_Color color){
         GameObject[] spaceBackgrounds= GameObject.FindGameObjectsWithTag("SpaceBackground");
         foreach (GameObject go in spaceBackgrounds){
             SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-            sr.sprite = Resources.Load<Sprite>("Backgrounds/" + color);
+            sr.sprite = Resources.Load<Sprite>("Backgrounds/" + Constants.background_colors[color]);
         }
     }
 }

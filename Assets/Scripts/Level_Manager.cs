@@ -101,11 +101,12 @@ public class Level_Manager : MonoBehaviour
         this.time_taken = 0; 
         this.game_over = false;
         String level_json;
-        Debug.Log(Utils.selected_level);
+        String level_indicator_text = String.Empty;
         if (Utils.selected_level == Constants.USER_LEVEL_CODE)
         {
             // User made level
             string level_path = Save_File_Manager.getFullPath(Utils.selected_custom_level);
+            level_indicator_text = Utils.selected_custom_level;
             if(System.IO.File.Exists(level_path))
             {
                 level_json = System.IO.File.ReadAllText(level_path);
@@ -123,9 +124,10 @@ public class Level_Manager : MonoBehaviour
             // Level from game's binaries
             TextAsset myTextAsset = Resources.Load(Constants.level_paths[Utils.selected_level]) as TextAsset;
             level_json = myTextAsset.text;
+            level_indicator_text = Utils.selected_level.ToString();
             
         }
-        this.level_indicator.text = "level " + Utils.selected_level.ToString();
+        this.level_indicator.text = "level " + level_indicator_text;
         Level level = JsonUtility.FromJson<Level>(level_json);
         int structure_counter = 0;
 
@@ -177,9 +179,7 @@ public class Level_Manager : MonoBehaviour
             new_bot.Initialize(this, sb.team, sb.decision_interval);
             this.bots.Add(new_bot);
         }
-        var random = new System.Random();
-        int next_color_index = random.Next(Constants.space_colors.Count);
-        SpaceLoad.switchColors(Constants.space_colors[next_color_index]);
+        SpaceLoad.switchColors((Background_Color)level.color);
     }
 
     // Update is called once per frame

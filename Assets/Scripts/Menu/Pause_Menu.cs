@@ -51,6 +51,10 @@ public class Pause_Menu : MonoBehaviour
 
     public void back(){
         Time.timeScale = 1;
-        SceneManager.LoadScene("Menu_Level");
+        if (Utils.selected_level == Constants.USER_LEVEL_CODE){
+            SceneManager.LoadScene("Menu_Level_Custom");
+        } else {
+            SceneManager.LoadScene("Menu_Level");
+        }
     }
 }

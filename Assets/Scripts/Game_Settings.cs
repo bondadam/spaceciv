@@ -11,8 +11,13 @@ public static class Game_Settings
     // slow, tactical game -> 3f
     
     
+    public static float MIN_TURRET_RADIUS = 1f;
     public static float DEFAULT_TURRET_RADIUS = 2f;
+    public static float MAX_TURRET_RADIUS = 5f;
+
+    public static float MIN_SPACEGUN_RADIUS = 1f;
     public static float DEFAULT_SPACEGUN_RADIUS = 3f;
+    public static float MAX_SPACEGUN_RADIUS = 7f;
 
     // planet pixel size ratio to planet_size variable
 }
