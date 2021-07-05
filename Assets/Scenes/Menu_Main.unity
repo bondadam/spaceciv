@@ -420,7 +420,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 254641967}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: Menu_Main, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
@@ -478,8 +478,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254641966}
-  - component: {fileID: 254641967}
   - component: {fileID: 254641968}
+  - component: {fileID: 254641967}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -876,7 +876,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 254641967}
-        m_TargetAssemblyTypeName: Main_Menu, Assembly-CSharp
+        m_TargetAssemblyTypeName: Menu_Main, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -1009,7 +1009,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 254641967}
-        m_TargetAssemblyTypeName: Main_Menu, Assembly-CSharp
+        m_TargetAssemblyTypeName: Menu_Main, Assembly-CSharp
         m_MethodName: StartEditor
         m_Mode: 1
         m_Arguments:
