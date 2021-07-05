@@ -81,7 +81,6 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                 {
                     // Clicked on a planet
                     Editor_Structure clicked_structure = hit.collider.gameObject.GetComponent<Editor_Structure>();
-                    Debug.Log(clicked_structure.name);
                     // Close all other databoxes before opening this one
                     level_Editor_Manager.close_all_databoxes();
                     clicked_structure.open_databox();

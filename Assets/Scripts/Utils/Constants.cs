@@ -119,6 +119,9 @@ public static class Constants
         };
 
     public static List<(string, Level_Difficulty)> level_paths = new List<(string, Level_Difficulty)>{
+        ("Levels/First_level", Level_Difficulty.Easy),
+        ("Levels/Easy_level_1", Level_Difficulty.Easy),
+        ("Levels/Easy_level_3", Level_Difficulty.Easy),
         ("Levels/level1", Level_Difficulty.Easy),
         ("Levels/level3", Level_Difficulty.Hard),
         ("Levels/level4", Level_Difficulty.Medium),
@@ -126,16 +129,21 @@ public static class Constants
         ("Levels/level6", Level_Difficulty.Medium),
         ("Levels/level7", Level_Difficulty.Medium),
         ("Levels/level8", Level_Difficulty.Medium),
+        ("Levels/Satellites", Level_Difficulty.Medium),
         ("Levels/level2", Level_Difficulty.Hard),
         ("Levels/level9", Level_Difficulty.Hard),
         ("Levels/level10", Level_Difficulty.Medium),
         ("Levels/level11", Level_Difficulty.Hard),
+        ("Levels/Satellite", Level_Difficulty.Hard),
         ("Levels/level12", Level_Difficulty.Medium),
         ("Levels/level13", Level_Difficulty.Hard),
         ("Levels/level14", Level_Difficulty.Hard),
         ("Levels/level15", Level_Difficulty.Impossible),
         ("Levels/level16", Level_Difficulty.Medium),
-        ("Levels/level17", Level_Difficulty.Impossible)
+        ("Levels/level17", Level_Difficulty.Impossible),
+        ("Levels/Prison_planet", Level_Difficulty.Impossible),
+        ("Levels/Mine_field", Level_Difficulty.Impossible),
+        ("Levels/Ancient_defenses", Level_Difficulty.Impossible)
     };
 
     public static Dictionary<int, Level_Difficulty> level_difficulties = new Dictionary<int, Level_Difficulty>(){
