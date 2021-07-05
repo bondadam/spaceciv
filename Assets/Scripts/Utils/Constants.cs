@@ -173,7 +173,7 @@ public static class Constants
         };
 
     public static Dictionary<Selected_State, Color> selected_color = new Dictionary<Selected_State, Color>(){
-        {Selected_State.Unselected, Color.white},
+        {Selected_State.Unselected, team_colors[Team.Player]},
         {Selected_State.Half, Color.gray},
         {Selected_State.Full, Color.black}
         };

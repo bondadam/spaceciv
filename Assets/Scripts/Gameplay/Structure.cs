@@ -95,7 +95,7 @@ public class Structure : MonoBehaviour
 
     }
 
-    public void update_identity()
+    virtual public void update_identity()
     {
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
         this.update_population_display();

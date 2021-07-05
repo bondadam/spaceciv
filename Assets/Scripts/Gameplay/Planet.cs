@@ -88,6 +88,8 @@ public class Planet : Structure
         this.planet_scale = 0.5f + planet_size*0.75f;
         this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
+        this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
+
     }
 
     public int take_selected_units()
