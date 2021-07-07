@@ -7,27 +7,31 @@ public class ExpandingBot : Bot
 {
     // Start is called before the first frame update
     public override void make_Move(Game_State game_State){
-        (List<Planet> my_planets, List<Planet> enemy_planets) planets = this.separate_planets(game_State.planets);
-        planets.my_planets.Shuffle();
-        planets.enemy_planets.Shuffle();
+        (List<Planet> my_planets2, List<Planet> enemy_planets2) planets = this.separate_planets(game_State.planets);
+        List<Structure> turrets = game_State.turrets.ConvertAll(x => (Structure) x);
+        List<Planet> my_planets = planets.my_planets2;
+        List<Structure> enemy_planets = (planets.enemy_planets2.ConvertAll(x => (Structure)x));
+        enemy_planets.AddRange(turrets);
+        my_planets.Shuffle();
+        enemy_planets.Shuffle();
 
         (List<Spaceship> my_spaceships, List<Spaceship> enemy_spaceships) spaceships = this.separate_spaceships(game_State.spaceships);
-        planets.my_planets.Shuffle();
-        planets.enemy_planets.Shuffle();
+        my_planets.Shuffle();
+        enemy_planets.Shuffle();
 
         bool move_chosen = false;
 
         // ExpandingBot will only attack enemy planets if there are no more neutral planets left to conquer
 
-        List<Planet> neutral_planets = (from p in planets.enemy_planets where p.team == Team.Neutral select p).ToList();
+        List<Structure> neutral_planets = (from p in enemy_planets where p.team == Team.Neutral select p).ToList();
 
         if(neutral_planets.Count > 0){
 
-            List<Planet> candidate_planets = (from p in neutral_planets select p).ToList();
+            List<Structure> candidate_planets = (from p in neutral_planets select p).ToList();
 
             // remove neutral planets to which I have already sent a colonizing force
-            List<Planet> planets_to_remove_from_canidates = new List<Planet>();
-            foreach(Planet pl in candidate_planets)
+            List<Structure> planets_to_remove_from_canidates = new List<Structure>();
+            foreach(Structure pl in candidate_planets)
             {
                 //bool can_be_skipped = false; // can be skipped if enough forces are underway
                 int incoming_army = 0;
@@ -45,21 +49,21 @@ public class ExpandingBot : Bot
             }
             candidate_planets = candidate_planets.Except(planets_to_remove_from_canidates).ToList();
             //candidate_planets = candidate_planets.Where(planet => !planet.Equals(pl)).ToList();
-            List<Vector2> enemy_planet_positions = (from p in planets.enemy_planets select p.get_position()).ToList();
-            List<float> enemy_planet_sizes = (from p in planets.enemy_planets select p.get_planet_size()).ToList();
+            List<Vector2> enemy_planet_positions = (from p in enemy_planets select p.get_position()).ToList();
+            List<float> enemy_planet_sizes = (from p in enemy_planets select p.get_planet_size()).ToList();
             Vector2 enemy_center_point = Utils.find_center_of_weighted_points(enemy_planet_positions, enemy_planet_sizes);
             
-            List<Vector2> my_planet_positions = (from p in planets.my_planets select p.get_position()).ToList();
-            List<float> my_planet_sizes = (from p in planets.my_planets select p.get_planet_size()).ToList();
+            List<Vector2> my_planet_positions = (from p in my_planets select p.get_position()).ToList();
+            List<float> my_planet_sizes = (from p in my_planets select p.get_planet_size()).ToList();
             Vector2 my_center_point = Utils.find_center_of_weighted_points(my_planet_positions, my_planet_sizes);
         
             if(candidate_planets.Count > 0 )
             {
                 List<(Planet, float)> my_planet_dists_from_target = new List<(Planet, float)>();
-                Planet target_planet = candidate_planets[0];
+                Structure target_planet = candidate_planets[0];
                 double min_dist =  double.MaxValue; 
 
-                foreach(Planet p in candidate_planets){
+                foreach(Structure p in candidate_planets){
                     float my_x = my_center_point[0];
                     float my_y = my_center_point[1];
                     double score = 0;
@@ -71,7 +75,7 @@ public class ExpandingBot : Bot
                     score += dist;
                     if(dist < min_dist){ min_dist = dist; target_planet = p;}
                 }
-                foreach(Planet my_planet in planets.my_planets)
+                foreach(Planet my_planet in my_planets)
                 {
                     float my_x = my_planet.transform.position.x;
                     float my_y = my_planet.transform.position.y;
@@ -103,7 +107,7 @@ public class ExpandingBot : Bot
                             double population_growth_rate = my_planet.Item1.get_growth_factor()*100;
                             int extra_population = (int) Mathf.Floor(((float) extra_distance/((float) Game_Settings.BASE_SPACESHIP_SPEED) * (float) population_growth_rate));
                             army_count_from_limit_planet += my_planet.Item1.get_population() + extra_population;
-                            if(army_count_from_limit_planet > target_planet.get_population())
+                            if(army_count_from_limit_planet > target_planet.get_population()  && army_count_from_limit_planet-limit_planet.Item1.get_population() <= target_planet.get_population())
                             {
                                 bool already_sent = false;
                                 foreach(Spaceship sp in spaceships.my_spaceships)
@@ -114,7 +118,8 @@ public class ExpandingBot : Bot
                                     }
                                 }
                                 if(!already_sent){
-                                    army_to_send = target_planet.get_population() - (army_count_from_limit_planet-my_planet.Item1.get_population()) + 1;
+                                    army_to_send = target_planet.get_population() - (army_count-my_planet.Item1.get_population()) + 1;
+                                    //army_to_send = my_planet.Item1.get_population();
                                     if (army_to_send<0){ army_to_send=0;}
                                     sending_planet = limit_planet.Item1;
                                     loop_has_ended = true;
@@ -134,8 +139,8 @@ public class ExpandingBot : Bot
             }                 
 
         }else{
-            foreach (Planet p in planets.my_planets){
-                foreach (Planet ep in planets.enemy_planets){
+            foreach (Planet p in my_planets){
+                foreach (Structure ep in enemy_planets){
                     if (!move_chosen && (p.get_population() > ep.get_population() || p.get_population()==99)){
                         move_chosen = true;
                         this.level_Manager.send_spaceship_to_planet_bot(p, ep, p.get_population());

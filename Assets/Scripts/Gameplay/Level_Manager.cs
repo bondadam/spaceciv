@@ -35,7 +35,7 @@ public class Level_Manager : MonoBehaviour
 
     public Game_State get_state_copy()
     {
-        return new Game_State(this.planets, this.spaceships);
+        return new Game_State(this.planets, this.spaceships, this.turrets);
     }
 
 
@@ -69,7 +69,8 @@ public class Level_Manager : MonoBehaviour
 
     public void send_spaceship_to_planet_bot(Planet from_planet, Structure target_planet, int incoming_units)
     {
-        if(incoming_units == 0){ return;}
+        if(incoming_units > from_planet.get_population()){ incoming_units = from_planet.get_population();} 
+        if(incoming_units <= 0){ return;}
         double diffx = from_planet.transform.position.x - target_planet.transform.position.x;
         double diffy = from_planet.transform.position.y - target_planet.transform.position.y;
         double angle = Math.Atan2(diffy, diffx) + Math.PI;
@@ -331,11 +332,14 @@ public class Game_State
 
     public List<Spaceship> spaceships;
     public List<Planet> planets;
+    public List<Turret> turrets;
 
-    public Game_State(List<Planet> planets, List<Spaceship> spaceships)
+    public Game_State(List<Planet> planets, List<Spaceship> spaceships, List<Turret> turrets)
     {
         this.planets = planets;
         this.spaceships = spaceships;
+        this.turrets = turrets;
+
     }
 
 }
