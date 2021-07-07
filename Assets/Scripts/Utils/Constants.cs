@@ -122,6 +122,8 @@ public static class Constants
         ("Levels/First_level", Level_Difficulty.Easy),
         ("Levels/Easy_level_3", Level_Difficulty.Easy),
         ("Levels/Easy_level_1", Level_Difficulty.Easy),
+        ("Levels/Easy_level_5", Level_Difficulty.Easy),
+        ("Levels/Easy_level_6", Level_Difficulty.Easy),
         ("Levels/level1", Level_Difficulty.Easy),
         ("Levels/level4", Level_Difficulty.Medium),
         ("Levels/level5", Level_Difficulty.Medium),
