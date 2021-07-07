@@ -4,7 +4,7 @@
           "team": 1,
           "position_x": -6.0,
           "position_y": 3.2,
-          "initial_population": 0,
+          "initial_population": 10,
           "population_max": 99,
           "planet_size": 2.0
       },
@@ -12,7 +12,7 @@
           "team": 0,
           "position_x": -6.0,
           "position_y": -3.8,
-          "initial_population": 0,
+          "initial_population": 10,
           "population_max": 99,
           "planet_size": 2.0
       },
@@ -20,7 +20,7 @@
           "team": 2,
           "position_x": 5.900000095367432,
           "position_y": 3.2,
-          "initial_population": 0,
+          "initial_population": 10,
           "population_max": 99,
           "planet_size": 2.0
       },
@@ -28,7 +28,7 @@
           "team": 3,
           "position_x": 6.0,
           "position_y": -3.8,
-          "initial_population": 0,
+          "initial_population": 10,
           "population_max": 99,
           "planet_size": 2.0
       },
@@ -79,12 +79,12 @@
       {
           "team": 1,
           "type": 0,
-          "decision_interval": 0.0
+          "decision_interval": 4.0
       },
       {
           "team": 2,
           "type": 0,
-          "decision_interval": 0.0
+          "decision_interval": 4.0
       },
       {
           "team": 3,

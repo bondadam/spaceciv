@@ -1,1 +1,62 @@
-{"difficulty":1,"color":1,"planets":[{"planet_size":1.5,"team":0,"position_x":0.0,"position_y":0.0,"initial_population":25,"population_max":99},{"planet_size":0.5,"team":1,"position_x":4.800000190734863,"position_y":0.800000011920929,"initial_population":15,"population_max":99},{"planet_size":0.5,"team":1,"position_x":3.5,"position_y":0.10000000149011612,"initial_population":15,"population_max":99},{"planet_size":0.5,"team":1,"position_x":5.099999904632568,"position_y":-0.6000000238418579,"initial_population":15,"population_max":99}],"spaceguns":[],"turrets":[{"radius":2.0,"team":1,"position_x":4.5,"position_y":0.0,"initial_population":25,"population_max":99}],"bots":[{"team":1,"type":1,"decision_interval":5.0},{"team":2,"type":1,"decision_interval":5.0}]}
+{
+    "difficulty": 1,
+    "color": 1,
+    "name": "Satellite",
+    "planets": [
+        {
+            "planet_size": 1.5,
+            "team": 0,
+            "position_x": -3.0,
+            "position_y": 0.0,
+            "initial_population": 25,
+            "population_max": 99
+        },
+        {
+            "planet_size": 0.5,
+            "team": 1,
+            "position_x": 1.800000190734863,
+            "position_y": 0.800000011920929,
+            "initial_population": 15,
+            "population_max": 99
+        },
+        {
+            "planet_size": 0.5,
+            "team": 1,
+            "position_x": 0.5,
+            "position_y": 0.10000000149011612,
+            "initial_population": 15,
+            "population_max": 99
+        },
+        {
+            "planet_size": 0.5,
+            "team": 1,
+            "position_x": 2.099999904632568,
+            "position_y": -0.6000000238418579,
+            "initial_population": 15,
+            "population_max": 99
+        }
+    ],
+    "spaceguns": [],
+    "turrets": [
+        {
+            "radius": 2.0,
+            "team": 1,
+            "position_x": 1.5,
+            "position_y": 0.0,
+            "initial_population": 25,
+            "population_max": 99
+        }
+    ],
+    "bots": [
+        {
+            "team": 1,
+            "type": 1,
+            "decision_interval": 5.0
+        },
+        {
+            "team": 2,
+            "type": 1,
+            "decision_interval": 5.0
+        }
+    ]
+}
