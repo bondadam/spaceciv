@@ -29,10 +29,6 @@ public class ExpandingBot : Bot
         List<Structure> neutral_planets = (from p in enemy_planets where p.team == Team.Neutral select p).ToList();
 
         enemy_planets = (from p in enemy_planets where (p.team != this.team && p.team != Team.Neutral) select p).ToList();
-        foreach(Structure s in enemy_planets)
-        {
-            Debug.Log("enemy planet at "+(s.get_position().x).ToString() + ", "+(s.get_position().y).ToString());
-        }
         if(neutral_planets.Count > 0){
 
             List<Structure> candidate_planets = (from p in neutral_planets select p).ToList();
@@ -64,10 +60,6 @@ public class ExpandingBot : Bot
             List<Vector2> my_planet_positions = (from p in my_planets select p.get_position()).ToList();
             List<float> my_planet_sizes = (from p in my_planets select p.get_planet_size()).ToList();
             Vector2 my_center_point = Utils.find_center_of_weighted_points(my_planet_positions, my_planet_sizes);
-            Debug.Log("enemy center is ");
-            Debug.Log(enemy_center_point);
-            Debug.Log("my center is ");
-            Debug.Log(my_center_point);
             //Debug.Log("enemy center is "+(enemy_center_point.x).ToString() + ", "+(enemy_center_point.y).ToString());
             if(candidate_planets.Count > 0 )
             {
