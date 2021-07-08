@@ -57,7 +57,7 @@ public static class Constants
     public static Color bluey = new Color(0.25f, 0.25f, 1.0f);
     public static Color greeny = new Color(0.25f, 1.0f, 0.25f);
 
-    public static float Long_Click_Duration = 1.0f;
+    public static float Long_Click_Duration = 0.45f;
 
     public const float PLANET_BASE_GROWTH = 10;
 

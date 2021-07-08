@@ -35,6 +35,7 @@ public class Input_Manager : MonoBehaviour
                 Vector3 mousePos = Input.mousePosition;
                 if (!Input.GetMouseButton(0))
                 {
+                    holding_time = 0;
                     this.move_dragging = false;
                 }
                 else
@@ -54,6 +55,7 @@ public class Input_Manager : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
                 if (hit.collider == null)
                 {
+                    holding_time = 0;
                     // Just clicked in empty space, start move dragging
                     this.move_dragging = true;
                     Vector3 mousePos = Input.mousePosition;
@@ -62,6 +64,7 @@ public class Input_Manager : MonoBehaviour
                 else
                 {
                     // Clicked on a planet
+                    holding_time = 0;
                     Structure clicked_planet = hit.collider.gameObject.GetComponent<Structure>();
                     if (clicked_planet.team == Team.Player)
                     {
@@ -103,6 +106,8 @@ public class Input_Manager : MonoBehaviour
             }
             else
             {
+                
+                holding_time = 0;
                 holding = false;
             }
         }
