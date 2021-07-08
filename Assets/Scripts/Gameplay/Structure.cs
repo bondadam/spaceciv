@@ -135,10 +135,10 @@ public class Structure : MonoBehaviour
     }
     public float get_planet_size()
     {
-        return (float)0;
+        return (float)1;
     }
     public float get_planet_scale()
     {
-        return (float)0;
+        return (float)1;
     }
 }

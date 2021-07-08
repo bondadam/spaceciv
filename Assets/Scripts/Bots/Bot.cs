@@ -8,7 +8,7 @@ public abstract class Bot : MonoBehaviour
     protected Level_Manager level_Manager;
     private float update_frequency = 5.0f; // 60 times/s = 0.016f
     private float timer = 0.0f;
-    private Team team;
+    public Team team;
 
     private bool alive;
 

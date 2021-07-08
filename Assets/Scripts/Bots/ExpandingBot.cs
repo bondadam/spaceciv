@@ -11,13 +11,16 @@ public class ExpandingBot : Bot
         List<Structure> turrets = game_State.turrets.ConvertAll(x => (Structure) x);
         List<Planet> my_planets = planets.my_planets2;
         List<Structure> enemy_planets = (planets.enemy_planets2.ConvertAll(x => (Structure)x));
-        enemy_planets.AddRange(turrets);
-        my_planets.Shuffle();
-        enemy_planets.Shuffle();
+        //enemy_planets.AddRange(turrets);
+        foreach(Turret turret in turrets)
+        {
+            if(turret.team != this.team)
+            {
+                enemy_planets.Add(turret);
+            }
+        }
 
         (List<Spaceship> my_spaceships, List<Spaceship> enemy_spaceships) spaceships = this.separate_spaceships(game_State.spaceships);
-        my_planets.Shuffle();
-        enemy_planets.Shuffle();
 
         bool move_chosen = false;
 
@@ -25,6 +28,11 @@ public class ExpandingBot : Bot
 
         List<Structure> neutral_planets = (from p in enemy_planets where p.team == Team.Neutral select p).ToList();
 
+        enemy_planets = (from p in enemy_planets where (p.team != this.team && p.team != Team.Neutral) select p).ToList();
+        foreach(Structure s in enemy_planets)
+        {
+            Debug.Log("enemy planet at "+(s.get_position().x).ToString() + ", "+(s.get_position().y).ToString());
+        }
         if(neutral_planets.Count > 0){
 
             List<Structure> candidate_planets = (from p in neutral_planets select p).ToList();
@@ -56,25 +64,32 @@ public class ExpandingBot : Bot
             List<Vector2> my_planet_positions = (from p in my_planets select p.get_position()).ToList();
             List<float> my_planet_sizes = (from p in my_planets select p.get_planet_size()).ToList();
             Vector2 my_center_point = Utils.find_center_of_weighted_points(my_planet_positions, my_planet_sizes);
-        
+            Debug.Log("enemy center is ");
+            Debug.Log(enemy_center_point);
+            Debug.Log("my center is ");
+            Debug.Log(my_center_point);
+            //Debug.Log("enemy center is "+(enemy_center_point.x).ToString() + ", "+(enemy_center_point.y).ToString());
             if(candidate_planets.Count > 0 )
             {
-                List<(Planet, float)> my_planet_dists_from_target = new List<(Planet, float)>();
                 Structure target_planet = candidate_planets[0];
-                double min_dist =  double.MaxValue; 
+                double max_score =  double.MinValue; 
 
                 foreach(Structure p in candidate_planets){
                     float my_x = my_center_point[0];
                     float my_y = my_center_point[1];
                     double score = 0;
-                    double dist = Mathf.Sqrt(Mathf.Pow(my_y - p.transform.position.y,2) + Mathf.Pow(my_x - p.transform.position.x,2)) + p.get_population()/15;
+                    double dist = Mathf.Sqrt(Mathf.Pow(my_y - p.transform.position.y,2) + Mathf.Pow(my_x - p.transform.position.x,2)) /*+ p.get_population()/15*/;
                     score -= dist;
                     float enemy_x = enemy_center_point[0];
                     float enemy_y = enemy_center_point[1];
-                    double dist_from_enemy = Mathf.Sqrt(Mathf.Pow(enemy_y - p.transform.position.y,2) + Mathf.Pow(enemy_x - p.transform.position.x,2)) + p.get_population()/15;
-                    score += dist;
-                    if(dist < min_dist){ min_dist = dist; target_planet = p;}
+                    double dist_from_enemy = Mathf.Sqrt(Mathf.Pow(enemy_y - p.transform.position.y,2) + Mathf.Pow(enemy_x - p.transform.position.x,2));
+                    score += dist_from_enemy;
+                    if(score > max_score){ max_score = score; target_planet = p;}
                 }
+
+
+
+                List<(Planet, float)> my_planet_dists_from_target = new List<(Planet, float)>();
                 foreach(Planet my_planet in my_planets)
                 {
                     float my_x = my_planet.transform.position.x;
