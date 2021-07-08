@@ -60,14 +60,14 @@ public class Input_Manager_Level_Editor : MonoBehaviour
             }
             else if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log(holding);
+                //Debug.Log(holding);
                 // If we clicked this frame
                 RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
                 if (hit.collider == null)
                 {
                     if (holding)
                     {
-                        Debug.Log("Placing planet");
+                        //Debug.Log("Placing planet");
                         level_Editor_Manager.place_selected(mousePos2D);
                         this.holding = false;
                     }

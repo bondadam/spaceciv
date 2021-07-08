@@ -38,7 +38,6 @@ public class Menu_Levels : MonoBehaviour
 			button_object.AddComponent<Level_Button>();
 			button_object.SetActive(true);
 		    Level_Button lb = button_object.GetComponent<Level_Button>();
-            Debug.Log(i);
 			lb.initialize(custom, k, entry.Item2);
 			button_object.transform.SetParent(grid);
             Button button = button_object.GetComponent<Button>();
@@ -48,7 +47,6 @@ public class Menu_Levels : MonoBehaviour
      }
 
     public void level_clicked(int number, bool custom){
-        Debug.Log(number);
         this.start_level(number, "");
     }
 

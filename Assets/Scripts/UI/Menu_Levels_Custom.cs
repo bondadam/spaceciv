@@ -30,7 +30,7 @@ public class Menu_Levels_Custom : MonoBehaviour
      }
 
     public void level_clicked_custom(int level_code, string level_name){
-        Debug.Log("Button clicked");
+        //Debug.Log("Button clicked");
         Utils.selected_level = level_code;
         Utils.selected_custom_level = level_name;
         SceneManager.LoadScene("Level");

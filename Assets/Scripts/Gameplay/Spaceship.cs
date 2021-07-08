@@ -148,7 +148,7 @@ public class Spaceship : MonoBehaviour
     {
         if (other.gameObject.tag == "Planet" || other.gameObject.tag == "Turret" || other.gameObject.tag == "Spacegun")
         {
-            Debug.Log("Fleet touched a " + other.gameObject.tag);
+            //Debug.Log("Fleet touched a " + other.gameObject.tag);
             Structure collided_planet = other.gameObject.GetComponent<Structure>();
             if (collided_planet == this.target)
             {
@@ -180,13 +180,11 @@ public class Spaceship : MonoBehaviour
                         collided_planet.set_team(this.team);
                         collided_planet.update_identity();
                         collided_planet.unselect();
-                        Debug.Log("invasion success");
                     }
                     else
                     {
                         // invasion defeat
                         collided_planet.ungrow(this.population);
-                        Debug.Log("defeat!");
                     }
                 }
                 this.die();
