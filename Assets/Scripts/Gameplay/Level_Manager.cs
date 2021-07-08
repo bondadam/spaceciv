@@ -31,11 +31,12 @@ public class Level_Manager : MonoBehaviour
     public Game_Over_Menu game_Over_Menu;
     public delegate Spaceship Get_Nearest_Spaceship_Callback(Vector2 pos, float radius, Team except_team); 
     public delegate Planet Get_Nearest_Planet_Callback(Vector2 pos, float radius, Team except_team);   
+    public delegate void Lose_Game_Callback(Team team);
 
 
     public Game_State get_state_copy()
     {
-        return new Game_State(this.planets, this.spaceships, this.turrets);
+        return new Game_State(this.planets, this.spaceships, this.turrets, this.spaceguns);
     }
 
 
@@ -136,23 +137,26 @@ public class Level_Manager : MonoBehaviour
         foreach (SerializedSpacegun ssg in level.spaceguns)
         {
             Spacegun spacegun = Instantiate(spacegun_prefab, new Vector3(ssg.position_x, ssg.position_y, 0), Quaternion.identity);
-            Get_Nearest_Planet_Callback callback = new Get_Nearest_Planet_Callback(get_nearest_planet_within_radius);
-            spacegun.Initialize(ssg, "spacegun"+structure_counter.ToString(), callback);
+            Get_Nearest_Planet_Callback get_nearest_planet_callback = new Get_Nearest_Planet_Callback(get_nearest_planet_within_radius);
+            Lose_Game_Callback lose_game_callback = new Lose_Game_Callback(lose_game);
+            spacegun.Initialize(ssg, "spacegun"+structure_counter.ToString(), lose_game_callback, get_nearest_planet_callback);
             this.spaceguns.Add(spacegun.GetComponent<Spacegun>());
             structure_counter += 1;
         }
         foreach (SerializedPlanet sp in level.planets)
         {
             Planet planet = Instantiate(planet_prefab, new Vector3(sp.position_x, sp.position_y, 0), Quaternion.identity);
-            planet.Initialize(sp, "planet"+structure_counter.ToString());
+            Lose_Game_Callback lose_game_callback = new Lose_Game_Callback(lose_game);
+            planet.Initialize(sp, "planet"+structure_counter.ToString(), lose_game_callback);
             this.planets.Add(planet.GetComponent<Planet>());
             structure_counter += 1;
         }
         foreach (SerializedTurret st in level.turrets)
         {
             Turret turret = Instantiate(turret_prefab, new Vector3(st.position_x, st.position_y, 0), Quaternion.identity);
-            Get_Nearest_Spaceship_Callback callback = new Get_Nearest_Spaceship_Callback(get_nearest_spaceship_within_radius);
-            turret.Initialize(st, "turret"+structure_counter.ToString(), callback);
+            Get_Nearest_Spaceship_Callback get_nearest_spaceship_callback = new Get_Nearest_Spaceship_Callback(get_nearest_spaceship_within_radius);
+            Lose_Game_Callback lose_game_callback = new Lose_Game_Callback(lose_game);
+            turret.Initialize(st, "turret"+structure_counter.ToString(), lose_game_callback, get_nearest_spaceship_callback);
             this.turrets.Add(turret.GetComponent<Turret>());
             structure_counter += 1;
         }
@@ -246,6 +250,29 @@ public class Level_Manager : MonoBehaviour
         }
     }
 
+    private void lose_game(Team team)
+    {
+        Game_State game_State = this.get_state_copy();
+        List<Structure> structures = new List<Structure>();
+        structures.AddRange(game_State.planets);
+        structures.AddRange(game_State.turrets);
+        structures.AddRange(game_State.spaceguns);
+
+        foreach(Structure s in structures)
+        {
+            if(s.get_team() == team)
+            {
+                s.set_team(Team.Neutral);
+            }
+        }
+        foreach(Spaceship s in game_State.spaceships)
+        {
+            if(s.get_team() == team)
+            {
+                s.set_team(Team.Neutral);
+            }
+        }
+    }
     public (bool, bool) check_game_over()
     {
         bool game_over = true;
@@ -333,12 +360,14 @@ public class Game_State
     public List<Spaceship> spaceships;
     public List<Planet> planets;
     public List<Turret> turrets;
+    public List<Spacegun> spaceguns;
 
-    public Game_State(List<Planet> planets, List<Spaceship> spaceships, List<Turret> turrets)
+    public Game_State(List<Planet> planets, List<Spaceship> spaceships, List<Turret> turrets, List<Spacegun> spaceguns)
     {
         this.planets = planets;
         this.spaceships = spaceships;
         this.turrets = turrets;
+        this.spaceguns = spaceguns;
 
     }
 

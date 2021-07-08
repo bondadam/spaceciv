@@ -6,7 +6,8 @@ public class SerializedSpacegun {
 
     public SerializedSpacegun()
     {
-        this.radius = Game_Settings.DEFAULT_SPACEGUN_RADIUS;;
+        this.radius = Game_Settings.DEFAULT_SPACEGUN_RADIUS;
+        this.is_protected = false; // by default not protected structure
     }
     public float radius;
     public Team team;
@@ -14,5 +15,6 @@ public class SerializedSpacegun {
     public float position_y;
     public int initial_population;
     public int population_max;
+    public bool is_protected;
 
 }

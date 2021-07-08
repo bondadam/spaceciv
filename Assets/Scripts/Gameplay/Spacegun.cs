@@ -40,15 +40,17 @@ public class Spacegun : Structure
     }
 
 
-    public void Initialize(SerializedSpacegun serializedSpacegun, string name, Level_Manager.Get_Nearest_Planet_Callback get_nearest_planet_callback)
+    public void Initialize(SerializedSpacegun serializedSpacegun, string name, Level_Manager.Lose_Game_Callback lose_game_callback, Level_Manager.Get_Nearest_Planet_Callback get_nearest_planet_callback)
     {
 
         this.name = name;
         this.team = serializedSpacegun.team;
         this.transform.position = new Vector3(serializedSpacegun.position_x, serializedSpacegun.position_y, 0);
         this.initial_population = serializedSpacegun.initial_population;
+        this.is_protected = serializedSpacegun.is_protected;
         this.population_max = serializedSpacegun.population_max;
         this.get_target = get_nearest_planet_callback;
+        this.lose_game = lose_game_callback;
         this.radius = serializedSpacegun.radius;
         this.tag = "Spacegun";
 

@@ -108,6 +108,7 @@ public class Spaceship : MonoBehaviour
     public void update_display()
     {
         this.population_display.text = this.population.ToString();
+        this.m_SpriteRenderer.color = Constants.team_colors[this.team];
     }
 
     public void set_population(int new_pop)
@@ -132,6 +133,11 @@ public class Spaceship : MonoBehaviour
     public Team get_team()
     {
         return this.team;
+    }
+    public void set_team(Team team)
+    {
+        this.team = team;
+        this.update_display();
     }
 
     public Structure get_target()

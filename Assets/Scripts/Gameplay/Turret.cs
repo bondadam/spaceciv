@@ -39,7 +39,7 @@ public class Turret : Structure
     }
 
 
-    public void Initialize(SerializedTurret serializedTurret, string name, Level_Manager.Get_Nearest_Spaceship_Callback get_nearest_spaceship_callback)
+    public void Initialize(SerializedTurret serializedTurret, string name, Level_Manager.Lose_Game_Callback lose_game_callback, Level_Manager.Get_Nearest_Spaceship_Callback get_nearest_spaceship_callback)
     {
 
         this.name = name;
@@ -47,7 +47,9 @@ public class Turret : Structure
         this.transform.position = new Vector3(serializedTurret.position_x, serializedTurret.position_y, 0);
         this.initial_population = serializedTurret.initial_population;
         this.population_max = serializedTurret.population_max;
+        this.is_protected = serializedTurret.is_protected;
         this.get_target = get_nearest_spaceship_callback;
+        this.lose_game = lose_game_callback;
         this.radius = serializedTurret.radius;
         this.tag = "Turret";
 

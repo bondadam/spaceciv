@@ -25,6 +25,9 @@ public class Structure : MonoBehaviour
     public Selected_State state;
 
     public String name;
+
+    public bool is_protected;
+    public Level_Manager.Lose_Game_Callback lose_game;
     
     
    /* public void Initialize(SerializedPlanet serializedPlanet, string name)
@@ -127,7 +130,13 @@ public class Structure : MonoBehaviour
 
     public void set_team(Team team)
     {
+        if(team != this.team && this.is_protected && this.team != Team.Neutral)
+        {
+            this.is_protected = false;
+            lose_game(this.team);
+        }
         this.team = team;
+        update_identity();
     }
     public string get_name()
     {

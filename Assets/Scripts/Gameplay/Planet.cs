@@ -60,7 +60,7 @@ public class Planet : Structure
     {
 
     }
-    public void Initialize(SerializedPlanet serializedPlanet, string name)
+    public void Initialize(SerializedPlanet serializedPlanet, string name, Level_Manager.Lose_Game_Callback lose_game_callback)
     {
         this.name = name;
         this.team = serializedPlanet.team;
@@ -68,7 +68,9 @@ public class Planet : Structure
         this.initial_population = serializedPlanet.initial_population;
         this.population_max = serializedPlanet.population_max;
         this.planet_size = serializedPlanet.planet_size;
-
+        this.is_protected = serializedPlanet.is_protected;
+        this.lose_game = lose_game_callback;
+        Debug.Log("Planet at pos"+(this.transform.position.x).ToString()+", "+(this.transform.position.y).ToString()+", is protected?"+this.is_protected.ToString());
         this.tag = "Planet";
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
