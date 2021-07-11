@@ -2,6 +2,7 @@
     "difficulty": 0,
     "color": 1,
     "record_time": 10,
+    "tutorial": 1,
     "planets": [
         {
             "planet_size": 2.0,

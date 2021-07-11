@@ -22,6 +22,7 @@ public class Level
     public SerializedTurret[] turrets;
     public SerializedBot[] bots;
     public float record_time;
+    public int tutorial;
 
 }
 

@@ -209,7 +209,9 @@ public class Level_Manager : MonoBehaviour
         }
         SpaceLoad.switchColors((Background_Color)level.color);
 
-        //load_tutorial(1);
+        if(level.tutorial>0){
+            load_tutorial(level.tutorial);
+        }
     }
 
     // Update is called once per frame
