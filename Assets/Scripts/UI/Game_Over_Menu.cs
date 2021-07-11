@@ -52,13 +52,27 @@ public class Game_Over_Menu : MonoBehaviour
     }
 
 
-    public void end_game(bool won)
+    public void end_game(bool won, float target_time)
     {
         this.game_over = true;
         game_over_panel.SetActive(true);
         Debug.Log("Time Taken : " + LevelStatsKeeper.get_timer());
         time_taken_field.text = "Time taken: " + Math.Round(LevelStatsKeeper.get_timer(), 2).ToString() + "s";
         if(won){
+            if(Utils.selected_level!=999)
+            {
+                int level_score;
+                if(LevelStatsKeeper.get_timer() <= target_time)
+                {
+                    level_score = 2;
+                }else{
+                    level_score = 1;
+                }
+                string level_path = Constants.level_paths[Utils.selected_level].Item1;
+                Utils.levels_completed[Utils.selected_level] = Math.Max(Utils.levels_completed[Utils.selected_level],level_score);
+                PlayerPrefs.SetInt(level_path, Utils.levels_completed[Utils.selected_level]);
+                PlayerPrefs.Save();
+            }
             show_label(victory.win);
         } else {
             show_label(victory.loss);

@@ -15,6 +15,7 @@ public class Level_Manager : MonoBehaviour
     // see https://blogs.unity3d.com/2015/12/23/1k-update-calls/
 
     private float time_taken;
+    private Level level;
     private List<Spaceship> spaceships;
     private List<Planet> planets;
     private List<Turret> turrets;
@@ -131,7 +132,7 @@ public class Level_Manager : MonoBehaviour
             
         }
         this.level_indicator.text = "level " + level_indicator_text;
-        Level level = JsonUtility.FromJson<Level>(level_json);
+        level = JsonUtility.FromJson<Level>(level_json);
         int structure_counter = 0;
 
         foreach (SerializedSpacegun ssg in level.spaceguns)
@@ -213,7 +214,8 @@ public class Level_Manager : MonoBehaviour
                     {
                         Debug.Log("Game over!");
                         LevelStatsKeeper.set_timer(this.time_taken);
-                        this.game_Over_Menu.end_game(player_alive); // player_alive == true --> we won
+                        float time_goal = level.record_time;
+                        this.game_Over_Menu.end_game(player_alive, time_goal); // player_alive == true --> we won
                     }
                     this.game_over = game_over;
                 }
