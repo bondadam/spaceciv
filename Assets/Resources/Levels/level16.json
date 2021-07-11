@@ -96,7 +96,7 @@
         {
             "team": 1,
             "type": 2,
-            "decision_interval": 3.0
+            "decision_interval": 1.0
         }
     ]
 }
