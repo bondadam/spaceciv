@@ -5353,7 +5353,7 @@ GameObject:
   - component: {fileID: 1679566402}
   - component: {fileID: 1679566401}
   m_Layer: 5
-  m_Name: Dropdown
+  m_Name: BackgroundDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6251,7 +6251,7 @@ GameObject:
   - component: {fileID: 1826479594}
   - component: {fileID: 1826479593}
   m_Layer: 5
-  m_Name: Dropdown
+  m_Name: DifficultyDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6433,6 +6433,8 @@ MonoBehaviour:
     type: 3}
   bots_panel: {fileID: 1791849271}
   bot_config_list: {fileID: 951066794}
+  backgroundColor_dropdown: {fileID: 1679566401}
+  difficulty_dropdown: {fileID: 1826479593}
 --- !u!4 &1945186954
 Transform:
   m_ObjectHideFlags: 0

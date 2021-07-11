@@ -86,12 +86,12 @@ public static class Constants
 
     public static Dictionary<Team, Color> team_colors = new Dictionary<Team, Color>()
         {
-                {Team.Neutral, bluegreen},
-                {Team.Player, Color.white},
-                {Team.CPU1,  bluey},
-                {Team.CPU2,  Color.magenta},
-                {Team.CPU3, greeny},
-                {Team.CPU4, Color.red}
+                {Team.Neutral, new Color(0.607f, 1f, 0.662f)}, //Green
+                {Team.Player, new Color(1, 0.603f, 0f)}, // Orange
+                {Team.CPU1, new Color(1f,1f,1f)}, // Black
+                {Team.CPU2, new Color(0.698f, 0.313f, 0.807f)}, // Pink
+                {Team.CPU3, new Color(0.039f, 0.168f, 0.454f)}, // Blue
+                {Team.CPU4, new Color(0.788f, 0.094f, 0)} // Red
         };
     
     public static Dictionary<Background_Color, string> background_colors = new Dictionary<Background_Color, string>(){
@@ -186,7 +186,7 @@ public static class Constants
         };
 
     public static Dictionary<Selected_State, Color> selected_color = new Dictionary<Selected_State, Color>(){
-        {Selected_State.Unselected, team_colors[Team.Player]},
+        {Selected_State.Unselected, Color.white},
         {Selected_State.Half, Color.gray},
         {Selected_State.Full, Color.black}
         };
