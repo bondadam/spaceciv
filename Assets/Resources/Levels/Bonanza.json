@@ -146,7 +146,7 @@
         {
             "team": 4,
             "type": 2,
-            "decision_interval": 2.5
+            "decision_interval": 1
         }
     ]
 }

@@ -84,7 +84,7 @@
         {
             "team": 1,
             "type": 2,
-            "decision_interval": 5.0
+            "decision_interval": 1.0
         }
     ]
 }
