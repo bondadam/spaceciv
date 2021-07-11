@@ -78,11 +78,14 @@ public class Planet : Structure
         if(this.is_protected)
         {
             GameObject NewObj = new GameObject();
-            Image NewImage = NewObj.AddComponent<Image>();
-            NewImage.sprite = Resources.Load<Sprite>("star"); 
-            NewObj.GetComponent<RectTransform>().SetParent(this.transform);
+            SpriteRenderer NewImage = NewObj.AddComponent<SpriteRenderer>();
+            NewImage.sprite = Resources.Load<Sprite>("star");         
+            NewImage.sortingLayerName = "Spaceshipground";
+            NewObj.transform.SetParent(this.transform);
             NewObj.SetActive(true); 
-            NewObj.transform.localScale = new Vector3((float)300,(float)300,(float)300);
+            NewObj.transform.localScale = new Vector3((float)0.07,(float)0.07,(float)0.07);   
+            NewObj.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);   
+
         }
         this.population = initial_population;
 
