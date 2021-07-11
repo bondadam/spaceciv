@@ -126,7 +126,7 @@ public class Spaceship : MonoBehaviour
     }
 
 
-    public void die(bool dead_from_battle)
+    public void die(bool dead_from_battle = true)
     {
         if(dead_from_battle)
         {
