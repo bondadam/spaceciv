@@ -102,7 +102,7 @@ public class Spaceship : MonoBehaviour
         }
         if (this.population < 1)
         {
-            this.die();
+            this.die(true);
             return false;
         }
         return true;
@@ -126,12 +126,16 @@ public class Spaceship : MonoBehaviour
     }
 
 
-    public void die()
+    public void die(bool dead_from_battle)
     {
-        explosion_callback(this.transform.position);
+        if(dead_from_battle)
+        {
+            explosion_callback(this.transform.position);
+        }
         this.set_population(0);
         this.destroyable = true;
         this.gameObject.SetActive(false);
+       // GameObject.Destroy(this.gameObject);
     }
 
     public Team get_team()
@@ -197,7 +201,7 @@ public class Spaceship : MonoBehaviour
                         collided_planet.ungrow(this.population);
                     }
                 }
-                this.die();
+                this.die(false);
             }
         }
         else if (other.gameObject.tag == "Spaceship")
