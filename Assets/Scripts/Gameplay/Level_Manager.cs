@@ -75,7 +75,8 @@ public class Level_Manager : MonoBehaviour
                     
                     Spaceship spaceship = Instantiate(spaceship_prefab, spaceship_launch_pos, Quaternion.identity);
                     this.spaceship_count ++;
-                    spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString());
+                    Spaceship.Explosion_Animation_Callback explosion_callback = new Spaceship.Explosion_Animation_Callback(create_spaceship_explosion_animation);
+                    spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString(), explosion_callback);
                     this.spaceships.Add(spaceship);
                 }
                 from_planet.unselect();
@@ -94,11 +95,12 @@ public class Level_Manager : MonoBehaviour
         double posx = from_planet.transform.position.x + Math.Cos(angle)*from_planet.get_planet_scale()*0.5;
         double posy = from_planet.transform.position.y + Math.Sin(angle)*from_planet.get_planet_scale()*0.5;
         Vector3 spaceship_launch_pos = new Vector3((float) posx, (float) posy, 0);
-                    
+        
         from_planet.ungrow(incoming_units);
         Spaceship spaceship = Instantiate(spaceship_prefab, spaceship_launch_pos, Quaternion.identity);
         this.spaceship_count ++;
-        spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString());
+        Spaceship.Explosion_Animation_Callback explosion_callback = new Spaceship.Explosion_Animation_Callback(create_spaceship_explosion_animation);
+        spaceship.Initialize(from_planet.get_team(), incoming_units, from_planet, target_planet, spaceship_speed, "spaceship"+this.spaceship_count.ToString(), explosion_callback);
         this.spaceships.Add(spaceship);
     }
 
@@ -270,7 +272,10 @@ public class Level_Manager : MonoBehaviour
             //Debug.Log("Game over!");
         }
     }
+    public void create_spaceship_explosion_animation(Vector2 pos)
+    {
 
+    }
     private void lose_game(Team team)
     {
         Game_State game_State = this.get_state_copy();

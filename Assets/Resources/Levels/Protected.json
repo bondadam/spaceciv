@@ -57,11 +57,11 @@
             "is_protected": false
         },
         {
-            "planet_size": 1.0,
+            "planet_size": 0.5,
             "team": 5,
             "position_x": 4.199999809265137,
             "position_y": 3.5999999046325685,
-            "initial_population": 25,
+            "initial_population": 50,
             "population_max": 99,
             "is_protected": false
         },
@@ -82,7 +82,7 @@
             "team": 1,
             "position_x": -0.10000000149011612,
             "position_y": -2.299999952316284,
-            "initial_population": 75,
+            "initial_population": 99,
             "population_max": 99,
             "is_protected": false
         },
@@ -91,7 +91,7 @@
             "team": 1,
             "position_x": 0.8999999761581421,
             "position_y": -1.0,
-            "initial_population": 75,
+            "initial_population": 99,
             "population_max": 99,
             "is_protected": false
         },
@@ -100,7 +100,7 @@
             "team": 1,
             "position_x": 1.7999999523162842,
             "position_y": 0.10000000149011612,
-            "initial_population": 75,
+            "initial_population": 99,
             "population_max": 99,
             "is_protected": false
         }

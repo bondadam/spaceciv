@@ -75,7 +75,18 @@ public class Planet : Structure
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
         //this.upgrades
+        if(this.is_protected)
+        {
+            GameObject NewObj = new GameObject();
+            SpriteRenderer NewImage = NewObj.AddComponent<SpriteRenderer>();
+            NewImage.sprite = Resources.Load<Sprite>("star");         
+            NewImage.sortingLayerName = "Spaceshipground";
+            NewObj.transform.SetParent(this.transform);
+            NewObj.SetActive(true); 
+            NewObj.transform.localScale = new Vector3((float)0.07,(float)0.07,(float)0.07);   
+            NewObj.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);   
 
+        }
         this.population = initial_population;
 
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];

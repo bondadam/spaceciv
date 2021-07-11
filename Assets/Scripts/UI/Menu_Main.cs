@@ -11,6 +11,7 @@ public class Menu_Main : MonoBehaviour
         {
             foreach ((string, Level_Difficulty) level in Constants.level_paths)
             {
+                //PlayerPrefs.SetInt(level.Item1,1); 
                 int level_completed = PlayerPrefs.GetInt(level.Item1,0);
                 Utils.levels_completed.Add(level_completed);
             }

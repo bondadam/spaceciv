@@ -7,10 +7,16 @@ public class Pause_Menu : MonoBehaviour
 {
     // Start is called before the first frame update
     private GameObject pause_panel;
+    public GameObject next_level_button;
     void Start()
     {
         pause_panel = this.gameObject;
+        if(Utils.levels_completed[Utils.selected_level]==0)
+        {
+            next_level_button.SetActive(false);
+        }
         pause_panel.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -43,6 +49,17 @@ public class Pause_Menu : MonoBehaviour
         //enable the scripts again
     }
 
+    public void play_next_level()
+    {
+        continue_game();
+        if(Utils.selected_level >= Constants.level_paths.Count-1)
+        {
+            return_to_menu();
+        }else{
+            Utils.selected_level = Utils.selected_level + 1;
+            SceneManager.LoadScene("Level");
+        }
+    }
     public void return_to_menu(){
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu_Level");

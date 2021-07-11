@@ -32,15 +32,29 @@ public class Level_Button : MonoBehaviour
         this.number = number;
         this.difficulty = difficulty;
         this.completed = completed; // 0: not completed, 1-3: completed with 1-3 stars
+        GameObject NewObj = new GameObject();
+        Image NewImage = NewObj.AddComponent<Image>();
         switch(completed_score)
         {
-            case 2:
-                GameObject NewObj = new GameObject();
-                Image NewImage = NewObj.AddComponent<Image>();
-                NewImage.sprite = Resources.Load<Sprite>("star"); 
+            case 1:
+                NewImage.sprite = Resources.Load<Sprite>("1star"); 
                 NewObj.GetComponent<RectTransform>().SetParent(this.transform);
                 NewObj.SetActive(true); 
-                NewObj.transform.localScale = new Vector3((float)0.3,(float)0.3,(float)0.3);
+                NewObj.transform.localScale = new Vector3((float)0.7,(float)0.5,(float)1);
+                NewObj.transform.position  = new Vector3((float)0, (float)1, (float)0);
+
+                break;
+            case 2:
+                NewImage.sprite = Resources.Load<Sprite>("2star"); 
+                NewObj.GetComponent<RectTransform>().SetParent(this.transform);
+                NewObj.SetActive(true); 
+                NewObj.transform.localScale = new Vector3((float)0.7,(float)0.5,(float)0.3);
+                break;
+            case 3:
+                NewImage.sprite = Resources.Load<Sprite>("3star"); 
+                NewObj.GetComponent<RectTransform>().SetParent(this.transform);
+                NewObj.SetActive(true); 
+                NewObj.transform.localScale = new Vector3((float)0.7,(float)0.5,(float)0.3);
                 break;
             case -1:
                 //this.image_display.color = Color.gray;

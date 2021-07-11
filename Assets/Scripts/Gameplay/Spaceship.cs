@@ -27,8 +27,10 @@ public class Spaceship : MonoBehaviour
 
     public bool destroyable;
     private string Name;
+    private Explosion_Animation_Callback explosion_callback;
+    public delegate void Explosion_Animation_Callback(Vector2 pos);
 
-    public void Initialize(Team team, int population, Planet origin, Structure target, float speed, string name)
+    public void Initialize(Team team, int population, Planet origin, Structure target, float speed, string name, Explosion_Animation_Callback explosion_callback)
     {
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
@@ -38,6 +40,7 @@ public class Spaceship : MonoBehaviour
         this.destroyable = false;
         this.speed = speed;
         this.Name = name;
+        this.explosion_callback = explosion_callback;
 
         this.battling = new List<Spaceship>();
 
@@ -125,6 +128,7 @@ public class Spaceship : MonoBehaviour
 
     public void die()
     {
+        explosion_callback(this.transform.position);
         this.set_population(0);
         this.destroyable = true;
         this.gameObject.SetActive(false);
@@ -183,9 +187,9 @@ public class Spaceship : MonoBehaviour
                         }
 
                         collided_planet.set_population(this.population - defending_units);
-                        collided_planet.set_team(this.team);
-                        collided_planet.update_identity();
                         collided_planet.unselect();
+                        collided_planet.update_identity();
+                        collided_planet.set_team(this.team);
                     }
                     else
                     {
