@@ -21,7 +21,7 @@ public class Planet : Structure
 
     public float planet_size = 1f;
 
-
+    public Sprite[] team_sprites;
 
     public float growth_factor = 50f;
 
@@ -89,7 +89,7 @@ public class Planet : Structure
         }
         this.population = initial_population;
 
-        this.m_SpriteRenderer.color = Constants.team_colors[this.team];
+        this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
 
         this.level = 0;
         this.max_level = 3;
@@ -166,6 +166,12 @@ public class Planet : Structure
             this.set_growth_factor();
             this.update_upgrades_display();
         }
+    }
+    
+    override public void update_identity()
+    {
+        this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        this.update_population_display();
     }
 
     public void set_growth_factor(){

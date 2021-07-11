@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: -2030308715
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8d93f8b646fad08429a3686590a61bf7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ac0db94ff1d5c041bafd13526beb3c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -297,9 +297,17 @@ MonoBehaviour:
   population_max: 0
   state: 0
   name: 
+  is_protected: 0
   upgrades_display: {fileID: 723273293765119749}
   upgrades_button: {fileID: 5672128772764171472}
   planet_size: 1
+  team_sprites:
+  - {fileID: 21300000, guid: a2b3fb0fe44ab364da763e93ad4cd13e, type: 3}
+  - {fileID: 21300000, guid: e2b7c9828b81e1d4aa3eea5f5590d54c, type: 3}
+  - {fileID: 21300000, guid: adb7a5ce2cf4cd5498356325cf7d01f5, type: 3}
+  - {fileID: 21300000, guid: 7a57645830aa7d04e9e6d9992a863edf, type: 3}
+  - {fileID: 21300000, guid: ecf93b3e3047385488b64af39c472b07, type: 3}
+  - {fileID: 21300000, guid: 33043a7ec49c9184da6ee600ccd8380d, type: 3}
   growth_factor: 5
 --- !u!58 &9059287597222409563
 CircleCollider2D:
