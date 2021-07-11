@@ -7,6 +7,7 @@ public class Level_Manager : MonoBehaviour
 {
     public Planet planet_prefab;
 
+    public GameObject UI;
     public Turret turret_prefab;
     public Spacegun spacegun_prefab;
 
@@ -40,6 +41,13 @@ public class Level_Manager : MonoBehaviour
         return new Game_State(this.planets, this.spaceships, this.turrets, this.spaceguns);
     }
 
+    public void load_tutorial(int tutorial_num){
+        GameObject tutorialPartPrefab = Resources.Load("Tutorial/" + tutorial_num) as GameObject;
+        Time.timeScale = 0;
+        GameObject tutorialPart = Instantiate(tutorialPartPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        tutorialPart.transform.SetParent(this.UI.transform);
+        tutorialPart.transform.localScale = new Vector3(1,1,1);
+    }
 
     public void send_spaceship_to_planet(Structure target_planet)
     {
@@ -190,6 +198,8 @@ public class Level_Manager : MonoBehaviour
             this.bots.Add(new_bot);
         }
         SpaceLoad.switchColors((Background_Color)level.color);
+
+        //load_tutorial(1);
     }
 
     // Update is called once per frame
