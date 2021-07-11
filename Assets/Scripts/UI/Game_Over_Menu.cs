@@ -84,8 +84,13 @@ public class Game_Over_Menu : MonoBehaviour
     }
     public void play_next_level()
     {
-        Utils.selected_level = Utils.selected_level + 1;
-        SceneManager.LoadScene("Level");
+        if(Utils.selected_level >= Constants.level_paths.Count-1)
+        {
+            return_to_menu();
+        }else{
+            Utils.selected_level = Utils.selected_level + 1;
+            SceneManager.LoadScene("Level");
+        }
     }
 
     public void return_to_menu(){
