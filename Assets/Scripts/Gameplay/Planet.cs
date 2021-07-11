@@ -75,7 +75,15 @@ public class Planet : Structure
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
         //this.upgrades
-
+        if(this.is_protected)
+        {
+            GameObject NewObj = new GameObject();
+            Image NewImage = NewObj.AddComponent<Image>();
+            NewImage.sprite = Resources.Load<Sprite>("star"); 
+            NewObj.GetComponent<RectTransform>().SetParent(this.transform);
+            NewObj.SetActive(true); 
+            NewObj.transform.localScale = new Vector3((float)300,(float)300,(float)300);
+        }
         this.population = initial_population;
 
         this.m_SpriteRenderer.color = Constants.team_colors[this.team];
