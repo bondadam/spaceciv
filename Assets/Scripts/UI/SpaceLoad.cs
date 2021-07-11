@@ -7,7 +7,7 @@ public class SpaceLoad : MonoBehaviour
 
     private static SpaceLoad instance = null;
     void Awake()
-    {/*
+    {
         if (instance == null)
         {
             instance = this;
@@ -15,7 +15,7 @@ public class SpaceLoad : MonoBehaviour
             return;
         }
         Destroy(this.gameObject);
-        */
+        
     }
 
     public static void switchColors(Background_Color color){
