@@ -666,7 +666,7 @@ RectTransform:
   m_Children:
   - {fileID: 1151467439}
   m_Father: {fileID: 1792495998}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -2257,8 +2257,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1995258276}
+  m_Children: []
   m_Father: {fileID: 1792495998}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3208,6 +3207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planet_prefab: {fileID: 754710665129022988, guid: 42ea0aa567966d64faa050f707aa594e,
     type: 3}
+  explosion_prefab: {fileID: 1048019570627316359, guid: 28e0595e34e70884ca2d9a1ea0997bde,
+    type: 3}
   UI: {fileID: 1792495994}
   turret_prefab: {fileID: -226036876853196607, guid: 9580c48bd40c3224a930a1ab02a69cf0,
     type: 3}
@@ -3493,10 +3494,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 169237216}
+  - {fileID: 1079170866}
   - {fileID: 493734464}
   - {fileID: 832859146}
   - {fileID: 268846813}
+  - {fileID: 169237216}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

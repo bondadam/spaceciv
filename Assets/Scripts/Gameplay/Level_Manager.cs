@@ -43,7 +43,9 @@ public class Level_Manager : MonoBehaviour
     }
 
     public void create_spaceship_explosion_animation(Vector2 pos){
-
+        GameObject explosion = Instantiate(this.explosion_prefab, new Vector3(pos.x, pos.y, 0), Quaternion.identity) as GameObject;
+        explosion.transform.SetParent(this.UI.transform);
+        explosion.transform.localScale = new Vector3(1,1,1);
     }
 
 
@@ -271,10 +273,6 @@ public class Level_Manager : MonoBehaviour
         {
             //Debug.Log("Game over!");
         }
-    }
-    public void create_spaceship_explosion_animation(Vector2 pos)
-    {
-
     }
     private void lose_game(Team team)
     {
