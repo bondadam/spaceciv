@@ -64,7 +64,7 @@ public class Game_Over_Menu : MonoBehaviour
                 int level_score;
                 if(LevelStatsKeeper.get_timer() <= target_time)
                 {
-                    level_score = 2;
+                    level_score = 3;
                 }else{
                     level_score = 1;
                 }
