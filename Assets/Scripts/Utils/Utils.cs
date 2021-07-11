@@ -9,6 +9,7 @@ public static class Utils
 
     public static int selected_level = 2;
     public static string selected_custom_level = "";
+    public static List<int> levels_completed = new List<int>();
     public static System.Random _R = new System.Random();
 
     public static Vector3 getMousePosition(){

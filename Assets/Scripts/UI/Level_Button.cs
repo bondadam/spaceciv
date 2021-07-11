@@ -27,20 +27,29 @@ public class Level_Button : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void initialize(bool custom, int number, Level_Difficulty difficulty, bool completed){
+    public void initialize(bool custom, int number, Level_Difficulty difficulty, int completed_score){
         this.custom = custom;
         this.number = number;
         this.difficulty = difficulty;
-        this.completed = completed;
-        if(completed)
+        this.completed = completed; // 0: not completed, 1-3: completed with 1-3 stars
+        switch(completed_score)
         {
-            GameObject NewObj = new GameObject();
-            Image NewImage = NewObj.AddComponent<Image>();
-            NewImage.sprite = Resources.Load<Sprite>("star"); 
-            NewObj.GetComponent<RectTransform>().SetParent(this.transform);
-            NewObj.SetActive(true); 
-            NewObj.transform.localScale = new Vector3((float)0.3,(float)0.3,(float)0.3);
+            case 2:
+                GameObject NewObj = new GameObject();
+                Image NewImage = NewObj.AddComponent<Image>();
+                NewImage.sprite = Resources.Load<Sprite>("star"); 
+                NewObj.GetComponent<RectTransform>().SetParent(this.transform);
+                NewObj.SetActive(true); 
+                NewObj.transform.localScale = new Vector3((float)0.3,(float)0.3,(float)0.3);
+                break;
+            case -1:
+                //this.image_display.color = Color.gray;
+                this.gameObject.GetComponent<Button>().interactable = false;
+                break;
+
+
         }
+        
         this.update_display();
     }
 
