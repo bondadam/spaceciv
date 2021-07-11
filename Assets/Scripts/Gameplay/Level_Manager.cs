@@ -6,6 +6,7 @@ using TMPro;
 public class Level_Manager : MonoBehaviour
 {
     public Planet planet_prefab;
+    public GameObject explosion_prefab;
 
     public GameObject UI;
     public Turret turret_prefab;
@@ -40,6 +41,11 @@ public class Level_Manager : MonoBehaviour
     {
         return new Game_State(this.planets, this.spaceships, this.turrets, this.spaceguns);
     }
+
+    public void create_spaceship_explosion_animation(Vector2 pos){
+
+    }
+
 
     public void load_tutorial(int tutorial_num){
         GameObject tutorialPartPrefab = Resources.Load("Tutorial/" + tutorial_num) as GameObject;
