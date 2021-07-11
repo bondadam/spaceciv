@@ -178,6 +178,9 @@ public class Level_Manager : MonoBehaviour
                 case Bot_Type.ExpandingBot:
                     new_bot = gameObject.AddComponent<ExpandingBot>() as ExpandingBot;
                     break;
+                case Bot_Type.JuggernautBot:
+                    new_bot = gameObject.AddComponent<JuggernautBot>() as JuggernautBot;
+                    break;
                 default:
                     new_bot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
                     break;

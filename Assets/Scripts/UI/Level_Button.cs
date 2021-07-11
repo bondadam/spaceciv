@@ -12,9 +12,11 @@ public class Level_Button : MonoBehaviour
 	public Text text_display;
     public Image image_display;
 	public Menu_Levels menu_levels;
+    private bool completed;
 
     public void Start(){
         this.transform.localScale = Vector3.one;
+        
     }
     public void show(){
         this.gameObject.SetActive(true);
@@ -25,10 +27,20 @@ public class Level_Button : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void initialize(bool custom, int number, Level_Difficulty difficulty){
+    public void initialize(bool custom, int number, Level_Difficulty difficulty, bool completed){
         this.custom = custom;
         this.number = number;
         this.difficulty = difficulty;
+        this.completed = completed;
+        if(completed)
+        {
+            GameObject NewObj = new GameObject();
+            Image NewImage = NewObj.AddComponent<Image>();
+            NewImage.sprite = Resources.Load<Sprite>("star"); 
+            NewObj.GetComponent<RectTransform>().SetParent(this.transform);
+            NewObj.SetActive(true); 
+            NewObj.transform.localScale = new Vector3((float)0.3,(float)0.3,(float)0.3);
+        }
         this.update_display();
     }
 

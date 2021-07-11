@@ -10,7 +10,8 @@ public class Input_Manager_Level_Editor : MonoBehaviour
     public Level_Editor_Manager level_Editor_Manager;
     private Vector2 old_mouse_position;
     private bool holding;
-    private bool moving_planet;
+    //private bool moving_planet;
+    private float holding_time;
     public Camera camera;
     
     public Text xpos;
@@ -20,7 +21,8 @@ public class Input_Manager_Level_Editor : MonoBehaviour
     {
         move_dragging = false;
         holding = false;
-        moving_planet = false;
+        holding_time = 0;
+        //moving_planet = false;
         old_mouse_position = new Vector2();
     }
 

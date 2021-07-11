@@ -1,0 +1,115 @@
+{
+    "difficulty": 2,
+    "color": 2,
+    "planets": [
+        {
+            "planet_size": 1.0,
+            "team": 1,
+            "position_x": 4.400000095367432,
+            "position_y": -0.8999999761581421,
+            "initial_population": 30,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 1.0,
+            "team": 1,
+            "position_x": 3.4000000953674318,
+            "position_y": -2.0,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 1.0,
+            "team": 0,
+            "position_x": -3.9000000953674318,
+            "position_y": 0.4000000059604645,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": true
+        },
+        {
+            "planet_size": 1.0,
+            "team": 5,
+            "position_x": -7.0,
+            "position_y": -0.699999988079071,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 1.0,
+            "team": 5,
+            "position_x": -6.199999809265137,
+            "position_y": 1.600000023841858,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 1.0,
+            "team": 5,
+            "position_x": -4.400000095367432,
+            "position_y": 3.0999999046325685,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 1.0,
+            "team": 5,
+            "position_x": 4.199999809265137,
+            "position_y": 3.5999999046325685,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 1.0,
+            "team": 1,
+            "position_x": 2.799999952316284,
+            "position_y": -3.200000047683716,
+            "initial_population": 0,
+            "population_max": 99,
+            "is_protected": false
+        }
+    ],
+    "spaceguns": [],
+    "turrets": [
+        {
+            "radius": 2.0,
+            "team": 1,
+            "position_x": -0.10000000149011612,
+            "position_y": -2.299999952316284,
+            "initial_population": 75,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "radius": 2.0,
+            "team": 1,
+            "position_x": 0.8999999761581421,
+            "position_y": -1.0,
+            "initial_population": 75,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "radius": 2.0,
+            "team": 1,
+            "position_x": 1.7999999523162842,
+            "position_y": 0.10000000149011612,
+            "initial_population": 75,
+            "population_max": 99,
+            "is_protected": false
+        }
+    ],
+    "bots": [
+        {
+            "team": 1,
+            "type": 3,
+            "decision_interval": 10.0
+        }
+    ]
+}

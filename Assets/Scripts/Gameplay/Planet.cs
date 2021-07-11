@@ -70,7 +70,6 @@ public class Planet : Structure
         this.planet_size = serializedPlanet.planet_size;
         this.is_protected = serializedPlanet.is_protected;
         this.lose_game = lose_game_callback;
-        Debug.Log("Planet at pos"+(this.transform.position.x).ToString()+", "+(this.transform.position.y).ToString()+", is protected?"+this.is_protected.ToString());
         this.tag = "Planet";
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();

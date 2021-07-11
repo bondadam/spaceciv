@@ -18,7 +18,8 @@ public enum Bot_Type
     BlitzBot,
     DefensiveBot,
     ExpandingBot,
-    HumanBot
+    JuggernautBot,
+    ExpandingJuggernautBot
 }
 
 public enum Selected_State
@@ -145,7 +146,9 @@ public static class Constants
         ("Levels/Run_around", Level_Difficulty.Impossible),
         ("Levels/Prison_planet", Level_Difficulty.Impossible),
         ("Levels/Mine_field", Level_Difficulty.Impossible),
-        ("Levels/Ancient_defenses", Level_Difficulty.Impossible)
+        ("Levels/Ancient_defenses", Level_Difficulty.Impossible),
+        ("Levels/Protected", Level_Difficulty.Impossible),
+        ("Levels/Hanging_by_a_thread", Level_Difficulty.Impossible)
     };
 
     public static Dictionary<int, Level_Difficulty> level_difficulties = new Dictionary<int, Level_Difficulty>(){
