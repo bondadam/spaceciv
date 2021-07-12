@@ -31,11 +31,10 @@ public class Input_Manager : MonoBehaviour
 
             if (this.move_dragging)
             {
-                //Debug.Log(mousePos2D);
+                Debug.Log(mousePos2D);
                 Vector3 mousePos = Input.mousePosition;
                 if (!Input.GetMouseButton(0))
                 {
-                    holding_time = 0;
                     this.move_dragging = false;
                 }
                 else
@@ -43,7 +42,8 @@ public class Input_Manager : MonoBehaviour
                     // move camera along dragging axis
                     Vector3 diff_position = new Vector3(mousePos.x - old_mouse_position.x, mousePos.y - old_mouse_position.y, 0);
                     Vector3 new_camera_position = new Vector3(this.camera.transform.position.x - diff_position.x * 0.0125f, this.camera.transform.position.y - diff_position.y * 0.0125f, this.camera.transform.position.z);
-                    if (new_camera_position.x > -15 && new_camera_position.x < 15 && new_camera_position.y < 10 && new_camera_position.y > -10){
+                    if (new_camera_position.x > -15 && new_camera_position.x < 15 && new_camera_position.y < 10 && new_camera_position.y > -10)
+                    {
                         this.camera.transform.position = new_camera_position;
                     }
                 }
@@ -55,7 +55,6 @@ public class Input_Manager : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
                 if (hit.collider == null)
                 {
-                    holding_time = 0;
                     // Just clicked in empty space, start move dragging
                     this.move_dragging = true;
                     Vector3 mousePos = Input.mousePosition;
@@ -64,7 +63,6 @@ public class Input_Manager : MonoBehaviour
                 else
                 {
                     // Clicked on a planet
-                    holding_time = 0;
                     Structure clicked_planet = hit.collider.gameObject.GetComponent<Structure>();
                     if (clicked_planet.team == Team.Player)
                     {
@@ -84,19 +82,23 @@ public class Input_Manager : MonoBehaviour
                 if (hit.collider != null)
                 {
                     Structure clicked_planet = hit.collider.gameObject.GetComponent<Structure>();
-                    if (clicked_planet.team == Team.Player)
+                    if (clicked_planet != null)
                     {
-                        holding_time += Time.deltaTime;
-                        if (holding_time >= Constants.Long_Click_Duration){
-                            holding_time = 0;
-                            holding = false;
-                            this.level_manager.send_spaceship_to_planet(clicked_planet);
-                            clicked_planet.unselect();
+                        if (clicked_planet.team == Team.Player)
+                        {
+                            holding_time += Time.deltaTime;
+                            if (holding_time >= Constants.Long_Click_Duration)
+                            {
+                                holding_time = 0;
+                                holding = false;
+                                this.level_manager.send_spaceship_to_planet(clicked_planet);
+                                clicked_planet.unselect();
+                            }
                         }
-                    }
-                    else
-                    {
-                        holding = false;
+                        else
+                        {
+                            holding = false;
+                        }
                     }
                 }
                 else
@@ -106,8 +108,6 @@ public class Input_Manager : MonoBehaviour
             }
             else
             {
-                
-                holding_time = 0;
                 holding = false;
             }
         }
