@@ -164,6 +164,17 @@ public class Spaceship : MonoBehaviour
         {
             //Debug.Log("Fleet touched a " + other.gameObject.tag);
             Structure collided_planet = other.gameObject.GetComponent<Structure>();
+            switch (collided_planet.get_structure_type()){
+                case Structure_Type.Planet:
+                    collided_planet = (Planet) collided_planet;
+                    break;
+                case Structure_Type.Turret:
+                    collided_planet = (Turret) collided_planet;
+                    break;
+                case Structure_Type.Spacegun:
+                    collided_planet = (Spacegun) collided_planet;
+                    break;
+            }
             if (collided_planet == this.target)
             {
                 this.moving = false;
@@ -191,9 +202,7 @@ public class Spaceship : MonoBehaviour
                         }
 
                         collided_planet.set_population(this.population - defending_units);
-                        collided_planet.unselect();
-                        collided_planet.update_identity();
-                        collided_planet.set_team(this.team);
+                        collided_planet.change_team(this.team);
                     }
                     else
                     {

@@ -33,4 +33,8 @@ public class Menu_Main : MonoBehaviour
         Application.Quit();
     }
 
+    public void ToggleMusic(){
+        GameObject.FindWithTag("Music").GetComponent<Soundtrack>().toggle_music();
+    }
+
 }

@@ -53,6 +53,7 @@ public class Spacegun : Structure
         this.lose_game = lose_game_callback;
         this.radius = serializedSpacegun.radius;
         this.tag = "Spacegun";
+        this.structure_type = Structure_Type.Spacegun;
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
 
