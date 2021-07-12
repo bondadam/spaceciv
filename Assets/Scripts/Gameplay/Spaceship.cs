@@ -205,6 +205,7 @@ public class Spaceship : MonoBehaviour
 
                         collided_planet.set_population(this.population - defending_units);
                         collided_planet.change_team(this.team);
+                        this.die(false);
                     }
                     else
                     {
