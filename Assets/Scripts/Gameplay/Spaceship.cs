@@ -166,11 +166,13 @@ public class Spaceship : MonoBehaviour
             Structure collided_planet = other.gameObject.GetComponent<Structure>();
             if (collided_planet == this.target)
             {
+                Debug.Log("I touched my target");
                 this.moving = false;
                 if (collided_planet.get_team() == this.team)
                 {
                     // Transfer of units between planets
                     collided_planet.grow(this.population);
+                    this.die(false);
                 }
                 else
                 {
@@ -194,14 +196,15 @@ public class Spaceship : MonoBehaviour
                         collided_planet.unselect();
                         collided_planet.update_identity();
                         collided_planet.set_team(this.team);
+                        this.die(false);
                     }
                     else
                     {
                         // invasion defeat
                         collided_planet.ungrow(this.population);
+                        this.die(false);
                     }
                 }
-                this.die(false);
             }
         }
         else if (other.gameObject.tag == "Spaceship")

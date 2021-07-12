@@ -9,7 +9,6 @@ public class BlitzBot : Bot
         bool move_chosen = false;
         planets.my_planets.Shuffle();
         planets.enemy_planets.Shuffle();
-        Debug.Log("Hello i am blitzbot");
         foreach (Planet p in planets.my_planets){
             foreach (Planet ep in planets.enemy_planets){
                 if (!move_chosen && (p.get_population() > ep.get_population() || p.get_population()>=p.population_max)){
