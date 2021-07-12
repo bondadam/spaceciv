@@ -52,6 +52,7 @@ public class Turret : Structure
         this.lose_game = lose_game_callback;
         this.radius = serializedTurret.radius;
         this.tag = "Turret";
+        this.structure_type = Structure_Type.Turret;
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         //this.upgrades

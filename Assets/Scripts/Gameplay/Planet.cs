@@ -7,6 +7,7 @@ using System;
 
 public class Planet : Structure
 {
+    private AudioSource audioSource;
     private int level;
 
     private int max_level;
@@ -26,25 +27,6 @@ public class Planet : Structure
     public float growth_factor = 50f;
 
     private float growth_queue = 0.0f;
-    
-
-    new public void select()
-    {
-        if (this.team == Team.Player)
-        {
-            this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
-            this.m_SpriteRenderer.color = Constants.selected_color[this.state];
-        }
-    }
-
-    new public void unselect()
-    {
-        if (this.team == Team.Player)
-        {
-            this.state = Selected_State.Unselected;
-            this.m_SpriteRenderer.color = Constants.selected_color[this.state];
-        }
-    }
 
     private void update_population_display()
     {
@@ -71,25 +53,27 @@ public class Planet : Structure
         this.is_protected = serializedPlanet.is_protected;
         this.lose_game = lose_game_callback;
         this.tag = "Planet";
+        this.structure_type = Structure_Type.Planet;
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
         //this.upgrades
-        if(this.is_protected)
+        if (this.is_protected)
         {
             GameObject NewObj = new GameObject();
             SpriteRenderer NewImage = NewObj.AddComponent<SpriteRenderer>();
-            NewImage.sprite = Resources.Load<Sprite>("star");         
+            NewImage.sprite = Resources.Load<Sprite>("star");
             NewImage.sortingLayerName = "Spaceshipground";
             NewObj.transform.SetParent(this.transform);
-            NewObj.SetActive(true); 
-            NewObj.transform.localScale = new Vector3((float)0.07,(float)0.07,(float)0.07);   
-            NewObj.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);   
+            NewObj.SetActive(true);
+            NewObj.transform.localScale = new Vector3((float)0.07, (float)0.07, (float)0.07);
+            NewObj.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
 
         }
         this.population = initial_population;
 
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        this.audioSource = this.GetComponent<AudioSource>();
 
         this.level = 0;
         this.max_level = 3;
@@ -97,11 +81,35 @@ public class Planet : Structure
         this.upgrades_button.gameObject.SetActive(this.can_upgrade());
         this.set_growth_factor();
         this.update_upgrades_display();
-        this.planet_scale = 0.5f + planet_size*0.75f;
+        this.planet_scale = 0.5f + planet_size * 0.75f;
         this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
         this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
 
+    }
+
+    override public void select()
+    {
+        if (this.team == Team.Player)
+        {
+            this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
+            if (this.state == Selected_State.Unselected)
+            {
+                this.m_SpriteRenderer.color = Color.white;
+            }
+            else
+            {
+                this.m_SpriteRenderer.color = Constants.selected_color[this.state];
+            }
+        }
+    }
+    override public void unselect()
+    {
+        if (this.team == Team.Player)
+        {
+            this.state = Selected_State.Unselected;
+            this.m_SpriteRenderer.color = Color.white;
+        }
     }
 
     public int take_selected_units()
@@ -135,7 +143,7 @@ public class Planet : Structure
     public bool can_upgrade()
     {
         return false;
-        if (this.get_team().Equals(Team.Neutral)){ return false;}
+        if (this.get_team().Equals(Team.Neutral)) { return false; }
         return this.population == this.population_max && this.level < this.max_level;
     }
 
@@ -167,15 +175,27 @@ public class Planet : Structure
             this.update_upgrades_display();
         }
     }
-    
+
     override public void update_identity()
     {
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
         this.update_population_display();
     }
 
-    public void set_growth_factor(){
-        this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level+1) / 100;
+    override public void change_team(Team new_team)
+    {
+        this.unselect();
+        this.set_team(new_team);
+        this.update_identity();
+        if (new_team == Team.Player)
+        {
+            this.audioSource.Play();
+        }
+    }
+
+    public void set_growth_factor()
+    {
+        this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level + 1) / 100;
     }
     public float get_growth_factor()
     {

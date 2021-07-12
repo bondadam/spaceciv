@@ -9,6 +9,7 @@ TagManager:
   - Turret
   - Spacegun
   - SpaceBackground
+  - Music
   layers:
   - Default
   - TransparentFX

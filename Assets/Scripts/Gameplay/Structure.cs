@@ -7,6 +7,7 @@ using System;
 
 public class Structure : MonoBehaviour
 {
+    protected Structure_Type structure_type;
     public Team team;
 
     public const int min_selected = 1;
@@ -28,21 +29,21 @@ public class Structure : MonoBehaviour
 
     public bool is_protected;
     public Level_Manager.Lose_Game_Callback lose_game;
-    
-    
-   /* public void Initialize(SerializedPlanet serializedPlanet, string name)
-    {
-        this.name = name;
-        this.team = serializedPlanet.team;
-        this.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
-        this.initial_population = serializedPlanet.initial_population;
-        this.population_max = serializedPlanet.population_max;
-
-        this.population = initial_population;
 
 
-    }
-*/
+    /* public void Initialize(SerializedPlanet serializedPlanet, string name)
+     {
+         this.name = name;
+         this.team = serializedPlanet.team;
+         this.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
+         this.initial_population = serializedPlanet.initial_population;
+         this.population_max = serializedPlanet.population_max;
+
+         this.population = initial_population;
+
+
+     }
+ */
 
     public void grow(int num_pop)
     {
@@ -51,6 +52,10 @@ public class Structure : MonoBehaviour
             this.population = Math.Min(this.population_max, this.population + num_pop);
         }
     }
+
+    public Structure_Type get_structure_type(){
+        return this.structure_type;
+    }
     public int ungrow(int num_pop)
     {
         int num_sent = 0; // people we end up sending from this planet
@@ -58,18 +63,18 @@ public class Structure : MonoBehaviour
         {
             // If this planet has enough people on it
             num_sent = num_pop;
-            this.set_population(this.population-num_sent);
+            this.set_population(this.population - num_sent);
         }
         else
         {
             // Otherwise, send everyone while accounting for minimum pop
             num_sent = this.population - Planet.population_min;
-            this.set_population(this.population-num_sent);
+            this.set_population(this.population - num_sent);
         }
         return num_sent;
     }
 
-    public void select()
+    virtual public void select()
     {
         if (this.team == Team.Player)
         {
@@ -78,7 +83,7 @@ public class Structure : MonoBehaviour
         }
     }
 
-    public void unselect()
+    virtual public void unselect()
     {
         if (this.team == Team.Player)
         {
@@ -104,6 +109,12 @@ public class Structure : MonoBehaviour
         this.update_population_display();
     }
 
+    virtual public void change_team(Team new_team)
+    {
+        this.unselect();
+        this.set_team(new_team);
+        this.update_identity();
+    }
 
 
 
@@ -130,7 +141,7 @@ public class Structure : MonoBehaviour
 
     public void set_team(Team team)
     {
-        if(team != this.team && this.is_protected && this.team != Team.Neutral)
+        if (team != this.team && this.is_protected && this.team != Team.Neutral)
         {
             this.is_protected = false;
             lose_game(this.team);
