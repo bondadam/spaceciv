@@ -54,6 +54,7 @@ public class Spacegun : Structure
         this.radius = serializedSpacegun.radius;
         this.tag = "Spacegun";
         this.structure_type = Structure_Type.Spacegun;
+        this.selectable = false;
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
 
@@ -83,7 +84,7 @@ public class Spacegun : Structure
         float sizeValue = (2.0f * Mathf.PI) / theta_scale;
         int number_of_points = (int)Mathf.Floor(sizeValue)+1;
         lineRenderer = this.radius_object.AddComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("UI/Default"));
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         lineRenderer.startColor = Color.gray;
         lineRenderer.endColor = Color.gray;
         lineRenderer.startWidth = 0.02f;

@@ -31,7 +31,6 @@ public class Input_Manager : MonoBehaviour
 
             if (this.move_dragging)
             {
-                Debug.Log(mousePos2D);
                 Vector3 mousePos = Input.mousePosition;
                 if (!Input.GetMouseButton(0))
                 {
