@@ -84,7 +84,7 @@ public class Turret : Structure
         float sizeValue = (2.0f * Mathf.PI) / theta_scale;
         int number_of_points = (int)Mathf.Floor(sizeValue)+1;
         lineRenderer = this.radius_object.AddComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("UI/Default"));
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         lineRenderer.startColor = Color.gray;
         lineRenderer.endColor = Color.gray;
         lineRenderer.startWidth = 0.02f;
