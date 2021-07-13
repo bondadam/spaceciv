@@ -1,0 +1,150 @@
+{
+    "difficulty": 3,
+    "color": 3,
+    "planets": [
+        {
+            "planet_size": 0.5,
+            "team": 0,
+            "position_x": -9.600000381469727,
+            "position_y": 2.799999952316284,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": true
+        },
+        {
+            "planet_size": 1.0,
+            "team": 1,
+            "position_x": -3.299999952316284,
+            "position_y": 2.9000000953674318,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 0.5,
+            "team": 3,
+            "position_x": 3.5999999046325685,
+            "position_y": 2.0999999046325685,
+            "initial_population": 0,
+            "population_max": 99,
+            "is_protected": true
+        },
+        {
+            "planet_size": 1.0,
+            "team": 1,
+            "position_x": 9.100000381469727,
+            "position_y": 0.0,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 1.0,
+            "team": 0,
+            "position_x": 2.5,
+            "position_y": -0.6000000238418579,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 0.5,
+            "team": 5,
+            "position_x": -0.30000001192092898,
+            "position_y": -2.0,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 0.5,
+            "team": 5,
+            "position_x": 2.5999999046325685,
+            "position_y": -2.0999999046325685,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 0.5,
+            "team": 5,
+            "position_x": 4.900000095367432,
+            "position_y": -2.0999999046325685,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "planet_size": 0.5,
+            "team": 5,
+            "position_x": 7.900000095367432,
+            "position_y": 3.9000000953674318,
+            "initial_population": 15,
+            "population_max": 99,
+            "is_protected": false
+        }
+    ],
+    "spaceguns": [
+        {
+            "radius": 3.0,
+            "team": 3,
+            "position_x": 3.5999999046325685,
+            "position_y": 3.4000000953674318,
+            "initial_population": 10,
+            "population_max": 99,
+            "is_protected": false
+        }
+    ],
+    "turrets": [
+        {
+            "radius": 2.0,
+            "team": 3,
+            "position_x": -6.599999904632568,
+            "position_y": 3.5999999046325685,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "radius": 2.0,
+            "team": 3,
+            "position_x": -6.599999904632568,
+            "position_y": 2.0999999046325685,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "radius": 2.0,
+            "team": 3,
+            "position_x": -6.599999904632568,
+            "position_y": 0.800000011920929,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "radius": 2.0,
+            "team": 3,
+            "position_x": -6.599999904632568,
+            "position_y": -0.6000000238418579,
+            "initial_population": 25,
+            "population_max": 99,
+            "is_protected": false
+        }
+    ],
+    "bots": [
+        {
+            "team": 1,
+            "type": 7,
+            "decision_interval": 6.0
+        },
+        {
+            "team": 3,
+            "type": 5,
+            "decision_interval": 30.0
+        }
+    ],
+    "record_time": 0.0,
+    "tutorial": 0
+}

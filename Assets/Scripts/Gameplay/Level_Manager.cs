@@ -200,6 +200,15 @@ public class Level_Manager : MonoBehaviour
                 case Bot_Type.JuggernautBot:
                     new_bot = gameObject.AddComponent<JuggernautBot>() as JuggernautBot;
                     break;
+                case Bot_Type.EmptyBot:
+                    new_bot = gameObject.AddComponent<EmptyBot>() as EmptyBot;
+                    break;
+                case Bot_Type.ProximityBot:
+                    new_bot = gameObject.AddComponent<ProximityBot>() as ProximityBot;
+                    break;
+                case Bot_Type.JuggernautProximityBot:
+                    new_bot = gameObject.AddComponent<JuggernautProximityBot>() as JuggernautProximityBot;
+                    break;
                 default:
                     new_bot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
                     break;
@@ -209,7 +218,7 @@ public class Level_Manager : MonoBehaviour
         }
         SpaceLoad.switchColors((Background_Color)level.color);
 
-        if(level.tutorial>0){
+        if(level.tutorial>0 && Utils.selected_level != Constants.USER_LEVEL_CODE){
             load_tutorial(level.tutorial);
         }
     }

@@ -13,7 +13,7 @@ public class Planet : Structure
     private int max_level;
 
     private float planet_scale;
-
+    private GameObject protected_symbol;
 
 
     public Text upgrades_display;
@@ -58,16 +58,16 @@ public class Planet : Structure
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
         //this.upgrades
+        protected_symbol = new GameObject();
         if (this.is_protected)
         {
-            GameObject NewObj = new GameObject();
-            SpriteRenderer NewImage = NewObj.AddComponent<SpriteRenderer>();
+            SpriteRenderer NewImage = protected_symbol.AddComponent<SpriteRenderer>();
             NewImage.sprite = Resources.Load<Sprite>("star");
             NewImage.sortingLayerName = "Spaceshipground";
-            NewObj.transform.SetParent(this.transform);
-            NewObj.SetActive(true);
-            NewObj.transform.localScale = new Vector3((float)0.07, (float)0.07, (float)0.07);
-            NewObj.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
+            protected_symbol.transform.SetParent(this.transform);
+            protected_symbol.SetActive(true);
+            protected_symbol.transform.localScale = new Vector3((float)0.07, (float)0.07, (float)0.07);
+            protected_symbol.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
 
         }
         this.population = initial_population;
@@ -179,6 +179,7 @@ public class Planet : Structure
     override public void update_identity()
     {
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        this.protected_symbol.SetActive(this.is_protected);
         this.update_population_display();
     }
 
@@ -192,7 +193,7 @@ public class Planet : Structure
             this.audioSource.Play();
         }
     }
-
+ 
     public void set_growth_factor()
     {
         this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level + 1) / 100;

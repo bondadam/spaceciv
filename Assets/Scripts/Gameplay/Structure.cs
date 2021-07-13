@@ -161,4 +161,9 @@ public class Structure : MonoBehaviour
     {
         return (float)1;
     }
+    public float distance_from(Vector2 coords)
+    {
+        return  (float) Mathf.Sqrt(Mathf.Pow(this.transform.position.y - coords[1], 2) + Mathf.Pow(this.transform.position.x - coords[0], 2));
+
+    }
 }

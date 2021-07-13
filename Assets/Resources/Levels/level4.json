@@ -6,7 +6,7 @@
     "position_x": -5,
     "position_y": 2.5,
     "team": 1,
-    "initial_population": 0,
+    "initial_population": 15,
     "population_max": 99,
     "planet_size": 1
   },
@@ -14,7 +14,7 @@
     "position_x": -5,
     "position_y": -2.5,
     "team": 0,
-    "initial_population": 0,
+    "initial_population": 15,
     "population_max": 99,
     "planet_size": 1
   },
@@ -22,7 +22,7 @@
     "position_x": 5,
     "position_y": 2.5,
     "team": 2,
-    "initial_population": 0,
+    "initial_population": 15,
     "population_max": 99,
     "planet_size": 1
   },
@@ -30,7 +30,7 @@
     "position_x": 5,
     "position_y": -2.5,
     "team": 3,
-    "initial_population": 0,
+    "initial_population": 15,
     "population_max": 99,
     "planet_size": 1
   },
