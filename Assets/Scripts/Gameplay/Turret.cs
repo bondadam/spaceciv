@@ -53,6 +53,7 @@ public class Turret : Structure
         this.radius = serializedTurret.radius;
         this.tag = "Turret";
         this.structure_type = Structure_Type.Turret;
+        this.selectable = false;
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         //this.upgrades

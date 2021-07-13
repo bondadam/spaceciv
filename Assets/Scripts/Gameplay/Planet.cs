@@ -14,7 +14,8 @@ public class Planet : Structure
 
     private float planet_scale;
 
-
+    public GameObject selectedcircle;
+    public GameObject selectedcircle2;
 
     public Text upgrades_display;
 
@@ -88,19 +89,31 @@ public class Planet : Structure
 
     }
 
+    private void selection_circles(Selected_State state){
+        switch(state){
+            case Selected_State.Full:
+                this.selectedcircle.SetActive(true);
+                this.selectedcircle2.SetActive(true);
+                float circle1time = this.selectedcircle.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
+                this.selectedcircle2.GetComponent<Animator>().Play("selectedcircle2",0, circle1time);
+                break;
+            case Selected_State.Half:
+                this.selectedcircle2.SetActive(false);
+                this.selectedcircle.SetActive(true);
+                break;
+            case Selected_State.Unselected:
+            default:
+                this.selectedcircle.SetActive(false);
+                this.selectedcircle2.SetActive(false);
+                break;
+        }
+    }
     override public void select()
     {
         if (this.team == Team.Player)
         {
             this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
-            if (this.state == Selected_State.Unselected)
-            {
-                this.m_SpriteRenderer.color = Color.white;
-            }
-            else
-            {
-                this.m_SpriteRenderer.color = Constants.selected_color[this.state];
-            }
+            this.selection_circles(this.state);
         }
     }
     override public void unselect()
@@ -108,7 +121,7 @@ public class Planet : Structure
         if (this.team == Team.Player)
         {
             this.state = Selected_State.Unselected;
-            this.m_SpriteRenderer.color = Color.white;
+            this.selection_circles(this.state);
         }
     }
 

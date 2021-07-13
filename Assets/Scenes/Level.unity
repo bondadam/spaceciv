@@ -1413,6 +1413,7 @@ GameObject:
   - component: {fileID: 493734467}
   - component: {fileID: 493734466}
   - component: {fileID: 493734465}
+  - component: {fileID: 493734468}
   m_Layer: 5
   m_Name: Pause_Menu
   m_TagString: Untagged
@@ -1491,6 +1492,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493734463}
   m_CullTransparentMesh: 1
+--- !u!95 &493734468
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493734463}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 142eaf7081eeb6e45a1e57118ff50637, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &523843024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1861,6 +1881,7 @@ GameObject:
   - component: {fileID: 832859149}
   - component: {fileID: 832859148}
   - component: {fileID: 832859147}
+  - component: {fileID: 832859150}
   m_Layer: 5
   m_Name: Game_Over_Menu
   m_TagString: Untagged
@@ -1942,6 +1963,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832859145}
   m_CullTransparentMesh: 1
+--- !u!95 &832859150
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832859145}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f19635c8f6e9c448acdf65e17ac6624, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &871743575
 GameObject:
   m_ObjectHideFlags: 0
