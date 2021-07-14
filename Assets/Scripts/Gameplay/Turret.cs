@@ -8,6 +8,7 @@ using System;
 public class Turret : Structure
 {
     private GameObject radius_object;
+    public AudioSource shoot_sound;
     private float reload_speed = 0.01f;
 
     private float reload_queue = 0f;
@@ -149,9 +150,10 @@ public class Turret : Structure
                 }
                 else
                 {
-                    this.target_spaceship.set_population(this.target_spaceship.get_population()- (int) Mathf.Floor(this.firepower));
+                    this.target_spaceship.set_population(this.target_spaceship.get_population() - (int) Mathf.Floor(this.firepower));
                 }
                 this.reload_queue = 0.0f;
+                this.shoot_sound.Play();
             }
         }
         else

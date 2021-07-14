@@ -2059,6 +2059,8 @@ MonoBehaviour:
   loss_label: {fileID: 1426952437}
   time_taken_field: {fileID: 1398148568}
   level_Manager: {fileID: 1467773700}
+  audio_win: {fileID: 1578580307}
+  audio_lose: {fileID: 448850497}
 --- !u!114 &832859148
 MonoBehaviour:
   m_ObjectHideFlags: 0

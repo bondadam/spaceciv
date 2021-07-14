@@ -7,7 +7,6 @@ public class Level_Manager : MonoBehaviour
 {
     public Planet planet_prefab;
     public GameObject explosion_prefab;
-
     public GameObject UI;
     public Turret turret_prefab;
     public Spacegun spacegun_prefab;
@@ -59,7 +58,6 @@ public class Level_Manager : MonoBehaviour
 
     public void send_spaceship_to_planet(Structure target_planet)
     {
-
         foreach (Planet from_planet in this.planets)
         {
             if (from_planet.get_team() == Team.Player && target_planet != from_planet)

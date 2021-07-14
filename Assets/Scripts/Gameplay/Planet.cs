@@ -7,14 +7,16 @@ using System;
 
 public class Planet : Structure
 {
-    private AudioSource audioSource;
-    private int level;
+    public AudioSource conquestSound;
+    public AudioSource selectSound;
+    public AudioSource selectTwiceSound;
+    public AudioSource unselectSound;
 
+    private int level;
     private int max_level;
 
     private float planet_scale;
     private GameObject protected_symbol;
-
 
     public GameObject selectedcircle;
     public GameObject selectedcircle2;
@@ -76,7 +78,6 @@ public class Planet : Structure
         this.population = initial_population;
 
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
-        this.audioSource = this.GetComponent<AudioSource>();
 
         this.level = 0;
         this.max_level = 3;
@@ -88,6 +89,14 @@ public class Planet : Structure
         this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
         this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
+
+        // Generate Slightly Randomized Sound
+        float base_pitch = 1f;
+        float randomPitch =  Utils.randomlyAlterPitchPlanet(base_pitch, this.planet_size);
+        //this.conquestSound.pitch = randomPitch;
+        this.selectSound.pitch = randomPitch;
+        this.selectTwiceSound.pitch = randomPitch;
+        this.unselectSound.pitch = randomPitch;
 
     }
 
@@ -116,7 +125,25 @@ public class Planet : Structure
         {
             this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
             this.selection_circles(this.state);
+            this.playSelectSound(this.state);
         }
+    }
+
+    public void playSelectSound(Selected_State state){
+        AudioSource sound_to_play;
+        switch(state){
+            case Selected_State.Full:
+                sound_to_play = this.selectTwiceSound;
+                break;
+            case Selected_State.Half:
+                sound_to_play = this.selectSound;
+                break;
+            case Selected_State.Unselected:
+            default:
+                sound_to_play = this.unselectSound;
+                break;
+        }
+        sound_to_play.Play();
     }
     override public void unselect()
     {
@@ -205,7 +232,8 @@ public class Planet : Structure
         this.update_identity();
         if (new_team == Team.Player)
         {
-            this.audioSource.Play();
+            this.conquestSound.pitch = this.conquestSound.pitch * (Constants.PLANET_MAX_SIZE - this.planet_size);
+            this.conquestSound.Play();
         }
     }
  

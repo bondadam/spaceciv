@@ -68,6 +68,8 @@ public static class Constants
     public const int PLANET_DEFAULT_INITIAL_POPULATION = 25;
     public const int PLANET_DEFAULT_MAX_POPULATION = 99;
 
+    public const float FROZEN_SPACESHIP_RELATIVE_SPEED = 0.5f;
+
     public const int PLANET_ABSOLUTE_MAX_POPULATION = 199;
 
     public const float PLANET_MAX_SIZE = 5;
