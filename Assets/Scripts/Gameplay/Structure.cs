@@ -11,6 +11,8 @@ public class Structure : MonoBehaviour
     public List<Structure> neighboring_structures;
     public Team team;
 
+    protected bool selectable;
+
     public const int min_selected = 1;
 
     public SpriteRenderer m_SpriteRenderer;
@@ -54,7 +56,8 @@ public class Structure : MonoBehaviour
         }
     }
 
-    public Structure_Type get_structure_type(){
+    public Structure_Type get_structure_type()
+    {
         return this.structure_type;
     }
     public int ungrow(int num_pop)
@@ -77,10 +80,13 @@ public class Structure : MonoBehaviour
 
     virtual public void select()
     {
-        if (this.team == Team.Player)
+        if (this.selectable)
         {
-            this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
-            this.m_SpriteRenderer.color = Constants.selected_color[this.state];
+            if (this.team == Team.Player)
+            {
+                this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
+                this.m_SpriteRenderer.color = Constants.selected_color[this.state];
+            }
         }
     }
 

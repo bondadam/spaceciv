@@ -18,6 +18,9 @@ public static class Utils
         return Camera.main.ScreenToWorldPoint(mousePos);
     }
     
+    public static float randomlyAlterPitchPlanet(float currentPitch, float planetSize){
+        return ((currentPitch + 0.1f - (0.1f * planetSize)) * UnityEngine.Random.Range(0.95f,1.05f));
+    }
 
     public static Vector2 getMousePosition2D(){
         Vector3 mousePos = getMousePosition();

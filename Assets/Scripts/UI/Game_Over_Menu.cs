@@ -15,6 +15,9 @@ public class Game_Over_Menu : MonoBehaviour
     public GameObject loss_label;
     public TMP_Text time_taken_field;
     public Level_Manager level_Manager;
+
+    public AudioSource audio_win;
+    public AudioSource audio_lose;
     void Start()
     {
         game_over_panel = this.gameObject;
@@ -74,8 +77,10 @@ public class Game_Over_Menu : MonoBehaviour
                 PlayerPrefs.Save();
             }
             show_label(victory.win);
+            this.audio_win.Play();
         } else {
             show_label(victory.loss);
+            this.audio_lose.Play();
         }
     } 
     public void restart_game()

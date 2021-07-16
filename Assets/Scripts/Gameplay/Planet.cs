@@ -7,14 +7,19 @@ using System;
 
 public class Planet : Structure
 {
-    private AudioSource audioSource;
-    private int level;
+    public AudioSource conquestSound;
+    public AudioSource selectSound;
+    public AudioSource selectTwiceSound;
+    public AudioSource unselectSound;
 
+    private int level;
     private int max_level;
 
     private float planet_scale;
     private GameObject protected_symbol;
 
+    public GameObject selectedcircle;
+    public GameObject selectedcircle2;
 
     public Text upgrades_display;
 
@@ -23,6 +28,8 @@ public class Planet : Structure
     public float planet_size = 1f;
 
     public Sprite[] team_sprites;
+
+    public MeshRenderer sphere;
 
     public float growth_factor = 50f;
 
@@ -73,7 +80,10 @@ public class Planet : Structure
         this.population = initial_population;
 
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
-        this.audioSource = this.GetComponent<AudioSource>();
+        //Debug.Log(this.sphere);
+        //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
 
         this.level = 0;
         this.max_level = 3;
@@ -84,31 +94,69 @@ public class Planet : Structure
         this.planet_scale = 0.5f + planet_size * 0.75f;
         this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
-        this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
+        //this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
+
+        // Generate Slightly Randomized Sound
+        float base_pitch = 1f;
+        float randomPitch =  Utils.randomlyAlterPitchPlanet(base_pitch, this.planet_size);
+        //this.conquestSound.pitch = randomPitch;
+        this.selectSound.pitch = randomPitch;
+        this.selectTwiceSound.pitch = randomPitch;
+        this.unselectSound.pitch = randomPitch;
 
     }
 
+    private void selection_circles(Selected_State state){
+        switch(state){
+            case Selected_State.Full:
+                this.selectedcircle.SetActive(true);
+                this.selectedcircle2.SetActive(true);
+                float circle1time = this.selectedcircle.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
+                this.selectedcircle2.GetComponent<Animator>().Play("selectedcircle2",0, circle1time);
+                break;
+            case Selected_State.Half:
+                this.selectedcircle2.SetActive(false);
+                this.selectedcircle.SetActive(true);
+                break;
+            case Selected_State.Unselected:
+            default:
+                this.selectedcircle.SetActive(false);
+                this.selectedcircle2.SetActive(false);
+                break;
+        }
+    }
     override public void select()
     {
         if (this.team == Team.Player)
         {
             this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
-            if (this.state == Selected_State.Unselected)
-            {
-                this.m_SpriteRenderer.color = Color.white;
-            }
-            else
-            {
-                this.m_SpriteRenderer.color = Constants.selected_color[this.state];
-            }
+            this.selection_circles(this.state);
+            this.playSelectSound(this.state);
         }
+    }
+
+    public void playSelectSound(Selected_State state){
+        AudioSource sound_to_play;
+        switch(state){
+            case Selected_State.Full:
+                sound_to_play = this.selectTwiceSound;
+                break;
+            case Selected_State.Half:
+                sound_to_play = this.selectSound;
+                break;
+            case Selected_State.Unselected:
+            default:
+                sound_to_play = this.unselectSound;
+                break;
+        }
+        sound_to_play.Play();
     }
     override public void unselect()
     {
         if (this.team == Team.Player)
         {
             this.state = Selected_State.Unselected;
-            this.m_SpriteRenderer.color = Color.white;
+            this.selection_circles(this.state);
         }
     }
 
@@ -122,6 +170,7 @@ public class Planet : Structure
     // Update is called once per frame
     public void Update_Custom()
     {
+        //this.sphere.transform.Rotate(new Vector3(0,0.1f,0));
         if (this.growth_queue > 1)
         {
             this.grow(1);
@@ -179,6 +228,9 @@ public class Planet : Structure
     override public void update_identity()
     {
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
         this.protected_symbol.SetActive(this.is_protected);
         this.update_population_display();
     }
@@ -190,7 +242,7 @@ public class Planet : Structure
         this.update_identity();
         if (new_team == Team.Player)
         {
-            this.audioSource.Play();
+            this.conquestSound.Play();
         }
     }
  
