@@ -29,6 +29,8 @@ public class Planet : Structure
 
     public Sprite[] team_sprites;
 
+    public MeshRenderer sphere;
+
     public float growth_factor = 50f;
 
     private float growth_queue = 0.0f;
@@ -78,6 +80,10 @@ public class Planet : Structure
         this.population = initial_population;
 
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        //Debug.Log(this.sphere);
+        //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
 
         this.level = 0;
         this.max_level = 3;
@@ -88,7 +94,7 @@ public class Planet : Structure
         this.planet_scale = 0.5f + planet_size * 0.75f;
         this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
-        this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
+        //this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
 
         // Generate Slightly Randomized Sound
         float base_pitch = 1f;
@@ -164,6 +170,7 @@ public class Planet : Structure
     // Update is called once per frame
     public void Update_Custom()
     {
+        //this.sphere.transform.Rotate(new Vector3(0,0.1f,0));
         if (this.growth_queue > 1)
         {
             this.grow(1);
@@ -221,6 +228,9 @@ public class Planet : Structure
     override public void update_identity()
     {
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
         this.protected_symbol.SetActive(this.is_protected);
         this.update_population_display();
     }
@@ -232,7 +242,6 @@ public class Planet : Structure
         this.update_identity();
         if (new_team == Team.Player)
         {
-            this.conquestSound.pitch = this.conquestSound.pitch * (Constants.PLANET_MAX_SIZE - this.planet_size);
             this.conquestSound.Play();
         }
     }

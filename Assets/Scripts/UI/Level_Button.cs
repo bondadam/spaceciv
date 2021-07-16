@@ -37,7 +37,7 @@ public class Level_Button : MonoBehaviour
         switch(completed_score)
         {
             case 1:
-                NewImage.sprite = Resources.Load<Sprite>("1star"); 
+                NewImage.sprite = Resources.Load<Sprite>("1star_border"); 
                 NewObj.GetComponent<RectTransform>().SetParent(this.transform);
                 NewObj.SetActive(true); 
                 NewObj.transform.localScale = new Vector3((float)0.7,(float)0.5,(float)1);
