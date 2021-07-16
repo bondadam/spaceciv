@@ -19,7 +19,7 @@ public static class Utils
     }
     
     public static float randomlyAlterPitchPlanet(float currentPitch, float planetSize){
-        return (currentPitch + 0.5f - (0.25f * planetSize)) * UnityEngine.Random.Range(0.75f,1.25f);
+        return ((currentPitch + 0.1f - (0.1f * planetSize)) * UnityEngine.Random.Range(0.95f,1.05f));
     }
 
     public static Vector2 getMousePosition2D(){
