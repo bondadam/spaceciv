@@ -21,6 +21,7 @@ public class Level
     public SerializedSpacegun[] spaceguns;    
     public SerializedTurret[] turrets; 
     public SerializedSpaceEntity[] suns;
+    public SerializedSpaceEntity[] frozenvoids;
     public SerializedBot[] bots;
     public float record_time;
     public int tutorial;

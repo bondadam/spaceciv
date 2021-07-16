@@ -173,7 +173,11 @@ public class Spaceship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Sun")
+        if (other.gameObject.tag == "FrozenVoid")
+        {
+            this.freeze();
+        
+        }else if (other.gameObject.tag == "Sun")
         {
             this.die(true);
         

@@ -7,6 +7,7 @@ public class Level_Manager : MonoBehaviour
 {
     public Planet planet_prefab;
     public Sun sun_prefab;
+    public FrozenVoid frozenvoid_prefab;
     public GameObject explosion_prefab;
     public GameObject UI;
     public Turret turret_prefab;
@@ -23,6 +24,7 @@ public class Level_Manager : MonoBehaviour
     private List<Turret> turrets;
     private List<Spacegun> spaceguns;
     private List<Sun> suns;
+    private List<FrozenVoid> frozenvoids;
     private float update_frequency = 0.016f; // 60 times/s
     private float timer = 0.0f;
     private List<Bot> bots;
@@ -120,6 +122,7 @@ public class Level_Manager : MonoBehaviour
         this.spaceguns = new List<Spacegun>();
         this.spaceships = new List<Spaceship>();
         this.suns = new List<Sun>();
+        this.frozenvoids = new List<FrozenVoid>();
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
         this.time_taken = 0; 
         this.game_over = false;
@@ -160,6 +163,16 @@ public class Level_Manager : MonoBehaviour
                 Sun sun = Instantiate(sun_prefab, new Vector3(sse.position_x, sse.position_y, 0), Quaternion.identity);
                 sun.Initialize(sse, "sun"+spaceentity_counter.ToString());
                 this.suns.Add(sun.GetComponent<Sun>());
+
+                spaceentity_counter += 1;
+            }
+        }
+        if(level.frozenvoids != null){
+            foreach (SerializedSpaceEntity sse in level.frozenvoids)
+            {
+                FrozenVoid frozenvoid = Instantiate(frozenvoid_prefab, new Vector3(sse.position_x, sse.position_y, 0), Quaternion.identity);
+                frozenvoid.Initialize(sse, "frozenvoid"+spaceentity_counter.ToString());
+                this.frozenvoids.Add(frozenvoid.GetComponent<FrozenVoid>());
 
                 spaceentity_counter += 1;
             }

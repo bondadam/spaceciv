@@ -3,6 +3,13 @@
     "color": 1,
     "record_time": 9,
     "tutorial": 1,
+    "frozenvoids": [
+        {
+            "size": 1.0,
+            "position_x": 0,
+            "position_y": 0.0
+        }
+    ],
     "planets": [
         {
             "planet_size": 2.0,

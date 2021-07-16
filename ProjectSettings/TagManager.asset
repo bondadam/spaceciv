@@ -11,6 +11,7 @@ TagManager:
   - SpaceBackground
   - Music
   - Sun
+  - FrozenVoid
   layers:
   - Default
   - TransparentFX
