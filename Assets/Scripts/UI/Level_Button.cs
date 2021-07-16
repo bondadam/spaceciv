@@ -9,73 +9,104 @@ public class Level_Button : MonoBehaviour
     private bool custom;
     private int number;
     private Level_Difficulty difficulty;
-	public Text text_display;
+    public Text text_display;
     public Image image_display;
-	public Menu_Levels menu_levels;
+    public Menu_Levels menu_levels;
     private bool completed;
 
-    public void Start(){
+    public Image[] star1;
+
+    public Image[] star2;
+
+    public Image[] star3;
+    private Animator animator;
+    public void Start()
+    {
+        this.animator = this.GetComponentInChildren<Animator>();
         this.transform.localScale = Vector3.one;
-        
+
     }
-    public void show(){
+    public void show()
+    {
         this.gameObject.SetActive(true);
         this.transform.localScale = Vector3.one;
     }
 
-    public void hide(){
+    public void hide()
+    {
         this.gameObject.SetActive(false);
     }
 
-    public void initialize(bool custom, int number, Level_Difficulty difficulty, int completed_score){
+    public void show_star(Image[] star, bool show){
+        star[0].gameObject.SetActive(!show);
+        star[1].gameObject.SetActive(show);
+    }
+
+    public void initialize(bool custom, int number, Level_Difficulty difficulty, int completed_score, float time_to_appear)
+    {
         this.custom = custom;
         this.number = number;
         this.difficulty = difficulty;
         this.completed = completed; // 0: not completed, 1-3: completed with 1-3 stars
-        GameObject NewObj = new GameObject();
-        Image NewImage = NewObj.AddComponent<Image>();
-        switch(completed_score)
+        switch (completed_score)
         {
             case 1:
-                NewImage.sprite = Resources.Load<Sprite>("1star"); 
-                NewObj.GetComponent<RectTransform>().SetParent(this.transform);
-                NewObj.SetActive(true); 
-                NewObj.transform.localScale = new Vector3((float)0.7,(float)0.5,(float)1);
-                NewObj.transform.position  = new Vector3((float)0, (float)1, (float)0);
-
+                show_star(this.star1, true);
+                show_star(this.star2, false);
+                show_star(this.star3, false);
                 break;
             case 2:
-                NewImage.sprite = Resources.Load<Sprite>("2star"); 
-                NewObj.GetComponent<RectTransform>().SetParent(this.transform);
-                NewObj.SetActive(true); 
-                NewObj.transform.localScale = new Vector3((float)0.7,(float)0.5,(float)0.3);
+                show_star(this.star1, true);
+                show_star(this.star2, true);
+                show_star(this.star3, false);
                 break;
             case 3:
-                NewImage.sprite = Resources.Load<Sprite>("3star"); 
-                NewObj.GetComponent<RectTransform>().SetParent(this.transform);
-                NewObj.SetActive(true); 
-                NewObj.transform.localScale = new Vector3((float)0.7,(float)0.5,(float)0.3);
+                show_star(this.star1, true);
+                show_star(this.star2, true);
+                show_star(this.star3, true);
                 break;
             case -1:
                 //this.image_display.color = Color.gray;
                 this.gameObject.GetComponent<Button>().interactable = false;
                 break;
-
-
         }
-        
+        this.transform.localScale = new Vector3(0,0,0);
+        StartCoroutine(AppearAfterSeconds(time_to_appear));
         this.update_display();
     }
 
-    public void update_display(){
-        this.text_display.text = number.ToString();
-        this.image_display.sprite = Resources.Load<Sprite>(Constants.level_difficulty_icons[this.difficulty]);
+    IEnumerator AppearAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        this.animator.Play("Appear");
     }
-	public void Button_Click()
-	{
-		this.menu_levels.level_clicked(this.number, this.custom);
 
-	}
+    public void update_display()
+    {
+        this.text_display.text = number.ToString();
+        //this.image_display.sprite = Resources.Load<Sprite>(Constants.level_difficulty_icons[this.difficulty]);
+        Color final_color = Color.clear;
+        switch(this.difficulty){
+            case Level_Difficulty.Easy:
+                final_color = Color.cyan;
+                break;
+            case Level_Difficulty.Medium:
+                final_color = Color.magenta;
+                break;
+            case Level_Difficulty.Hard:
+                final_color = Color.yellow;
+                break;
+            case Level_Difficulty.Impossible:
+                final_color = Color.red;
+                break;
+        }
+        this.image_display.color = final_color;
+    }
+    public void Button_Click()
+    {
+        this.menu_levels.level_clicked(this.number, this.custom);
+
+    }
 }
 
 

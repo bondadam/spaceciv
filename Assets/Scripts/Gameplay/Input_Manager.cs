@@ -63,9 +63,11 @@ public class Input_Manager : MonoBehaviour
                 {
                     // Clicked on a planet
                     Structure clicked_planet = hit.collider.gameObject.GetComponent<Structure>();
+                    holding_time = 0;
                     if (clicked_planet.team == Team.Player)
                     {
                         this.holding = true;
+                        
                         clicked_planet.select();
                     }
                     else
