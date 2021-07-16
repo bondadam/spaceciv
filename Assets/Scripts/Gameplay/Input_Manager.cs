@@ -31,7 +31,6 @@ public class Input_Manager : MonoBehaviour
 
             if (this.move_dragging)
             {
-                Debug.Log(mousePos2D);
                 Vector3 mousePos = Input.mousePosition;
                 if (!Input.GetMouseButton(0))
                 {
@@ -63,6 +62,7 @@ public class Input_Manager : MonoBehaviour
                 else
                 {
                     // Clicked on a planet
+                    holding_time = 0;
                     Structure clicked_planet = hit.collider.gameObject.GetComponent<Structure>();
                     if (clicked_planet.team == Team.Player)
                     {

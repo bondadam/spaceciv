@@ -1,6 +1,12 @@
 {
     "difficulty": 3,
     "color": 3,
+    "suns": [{
+        "position_x": -2.600000381469727,
+        "position_y": 0.799999952316284,
+        "size": 0.5
+    }
+    ],
     "planets": [
         {
             "planet_size": 0.5,

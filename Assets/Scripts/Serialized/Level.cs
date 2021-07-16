@@ -19,7 +19,8 @@ public class Level
     public Background_Color color;
     public SerializedPlanet[] planets;
     public SerializedSpacegun[] spaceguns;    
-    public SerializedTurret[] turrets;
+    public SerializedTurret[] turrets; 
+    public SerializedSpaceEntity[] suns;
     public SerializedBot[] bots;
     public float record_time;
     public int tutorial;

@@ -84,4 +84,30 @@ public static bool check_alive(Team team, Game_State game_state){
         Vector2 average_point = new Vector2(x/total_weights, y/total_weights);
         return average_point;
     }
+    public static bool collision_circle_line(Vector2 circle_center, float radius, Vector2 pt1, Vector2 pt2)
+    {
+        float dist1 = Mathf.Sqrt(Mathf.Pow(pt1[0]-circle_center[0],2) + Mathf.Pow(pt1[1]-circle_center[1],2));
+        float dist2 = Mathf.Sqrt(Mathf.Pow(pt2[0]-circle_center[0],2) + Mathf.Pow(pt2[1]-circle_center[1],2));
+        if (dist1 < radius || dist2 < radius) return true;
+        float distX = pt1[0] - pt2[0];
+        float distY = pt1[1] - pt2[1];
+        float line_dist = Mathf.Sqrt( (distX*distX) + (distY*distY) );
+        float dot = ( ((circle_center[0]-pt1[0])*(pt2[0]-pt1[0])) + ((circle_center[1]-pt1[1])*(pt2[1]-pt1[1])) ) / Mathf.Pow(line_dist,2);
+
+        float closestX = pt1[0] + (dot * (pt2[0]-pt1[0]));
+        float closestY = pt1[1] + (dot * (pt2[1]-pt1[1]));
+
+        float dist_from_pt1 = Mathf.Sqrt(Mathf.Pow(pt1[0]-closestX,2) + Mathf.Pow(pt1[1]-closestY,2));
+        float dist_from_pt2 = Mathf.Sqrt(Mathf.Pow(pt2[0]-closestX,2) + Mathf.Pow(pt2[1]-closestY,2));
+        if (dist_from_pt1 > line_dist || dist_from_pt2 > line_dist) return false;
+
+        distX = closestX - circle_center[0];
+        distY = closestY - circle_center[1];
+        float distance = Mathf.Sqrt( (distX*distX) + (distY*distY) );
+
+        if (distance <= radius) {
+            return true;
+        }
+        return false;
+    }
 }

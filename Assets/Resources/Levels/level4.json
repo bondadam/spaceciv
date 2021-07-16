@@ -1,6 +1,8 @@
 { 
   "spaceguns": [],
   "turrets": [],
+  "record_time": 70,
+  "best_known_time": 57,
   "planets": [
   {
     "position_x": -5,

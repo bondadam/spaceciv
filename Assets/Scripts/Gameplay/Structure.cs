@@ -8,6 +8,7 @@ using System;
 public class Structure : MonoBehaviour
 {
     protected Structure_Type structure_type;
+    public List<Structure> neighboring_structures;
     public Team team;
 
     public const int min_selected = 1;
@@ -116,7 +117,10 @@ public class Structure : MonoBehaviour
         this.update_identity();
     }
 
+    public void find_neighbors()
+    {
 
+    }
 
     public int get_population()
     {
