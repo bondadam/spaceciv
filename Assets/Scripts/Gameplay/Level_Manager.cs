@@ -121,6 +121,7 @@ public class Level_Manager : MonoBehaviour
         this.turrets = new List<Turret>();
         this.spaceguns = new List<Spacegun>();
         this.spaceships = new List<Spaceship>();
+        this.suns = new List<Sun>();
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
         this.time_taken = 0; 
         this.game_over = false;
