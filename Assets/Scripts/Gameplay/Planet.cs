@@ -7,12 +7,16 @@ using System;
 
 public class Planet : Structure
 {
-    private AudioSource audioSource;
-    private int level;
+    public AudioSource conquestSound;
+    public AudioSource selectSound;
+    public AudioSource selectTwiceSound;
+    public AudioSource unselectSound;
 
+    private int level;
     private int max_level;
 
     private float planet_scale;
+    private GameObject protected_symbol;
 
     public GameObject selectedcircle;
     public GameObject selectedcircle2;
@@ -24,6 +28,8 @@ public class Planet : Structure
     public float planet_size = 1f;
 
     public Sprite[] team_sprites;
+
+    public MeshRenderer sphere;
 
     public float growth_factor = 50f;
 
@@ -59,22 +65,25 @@ public class Planet : Structure
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
         //this.upgrades
+        protected_symbol = new GameObject();
         if (this.is_protected)
         {
-            GameObject NewObj = new GameObject();
-            SpriteRenderer NewImage = NewObj.AddComponent<SpriteRenderer>();
+            SpriteRenderer NewImage = protected_symbol.AddComponent<SpriteRenderer>();
             NewImage.sprite = Resources.Load<Sprite>("star");
             NewImage.sortingLayerName = "Spaceshipground";
-            NewObj.transform.SetParent(this.transform);
-            NewObj.SetActive(true);
-            NewObj.transform.localScale = new Vector3((float)0.07, (float)0.07, (float)0.07);
-            NewObj.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
+            protected_symbol.transform.SetParent(this.transform);
+            protected_symbol.SetActive(true);
+            protected_symbol.transform.localScale = new Vector3((float)0.07, (float)0.07, (float)0.07);
+            protected_symbol.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
 
         }
         this.population = initial_population;
 
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
-        this.audioSource = this.GetComponent<AudioSource>();
+        //Debug.Log(this.sphere);
+        //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
 
         this.level = 0;
         this.max_level = 3;
@@ -85,7 +94,15 @@ public class Planet : Structure
         this.planet_scale = 0.5f + planet_size * 0.75f;
         this.transform.localScale = new Vector3(planet_scale, planet_scale, planet_scale);
 
-        this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
+        //this.m_SpriteRenderer.transform.Rotate(0, 0, UnityEngine.Random.Range(-15, 45));
+
+        // Generate Slightly Randomized Sound
+        float base_pitch = 1f;
+        float randomPitch =  Utils.randomlyAlterPitchPlanet(base_pitch, this.planet_size);
+        //this.conquestSound.pitch = randomPitch;
+        this.selectSound.pitch = randomPitch;
+        this.selectTwiceSound.pitch = randomPitch;
+        this.unselectSound.pitch = randomPitch;
 
     }
 
@@ -114,7 +131,25 @@ public class Planet : Structure
         {
             this.state = (Selected_State)(((int)this.state + 1) % Constants.states_num);
             this.selection_circles(this.state);
+            this.playSelectSound(this.state);
         }
+    }
+
+    public void playSelectSound(Selected_State state){
+        AudioSource sound_to_play;
+        switch(state){
+            case Selected_State.Full:
+                sound_to_play = this.selectTwiceSound;
+                break;
+            case Selected_State.Half:
+                sound_to_play = this.selectSound;
+                break;
+            case Selected_State.Unselected:
+            default:
+                sound_to_play = this.unselectSound;
+                break;
+        }
+        sound_to_play.Play();
     }
     override public void unselect()
     {
@@ -135,6 +170,7 @@ public class Planet : Structure
     // Update is called once per frame
     public void Update_Custom()
     {
+        //this.sphere.transform.Rotate(new Vector3(0,0.1f,0));
         if (this.growth_queue > 1)
         {
             this.grow(1);
@@ -192,6 +228,10 @@ public class Planet : Structure
     override public void update_identity()
     {
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
+        this.protected_symbol.SetActive(this.is_protected);
         this.update_population_display();
     }
 
@@ -202,10 +242,10 @@ public class Planet : Structure
         this.update_identity();
         if (new_team == Team.Player)
         {
-            this.audioSource.Play();
+            this.conquestSound.Play();
         }
     }
-
+ 
     public void set_growth_factor()
     {
         this.growth_factor = this.planet_size * Game_Settings.BASE_PLANET_GROWTH_RATE * (this.level + 1) / 100;

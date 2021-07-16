@@ -11,7 +11,7 @@ public class Pause_Menu : MonoBehaviour
     void Start()
     {
         pause_panel = this.gameObject;
-        if(Utils.levels_completed[Utils.selected_level]==0)
+        if(Utils.selected_level != Constants.USER_LEVEL_CODE && Utils.levels_completed[Utils.selected_level]==0)
         {
             next_level_button.SetActive(false);
         }

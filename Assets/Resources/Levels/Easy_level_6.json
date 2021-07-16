@@ -1,7 +1,8 @@
 {
     "difficulty": 0,
     "color": 1,
-    "record_time": 11.6,
+    "record_time": 15,
+    "best_known_time": 10.54,
     "planets": [
         {
             "planet_size": 1.0,

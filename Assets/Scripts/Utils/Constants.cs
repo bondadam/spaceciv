@@ -15,11 +15,14 @@ public enum Team
 
 public enum Bot_Type
 {
-    BlitzBot,
-    DefensiveBot,
-    ExpandingBot,
-    JuggernautBot,
-    ExpandingJuggernautBot
+    BlitzBot,    // 0
+    DefensiveBot,    // 1
+    ExpandingBot,    // 2
+    JuggernautBot,    // 3
+    ExpandingJuggernautBot,    // 4
+    EmptyBot,    // 5
+    ProximityBot,    // 6
+    JuggernautProximityBot    // 7
 }
 
 public enum Selected_State
@@ -64,6 +67,8 @@ public static class Constants
 
     public const int PLANET_DEFAULT_INITIAL_POPULATION = 25;
     public const int PLANET_DEFAULT_MAX_POPULATION = 99;
+
+    public const float FROZEN_SPACESHIP_RELATIVE_SPEED = 0.5f;
 
     public const int PLANET_ABSOLUTE_MAX_POPULATION = 199;
 
@@ -121,11 +126,11 @@ public static class Constants
 
     public static List<(string, Level_Difficulty)> level_paths = new List<(string, Level_Difficulty)>{
         ("Levels/First_level", Level_Difficulty.Easy),
+        ("Levels/level1", Level_Difficulty.Easy),
         ("Levels/Easy_level_3", Level_Difficulty.Easy),
         ("Levels/Easy_level_1", Level_Difficulty.Easy),
         ("Levels/Easy_level_5", Level_Difficulty.Easy),
         ("Levels/Easy_level_6", Level_Difficulty.Easy),
-        ("Levels/level1", Level_Difficulty.Easy),
         ("Levels/level4", Level_Difficulty.Medium),
         ("Levels/level5", Level_Difficulty.Medium),
         ("Levels/level6", Level_Difficulty.Medium),
@@ -146,9 +151,10 @@ public static class Constants
         ("Levels/Run_around", Level_Difficulty.Impossible),
         ("Levels/Prison_planet", Level_Difficulty.Impossible),
         ("Levels/Mine_field", Level_Difficulty.Impossible),
-        ("Levels/Ancient_defenses", Level_Difficulty.Impossible),
+        ("Levels/Ancient_defenses", Level_Difficulty.Impossible),   
         ("Levels/Protected", Level_Difficulty.Impossible),
-        ("Levels/Hanging_by_a_thread", Level_Difficulty.Impossible)
+        ("Levels/Hanging_by_a_thread", Level_Difficulty.Impossible),
+        ("Levels/Common_enemy", Level_Difficulty.Impossible)
     };
 
     public static Dictionary<int, Level_Difficulty> level_difficulties = new Dictionary<int, Level_Difficulty>(){

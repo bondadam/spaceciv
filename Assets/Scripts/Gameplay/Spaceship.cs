@@ -11,6 +11,8 @@ public class Spaceship : MonoBehaviour
 
     private float speed;
 
+    private int frozen;
+
     private TextMeshPro population_display;
 
     private Structure target;
@@ -29,6 +31,11 @@ public class Spaceship : MonoBehaviour
     private string Name;
     private Explosion_Animation_Callback explosion_callback;
     public delegate void Explosion_Animation_Callback(Vector2 pos);
+    public IEnumerator unfreeze(float seconds_to_wait)
+    {
+        yield return new WaitForSeconds(seconds_to_wait);
+        this.frozen--;
+    }
 
     public void Initialize(Team team, int population, Planet origin, Structure target, float speed, string name, Explosion_Animation_Callback explosion_callback)
     {
@@ -41,6 +48,7 @@ public class Spaceship : MonoBehaviour
         this.speed = speed;
         this.Name = name;
         this.explosion_callback = explosion_callback;
+        this.frozen = 0;
 
         this.battling = new List<Spaceship>();
 
@@ -87,6 +95,11 @@ public class Spaceship : MonoBehaviour
         this.battling.Remove(spaceship);
     }
 
+    public void freeze()
+    {
+        this.frozen++;
+    }
+
     public bool is_battling()
     {
         return this.battling.Count > 0;
@@ -128,14 +141,14 @@ public class Spaceship : MonoBehaviour
 
     public void die(bool dead_from_battle = true)
     {
-        if(dead_from_battle)
+        if (dead_from_battle)
         {
             explosion_callback(this.transform.position);
         }
         this.set_population(0);
         this.destroyable = true;
         this.gameObject.SetActive(false);
-       // GameObject.Destroy(this.gameObject);
+        // GameObject.Destroy(this.gameObject);
     }
 
     public Team get_team()
@@ -160,28 +173,39 @@ public class Spaceship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Planet" || other.gameObject.tag == "Turret" || other.gameObject.tag == "Spacegun")
+        if (other.gameObject.tag == "FrozenVoid")
+        {
+            this.freeze();
+        
+        }else if (other.gameObject.tag == "Sun")
+        {
+            this.die(true);
+        
+        }else if (other.gameObject.tag == "Planet" || other.gameObject.tag == "Turret" || other.gameObject.tag == "Spacegun")
         {
             //Debug.Log("Fleet touched a " + other.gameObject.tag);
             Structure collided_planet = other.gameObject.GetComponent<Structure>();
-            switch (collided_planet.get_structure_type()){
+            switch (collided_planet.get_structure_type())
+            {
                 case Structure_Type.Planet:
-                    collided_planet = (Planet) collided_planet;
+                    collided_planet = (Planet)collided_planet;
                     break;
                 case Structure_Type.Turret:
-                    collided_planet = (Turret) collided_planet;
+                    collided_planet = (Turret)collided_planet;
                     break;
                 case Structure_Type.Spacegun:
-                    collided_planet = (Spacegun) collided_planet;
+                    collided_planet = (Spacegun)collided_planet;
                     break;
             }
             if (collided_planet == this.target)
             {
+                Debug.Log("I touched my target");
                 this.moving = false;
                 if (collided_planet.get_team() == this.team)
                 {
                     // Transfer of units between planets
                     collided_planet.grow(this.population);
+                    this.die(false);
                 }
                 else
                 {
@@ -203,14 +227,15 @@ public class Spaceship : MonoBehaviour
 
                         collided_planet.set_population(this.population - defending_units);
                         collided_planet.change_team(this.team);
+                        this.die(false);
                     }
                     else
                     {
                         // invasion defeat
                         collided_planet.ungrow(this.population);
+                        this.die(false);
                     }
                 }
-                this.die(false);
             }
         }
         else if (other.gameObject.tag == "Spaceship")
@@ -263,7 +288,14 @@ public class Spaceship : MonoBehaviour
 
     public void move(float delta)
     {
-        this.current_position = Vector2.MoveTowards(this.current_position, this.target_position, this.speed * delta);
+        if (this.frozen > 0)
+        {
+            this.current_position = Vector2.MoveTowards(this.current_position, this.target_position, this.speed * delta * Constants.FROZEN_SPACESHIP_RELATIVE_SPEED);
+        }
+        else
+        {
+            this.current_position = Vector2.MoveTowards(this.current_position, this.target_position, this.speed * delta);
+        }
         this.transform.position = new Vector3(this.current_position.x, this.current_position.y, this.transform.position.z);
     }
 

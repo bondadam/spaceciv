@@ -6,8 +6,9 @@ using TMPro;
 public class Level_Manager : MonoBehaviour
 {
     public Planet planet_prefab;
+    public Sun sun_prefab;
+    public FrozenVoid frozenvoid_prefab;
     public GameObject explosion_prefab;
-
     public GameObject UI;
     public Turret turret_prefab;
     public Spacegun spacegun_prefab;
@@ -22,6 +23,8 @@ public class Level_Manager : MonoBehaviour
     private List<Planet> planets;
     private List<Turret> turrets;
     private List<Spacegun> spaceguns;
+    private List<Sun> suns;
+    private List<FrozenVoid> frozenvoids;
     private float update_frequency = 0.016f; // 60 times/s
     private float timer = 0.0f;
     private List<Bot> bots;
@@ -59,7 +62,6 @@ public class Level_Manager : MonoBehaviour
 
     public void send_spaceship_to_planet(Structure target_planet)
     {
-
         foreach (Planet from_planet in this.planets)
         {
             if (from_planet.get_team() == Team.Player && target_planet != from_planet)
@@ -119,6 +121,8 @@ public class Level_Manager : MonoBehaviour
         this.turrets = new List<Turret>();
         this.spaceguns = new List<Spacegun>();
         this.spaceships = new List<Spaceship>();
+        this.suns = new List<Sun>();
+        this.frozenvoids = new List<FrozenVoid>();
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
         this.time_taken = 0; 
         this.game_over = false;
@@ -152,7 +156,27 @@ public class Level_Manager : MonoBehaviour
         this.level_indicator.text = "level " + level_indicator_text;
         level = JsonUtility.FromJson<Level>(level_json);
         int structure_counter = 0;
+        int spaceentity_counter = 0;
+        if(level.suns != null){
+            foreach (SerializedSpaceEntity sse in level.suns)
+            {
+                Sun sun = Instantiate(sun_prefab, new Vector3(sse.position_x, sse.position_y, 0), Quaternion.identity);
+                sun.Initialize(sse, "sun"+spaceentity_counter.ToString());
+                this.suns.Add(sun.GetComponent<Sun>());
 
+                spaceentity_counter += 1;
+            }
+        }
+        if(level.frozenvoids != null){
+            foreach (SerializedSpaceEntity sse in level.frozenvoids)
+            {
+                FrozenVoid frozenvoid = Instantiate(frozenvoid_prefab, new Vector3(sse.position_x, sse.position_y, 0), Quaternion.identity);
+                frozenvoid.Initialize(sse, "frozenvoid"+spaceentity_counter.ToString());
+                this.frozenvoids.Add(frozenvoid.GetComponent<FrozenVoid>());
+
+                spaceentity_counter += 1;
+            }
+        }
         foreach (SerializedSpacegun ssg in level.spaceguns)
         {
             Spacegun spacegun = Instantiate(spacegun_prefab, new Vector3(ssg.position_x, ssg.position_y, 0), Quaternion.identity);
@@ -200,6 +224,15 @@ public class Level_Manager : MonoBehaviour
                 case Bot_Type.JuggernautBot:
                     new_bot = gameObject.AddComponent<JuggernautBot>() as JuggernautBot;
                     break;
+                case Bot_Type.EmptyBot:
+                    new_bot = gameObject.AddComponent<EmptyBot>() as EmptyBot;
+                    break;
+                case Bot_Type.ProximityBot:
+                    new_bot = gameObject.AddComponent<ProximityBot>() as ProximityBot;
+                    break;
+                case Bot_Type.JuggernautProximityBot:
+                    new_bot = gameObject.AddComponent<JuggernautProximityBot>() as JuggernautProximityBot;
+                    break;
                 default:
                     new_bot = gameObject.AddComponent<BlitzBot>() as BlitzBot;
                     break;
@@ -209,7 +242,9 @@ public class Level_Manager : MonoBehaviour
         }
         SpaceLoad.switchColors((Background_Color)level.color);
 
-        //load_tutorial(1);
+        if(level.tutorial>0 && Utils.selected_level != Constants.USER_LEVEL_CODE){
+            load_tutorial(level.tutorial);
+        }
     }
 
     // Update is called once per frame

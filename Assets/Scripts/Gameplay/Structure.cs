@@ -8,6 +8,7 @@ using System;
 public class Structure : MonoBehaviour
 {
     protected Structure_Type structure_type;
+    public List<Structure> neighboring_structures;
     public Team team;
 
     protected bool selectable;
@@ -122,7 +123,10 @@ public class Structure : MonoBehaviour
         this.update_identity();
     }
 
+    public void find_neighbors()
+    {
 
+    }
 
     public int get_population()
     {
@@ -166,5 +170,10 @@ public class Structure : MonoBehaviour
     public float get_planet_scale()
     {
         return (float)1;
+    }
+    public float distance_from(Vector2 coords)
+    {
+        return  (float) Mathf.Sqrt(Mathf.Pow(this.transform.position.y - coords[1], 2) + Mathf.Pow(this.transform.position.x - coords[0], 2));
+
     }
 }
