@@ -6,6 +6,7 @@ using TMPro;
 public class Level_Manager : MonoBehaviour
 {
     public Planet planet_prefab;
+    public Sun sun_prefab;
     public GameObject explosion_prefab;
     public GameObject UI;
     public Turret turret_prefab;
@@ -21,6 +22,7 @@ public class Level_Manager : MonoBehaviour
     private List<Planet> planets;
     private List<Turret> turrets;
     private List<Spacegun> spaceguns;
+    private List<Sun> suns;
     private float update_frequency = 0.016f; // 60 times/s
     private float timer = 0.0f;
     private List<Bot> bots;
@@ -150,7 +152,17 @@ public class Level_Manager : MonoBehaviour
         this.level_indicator.text = "level " + level_indicator_text;
         level = JsonUtility.FromJson<Level>(level_json);
         int structure_counter = 0;
+        int spaceentity_counter = 0;
+        if(level.suns != null){
+            foreach (SerializedSpaceEntity sse in level.suns)
+            {
+                Sun sun = Instantiate(sun_prefab, new Vector3(sse.position_x, sse.position_y, 0), Quaternion.identity);
+                sun.Initialize(sse, "sun"+spaceentity_counter.ToString());
+                this.suns.Add(sun.GetComponent<Sun>());
 
+                spaceentity_counter += 1;
+            }
+        }
         foreach (SerializedSpacegun ssg in level.spaceguns)
         {
             Spacegun spacegun = Instantiate(spacegun_prefab, new Vector3(ssg.position_x, ssg.position_y, 0), Quaternion.identity);

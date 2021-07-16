@@ -10,6 +10,7 @@ TagManager:
   - Spacegun
   - SpaceBackground
   - Music
+  - Sun
   layers:
   - Default
   - TransparentFX

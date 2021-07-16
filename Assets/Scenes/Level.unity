@@ -3383,6 +3383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planet_prefab: {fileID: 754710665129022988, guid: 42ea0aa567966d64faa050f707aa594e,
     type: 3}
+  sun_prefab: {fileID: -9121799527960729900, guid: 9fb4c94bf025a9545be75b32316dab6a,
+    type: 3}
   explosion_prefab: {fileID: 1048019570627316359, guid: 28e0595e34e70884ca2d9a1ea0997bde,
     type: 3}
   UI: {fileID: 1792495994}
