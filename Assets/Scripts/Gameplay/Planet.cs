@@ -79,11 +79,11 @@ public class Planet : Structure
         }
         this.population = initial_population;
 
-        //this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
-        Debug.Log(this.sphere);
+        this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        //Debug.Log(this.sphere);
         //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
-        this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
-        this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
 
         this.level = 0;
         this.max_level = 3;
@@ -170,7 +170,7 @@ public class Planet : Structure
     // Update is called once per frame
     public void Update_Custom()
     {
-        this.sphere.transform.Rotate(new Vector3(0,0.1f,0));
+        //this.sphere.transform.Rotate(new Vector3(0,0.1f,0));
         if (this.growth_queue > 1)
         {
             this.grow(1);
@@ -227,10 +227,10 @@ public class Planet : Structure
 
     override public void update_identity()
     {
-        //this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
+        this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
         //this.sphere.material.SetColor("_TextureColor", Constants.team_colors[this.team]);
-        this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
-        this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Maincolor", Constants.team_colors[this.team]);
+        //this.sphere.material.SetColor("_Edgecolor", Constants.team_colors[this.team]);
         this.protected_symbol.SetActive(this.is_protected);
         this.update_population_display();
     }
