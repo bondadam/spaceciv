@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Level_Manager : MonoBehaviour
@@ -12,6 +13,8 @@ public class Level_Manager : MonoBehaviour
     public GameObject UI;
     public Turret turret_prefab;
     public Spacegun spacegun_prefab;
+
+    public Image starbar;
 
     public Spaceship spaceship_prefab;
     // TODO: Change List<Planet> to Array for perf gains
@@ -26,7 +29,9 @@ public class Level_Manager : MonoBehaviour
     private List<Sun> suns;
     private List<FrozenVoid> frozenvoids;
     private float update_frequency = 0.016f; // 60 times/s
+    private float star_time;
     private float timer = 0.0f;
+    private float timer_starbar = 0.0f;
     private List<Bot> bots;
     private float spaceship_speed;
     private int spaceship_count = 0;
@@ -115,6 +120,10 @@ public class Level_Manager : MonoBehaviour
         this.Initialize();
     }
 
+    public void update_starbar(){
+        this.starbar.fillAmount = 1 - (this.timer_starbar /  (this.star_time * 3));
+    }
+
     public void Initialize()
     {
         this.planets = new List<Planet>();
@@ -126,6 +135,9 @@ public class Level_Manager : MonoBehaviour
         this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
         this.time_taken = 0; 
         this.game_over = false;
+
+        this.starbar.fillAmount = 1;
+
         String level_json;
         String level_indicator_text = String.Empty;
         if (Utils.selected_level == Constants.USER_LEVEL_CODE)
@@ -252,6 +264,7 @@ public class Level_Manager : MonoBehaviour
     {
 
         this.timer += Time.deltaTime;
+        this.timer_starbar += Time.deltaTime;
 
         // Check if we have reached beyond 16ms.
         // Subtracting is more accurate over time than resetting to zero.
@@ -303,6 +316,7 @@ public class Level_Manager : MonoBehaviour
                 //And update level stats timer
                 this.time_taken += this.update_frequency;
             }
+            this.update_starbar();
         }
         else
         {
