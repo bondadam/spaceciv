@@ -6,7 +6,6 @@ using System;
 public class Sun : SpaceEntity
 {
     
-    private float size;
 
 
     void Start()

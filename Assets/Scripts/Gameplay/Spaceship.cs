@@ -11,7 +11,7 @@ public class Spaceship : MonoBehaviour
 
     private float speed;
 
-    private int frozen;
+    //private int frozen;
 
     private TextMeshPro population_display;
 
@@ -28,13 +28,14 @@ public class Spaceship : MonoBehaviour
     private int population;
 
     public bool destroyable;
+    private int frozen;
     private string Name;
     private Explosion_Animation_Callback explosion_callback;
     public delegate void Explosion_Animation_Callback(Vector2 pos);
     public IEnumerator unfreeze(float seconds_to_wait)
     {
         yield return new WaitForSeconds(seconds_to_wait);
-        this.frozen--;
+       // this.frozen--;
     }
 
     public void Initialize(Team team, int population, Planet origin, Structure target, float speed, string name, Explosion_Animation_Callback explosion_callback)
@@ -97,7 +98,7 @@ public class Spaceship : MonoBehaviour
 
     public void freeze()
     {
-        this.frozen++;
+        //this.frozen++;
     }
 
     public bool is_battling()
@@ -171,13 +172,16 @@ public class Spaceship : MonoBehaviour
         return this.origin;
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "FrozenVoid")
+        {
+            this.frozen = 2;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "FrozenVoid")
-        {
-            this.freeze();
-        
-        }else if (other.gameObject.tag == "Sun")
+       if (other.gameObject.tag == "Sun")
         {
             this.die(true);
         
@@ -253,6 +257,7 @@ public class Spaceship : MonoBehaviour
 
     public void custom_update(float delta)
     {
+        this.frozen --;
         if (this.is_battling())
         {
             for (int i = 0; i < this.battling.Count; i++)
@@ -287,7 +292,7 @@ public class Spaceship : MonoBehaviour
 
     public void move(float delta)
     {
-        if (this.frozen > 0)
+        if (this.frozen>0)
         {
             this.current_position = Vector2.MoveTowards(this.current_position, this.target_position, this.speed * delta * Constants.FROZEN_SPACESHIP_RELATIVE_SPEED);
         }
