@@ -47,20 +47,30 @@ public class Level_Button : MonoBehaviour
         this.custom = custom;
         this.number = number;
         this.difficulty = difficulty;
-        this.completed = completed; // 0: not completed, 1-3: completed with 1-3 stars
+        this.completed = completed; // 0-3 = completed with 0-3 stars, -1: not completed
         switch (completed_score)
         {
+            case 0:
+                show_star(this.star1, false);
+                show_star(this.star2, false);
+                show_star(this.star3, false);
+                break;
             case 1:
-                show_star(this.star1, true);
+                show_star(this.star1, false);
                 show_star(this.star2, false);
                 show_star(this.star3, false);
                 break;
             case 2:
                 show_star(this.star1, true);
-                show_star(this.star2, true);
+                show_star(this.star2, false);
                 show_star(this.star3, false);
                 break;
             case 3:
+                show_star(this.star1, true);
+                show_star(this.star2, true);
+                show_star(this.star3, false);
+                break;
+            case 4:
                 show_star(this.star1, true);
                 show_star(this.star2, true);
                 show_star(this.star3, true);

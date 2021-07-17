@@ -247,7 +247,9 @@ public class Level_Manager : MonoBehaviour
         }else{
             star_time = level.record_time;
         }
-        
+        if(level.spaceship_speed != 0){
+            this.spaceship_speed = level.spaceship_speed;
+        }
         this.bots = new List<Bot>();
 
         // Handle Bot Types
@@ -303,6 +305,7 @@ public class Level_Manager : MonoBehaviour
         // Every 6*16ms (~1 sec), check that we are not in game over state
         if (!this.game_over)
         {
+            this.update_starbar();
             if (this.timer > this.update_frequency)
             {
                 this.game_over_delay_check_counter++;
@@ -314,8 +317,22 @@ public class Level_Manager : MonoBehaviour
                     {
                         Debug.Log("Game over!");
                         LevelStatsKeeper.set_timer(this.time_taken);
-                        float time_goal = this.star_time;
-                        this.game_Over_Menu.end_game(player_alive, time_goal); // player_alive == true --> we won
+                        int level_score;
+                        if(LevelStatsKeeper.get_timer() <= star_time)
+                        {
+                            level_score = 4;
+                            //this.starbar.fillAmount = 1f;
+                        }else  if(LevelStatsKeeper.get_timer() <= star_time*2){
+                            level_score = 3;
+                            //this.starbar.fillAmount = 0.66f;
+                        }else  if(LevelStatsKeeper.get_timer() <= star_time*3){
+                            level_score = 2;
+                            //this.starbar.fillAmount = 0.33f;
+                        }else{
+                            level_score = 1;
+                            //this.starbar.fillAmount = 0f;
+                        }
+                        this.game_Over_Menu.end_game(player_alive, level_score); // player_alive == true --> we won
                     }
                     this.game_over = game_over;
                 }
@@ -348,7 +365,6 @@ public class Level_Manager : MonoBehaviour
                 //And update level stats timer
                 this.time_taken += this.update_frequency;
             }
-            this.update_starbar();
         }
         else
         {
