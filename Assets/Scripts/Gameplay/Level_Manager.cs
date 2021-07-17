@@ -26,6 +26,7 @@ public class Level_Manager : MonoBehaviour
     private List<Sun> suns;
     private List<FrozenVoid> frozenvoids;
     private float update_frequency = 0.016f; // 60 times/s
+    private float star_time;
     private float timer = 0.0f;
     private List<Bot> bots;
     private float spaceship_speed;
@@ -203,7 +204,39 @@ public class Level_Manager : MonoBehaviour
             this.turrets.Add(turret.GetComponent<Turret>());
             structure_counter += 1;
         }
-
+       // List<Structure> structures = planets.AddRange(turretes)
+        foreach(Planet pl in planets)
+        {
+            List<Structure> neighbors = new List<Structure>();
+            foreach(Planet neighbor in planets)
+            {
+                bool is_neighbor = true;
+                if(pl.Equals(neighbor))
+                {
+                    is_neighbor = false;
+                }
+                foreach(Sun sun in suns)
+                {
+                    Vector2 circle_coords = sun.transform.position;
+                    if(Utils.collision_circle_line(circle_coords, sun.get_size()*3.5f, pl.transform.position, neighbor.transform.position))
+                    {
+                        is_neighbor = false;
+                    }
+                }
+                if(is_neighbor)
+                {
+                    neighbors.Add(neighbor);
+                }
+            }
+            pl.set_neighboring_planets(neighbors);
+        }
+        if(level.record_time == 0)
+        {
+            star_time = 90;
+        }else{
+            star_time = level.record_time;
+        }
+        
         this.bots = new List<Bot>();
 
         // Handle Bot Types

@@ -1,6 +1,7 @@
 {
     "difficulty": 2,
     "color": 3,
+    "record_time": 60,
     "planets": [
         {
             "planet_size": 1.5,

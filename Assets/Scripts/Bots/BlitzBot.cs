@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BlitzBot : Bot
 {
@@ -8,9 +9,11 @@ public class BlitzBot : Bot
         (List<Planet> my_planets, List<Planet> enemy_planets) planets = this.separate_planets(game_State.planets);
         bool move_chosen = false;
         planets.my_planets.Shuffle();
-        planets.enemy_planets.Shuffle();
         foreach (Planet p in planets.my_planets){
-            foreach (Planet ep in planets.enemy_planets){
+            //List<Planet> enemy_planets = planets.enemy_planets.Intersect(p.neighboring_structures);
+            List<Planet> enemy_planets = (from ep in planets.enemy_planets where p.neighboring_structures.Contains(ep) select ep).ToList();
+            enemy_planets.Shuffle();
+            foreach (Planet ep in enemy_planets){
                 if (!move_chosen && (p.get_population() > ep.get_population() || p.get_population()>=p.population_max)){
                     move_chosen = true;
                     //Debug.Log("Move chosen. From planet " + p.ToString() + " to planet " + ep.ToString());

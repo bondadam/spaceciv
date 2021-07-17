@@ -1,5 +1,6 @@
 {
     "name": "Bonanza",
+    "record_time": 60,
     "planets": [
         {
             "team": 0,

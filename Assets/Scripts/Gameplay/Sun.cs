@@ -6,7 +6,7 @@ using System;
 public class Sun : SpaceEntity
 {
     
-    
+    private float size;
 
 
     void Start()
@@ -21,7 +21,7 @@ public class Sun : SpaceEntity
         this.name = name;
         this.transform.position = new Vector3(serializedSpaceEntity.position_x, serializedSpaceEntity.position_y, 0);
         this.tag = "Sun";   
-
+        this.size = serializedSpaceEntity.size;
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
 
 
@@ -31,7 +31,9 @@ public class Sun : SpaceEntity
     }
 
 
-
+    public float get_size(){
+        return this.size;
+    }
     public void Update()
     {
 

@@ -1,5 +1,6 @@
 {
     "name": "Breakthrough",
+    "record_time": 90,
     "planets": [
         {
             "team": 0,

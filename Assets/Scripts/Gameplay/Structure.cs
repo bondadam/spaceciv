@@ -149,6 +149,10 @@ public class Structure : MonoBehaviour
         return this.team;
     }
 
+    public void set_neighboring_planets(List<Structure> neighbors)
+    {
+        this.neighboring_structures = neighbors;
+    }
     public void set_team(Team team)
     {
         if (team != this.team && this.is_protected && this.team != Team.Neutral)

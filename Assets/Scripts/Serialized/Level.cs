@@ -13,6 +13,7 @@ public class Level
         this.planets = planets;
         this.turrets = turrets;
         this.spaceguns = spaceguns;
+        this.record_time = 60;
     }
 
     public Level_Difficulty difficulty;
