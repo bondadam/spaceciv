@@ -314,7 +314,7 @@ public class Level_Manager : MonoBehaviour
                     {
                         Debug.Log("Game over!");
                         LevelStatsKeeper.set_timer(this.time_taken);
-                        float time_goal = level.record_time;
+                        float time_goal = this.star_time;
                         this.game_Over_Menu.end_game(player_alive, time_goal); // player_alive == true --> we won
                     }
                     this.game_over = game_over;
