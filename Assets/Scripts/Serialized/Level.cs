@@ -24,6 +24,7 @@ public class Level
     public SerializedSpaceEntity[] suns;
     public SerializedSpaceEntity[] frozenvoids;
     public SerializedBot[] bots;
+    public float spaceship_speed;
     public float record_time;
     public int tutorial;
 

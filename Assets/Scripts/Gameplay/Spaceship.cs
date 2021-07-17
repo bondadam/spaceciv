@@ -199,7 +199,6 @@ public class Spaceship : MonoBehaviour
             }
             if (collided_planet == this.target)
             {
-                Debug.Log("I touched my target");
                 this.moving = false;
                 if (collided_planet.get_team() == this.team)
                 {

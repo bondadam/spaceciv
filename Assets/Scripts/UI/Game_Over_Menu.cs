@@ -55,7 +55,7 @@ public class Game_Over_Menu : MonoBehaviour
     }
 
 
-    public void end_game(bool won, float target_time)
+    public void end_game(bool won, int level_score)
     {
         this.game_over = true;
         game_over_panel.SetActive(true);
@@ -64,13 +64,7 @@ public class Game_Over_Menu : MonoBehaviour
         if(won){
             if(Utils.selected_level!=999)
             {
-                int level_score;
-                if(LevelStatsKeeper.get_timer() <= target_time)
-                {
-                    level_score = 3;
-                }else{
-                    level_score = 1;
-                }
+             
                 string level_path = Constants.level_paths[Utils.selected_level].Item1;
                 Utils.levels_completed[Utils.selected_level] = Math.Max(Utils.levels_completed[Utils.selected_level],level_score);
                 PlayerPrefs.SetInt(level_path, Utils.levels_completed[Utils.selected_level]);
