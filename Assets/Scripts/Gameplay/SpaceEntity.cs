@@ -8,7 +8,8 @@ using System;
 public class SpaceEntity : MonoBehaviour
 {
     public SpriteRenderer m_SpriteRenderer;
-
+    
+    public float size;
 
 
 }
