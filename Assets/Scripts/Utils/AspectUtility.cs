@@ -7,8 +7,8 @@ public class AspectUtility : MonoBehaviour {
 	static float wantedAspectRatio;
 	static Camera cam;
 	static Camera backgroundCam;
-    public GameObject panel;
-    static GameObject static_panel;
+    public Canvas _canvas;
+    static Canvas canvas;
  
 	void Awake () {
 		cam = GetComponent<Camera>();
@@ -19,8 +19,8 @@ public class AspectUtility : MonoBehaviour {
 			Debug.LogError ("No camera available");
 			return;
 		}
+		canvas = _canvas;
 		wantedAspectRatio = _wantedAspectRatio;
-        static_panel = panel;
 		SetCamera();
 	}
  
