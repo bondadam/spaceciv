@@ -156,6 +156,7 @@ public static class Constants
         ("Levels/Easy_level_6", Level_Difficulty.Easy),
         ("Levels/level4", Level_Difficulty.Medium),
         ("Levels/level5", Level_Difficulty.Medium),
+        ("Levels/Circle_2", Level_Difficulty.Medium),
         ("Levels/level6", Level_Difficulty.Medium),
         ("Levels/Central_garden", Level_Difficulty.Medium),
         ("Levels/Defense_belt", Level_Difficulty.Medium),
