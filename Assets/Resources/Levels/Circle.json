@@ -55,7 +55,7 @@
             "initial_population": 25,
             "population_max": 99,
             "is_protected": false
-        },
+        }, 
         {
             "planet_size": 1.0,
             "team": 3,
