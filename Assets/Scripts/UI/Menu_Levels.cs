@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;  
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using TMPro;
 
 
@@ -11,7 +12,7 @@ public class Menu_Levels : MonoBehaviour
     public GameObject prefabButton;
     public Transform grid;
 
-
+    public ScrollView scrollview;
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +46,14 @@ public class Menu_Levels : MonoBehaviour
             }
 			lb.initialize(custom, k, entry.Item2, level_completed, i * 0.05f);
 			button_object.transform.SetParent(grid);
-            Button button = button_object.GetComponent<Button>();
+            UnityEngine.UI.Button button = button_object.GetComponent<UnityEngine.UI.Button>();
             button.onClick.AddListener(() => level_clicked(k, custom));
             i += 1;
         }
+       // ScrollRect scrollRect = GetComponentInChildren<ScrollRect>();
+       // scrollRect.verticalScrollbar.value = 0.99f;
+          //  float scrollValue = 1 + _element.anchoredPosition.y/scrollRect.content.GetHeight();
+           // scrollRect.verticalScrollbar.value = _scrollValue;
      }
 
     public void level_clicked(int number, bool custom){

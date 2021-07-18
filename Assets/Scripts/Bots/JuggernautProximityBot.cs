@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
+// if protected enemy planets exist, attack only them.
+// otherwise, attack only enemy planets.
+// of those options, always attack the closest one that has less pop than me
+
 public class JuggernautProximityBot : Bot
 {
     public override void make_Move(Game_State game_State){

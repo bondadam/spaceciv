@@ -13,8 +13,8 @@ public static class Game_Settings
     // fast tempo game -> 10f
     // slow, tactical game -> 3f
     
-    public const float MIN_RECORD_TIME = 5f;
-    public const float BASE_RECORD_TIME = 60f;
+    public const float MIN_RECORD_TIME = 0f;
+    public const float BASE_RECORD_TIME = 0f;
     public const float MAX_RECORD_TIME = 300f;
 
 
