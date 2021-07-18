@@ -11,15 +11,19 @@ public class Level_Editor_Manager : MonoBehaviour
     private Level_Difficulty difficulty;
     private Background_Color background_Color;
     public TextMeshProUGUI save_placeholder;
-    private Structure_Type selected_object;
+    private Object_Type selected_object;
     private List<Editor_Planet> planets;
     private List<Editor_Turret> turrets;
     private List<Editor_Spacegun> spaceguns;
+    private List<Editor_Sun> suns;
+    private List<Editor_FrozenVoid> frozenVoids;
     private List<Bot_Config> bots;
-    private Editor_Structure chosen_structure;
+    private Editor_Object chosen_object;
     public Editor_Planet editor_planet_prefab;
     public Editor_Turret editor_turret_prefab;
     public Editor_Spacegun editor_spacegun_prefab;
+    public Editor_Sun editor_sun_prefab;
+    public Editor_FrozenVoid editor_frozenvoid_prefab;
 
     public Bot_Config bot_config_prefab;
 
@@ -40,20 +44,23 @@ public class Level_Editor_Manager : MonoBehaviour
         this.planets = new List<Editor_Planet>();
         this.turrets = new List<Editor_Turret>();
         this.spaceguns = new List<Editor_Spacegun>();
+        this.suns = new List<Editor_Sun>();
+        this.frozenVoids = new List<Editor_FrozenVoid>();
         this.bots = new List<Bot_Config>();
-        this.chosen_structure = null;
+        this.chosen_object = null;
         this.difficulty = Level_Difficulty.Easy;
         this.background_Color = Background_Color.default_color;
         chosen_level = PlayerPrefs.GetString(Constants.EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF);
         if (chosen_level != null && chosen_level != "")
-        {   
+        {
             this.save_placeholder.text = string.Empty;
             this.save_input.text = chosen_level;
             load(chosen_level);
         }
     }
 
-    public void toggle_save_overlay(){
+    public void toggle_save_overlay()
+    {
         this.save_overlay.SetActive(!this.save_overlay.activeSelf);
     }
 
@@ -84,6 +91,22 @@ public class Level_Editor_Manager : MonoBehaviour
             serializedSpaceguns[i] = intermediary.get_data();
         }
 
+        GameObject[] suns_as_objects = GameObject.FindGameObjectsWithTag("Sun");
+        SerializedSpaceEntity[] serializedSuns = new SerializedSpaceEntity[suns_as_objects.Length];
+        for (int i = 0; i < suns_as_objects.Length; i++)
+        {
+            Editor_Sun intermediary = (Editor_Sun)suns_as_objects[i].GetComponent<Editor_Sun>();
+            serializedSuns[i] = intermediary.get_data();
+        }
+
+        GameObject[] frozenvoids_as_objects = GameObject.FindGameObjectsWithTag("FrozenVoid");
+        SerializedSpaceEntity[] serializedFrozenVoids = new SerializedSpaceEntity[frozenvoids_as_objects.Length];
+        for (int i = 0; i < frozenvoids_as_objects.Length; i++)
+        {
+            Editor_FrozenVoid intermediary = (Editor_FrozenVoid)frozenvoids_as_objects[i].GetComponent<Editor_FrozenVoid>();
+            serializedFrozenVoids[i] = intermediary.get_data();
+        }
+
         update_bots();
         SerializedBot[] save_bots = new SerializedBot[this.bots.Count];
         for (int i = 0; i < this.bots.Count; i++)
@@ -91,13 +114,14 @@ public class Level_Editor_Manager : MonoBehaviour
             save_bots[i] = this.bots[i].get_data();
         }
 
-        Level new_level = new Level(save_bots, serializedPlanets, serializedTurrets, serializedSpaceguns);
+        Level new_level = new Level(save_bots, serializedPlanets, serializedTurrets, serializedSpaceguns, serializedSuns, serializedFrozenVoids);
         new_level.difficulty = this.difficulty;
         new_level.color = this.background_Color;
         string serialized_level = JsonUtility.ToJson(new_level);
         System.IO.FileInfo file;
 
-        if (this.save_input.text != string.Empty){
+        if (this.save_input.text != string.Empty)
+        {
             file = new System.IO.FileInfo(Constants.USER_LEVEL_DIRECTORY_PATH + "/levels/" + this.save_input.text + ".json");
         }
         else if (chosen_level == null || chosen_level == "")
@@ -122,7 +146,8 @@ public class Level_Editor_Manager : MonoBehaviour
         this.save_overlay.SetActive(false);
     }
 
-    public void clean(){
+    public void clean()
+    {
 
         foreach (Editor_Planet ep in this.planets)
         {
@@ -141,12 +166,24 @@ public class Level_Editor_Manager : MonoBehaviour
             es.destroy();
         }
         this.spaceguns = new List<Editor_Spacegun>();
+
+        foreach (Editor_Sun esn in this.suns)
+        {
+            esn.destroy();
+        }
+        this.suns = new List<Editor_Sun>();
+
+        foreach (Editor_FrozenVoid ef in this.frozenVoids)
+        {
+            ef.destroy();
+        }
+        this.frozenVoids = new List<Editor_FrozenVoid>();
     }
 
     public void load(string level_filename)
     {
 
-        this.clean(); 
+        this.clean();
 
         string level_path = Save_File_Manager.getFullPath(level_filename);
         string level_json = System.IO.File.ReadAllText(level_path);
@@ -174,6 +211,22 @@ public class Level_Editor_Manager : MonoBehaviour
             Editor_Spacegun actual_spacegun = spacegun.GetComponent<Editor_Spacegun>();
             actual_spacegun.Initialize_Load(ss);
             this.spaceguns.Add(actual_spacegun);
+        }
+
+        foreach (SerializedSpaceEntity sse in level.suns)
+        {
+            Editor_Sun sun = Instantiate(editor_sun_prefab, new Vector3(sse.position_x, sse.position_y, 0), Quaternion.identity);
+            Editor_Sun actual_sun = sun.GetComponent<Editor_Sun>();
+            actual_sun.Initialize_Load(sse);
+            this.suns.Add(actual_sun);
+        }
+
+        foreach (SerializedSpaceEntity sse in level.frozenvoids)
+        {
+            Editor_FrozenVoid frozenVoid = Instantiate(editor_frozenvoid_prefab, new Vector3(sse.position_x, sse.position_y, 0), Quaternion.identity);
+            Editor_FrozenVoid actual_frozenVoid = frozenVoid.GetComponent<Editor_FrozenVoid>();
+            actual_frozenVoid.Initialize_Load(sse);
+            this.frozenVoids.Add(actual_frozenVoid);
         }
 
         foreach (SerializedBot sb in level.bots)
@@ -239,13 +292,15 @@ public class Level_Editor_Manager : MonoBehaviour
         }
     }
 
-    public void difficulty_changed(int new_difficulty_int){
-        Level_Difficulty new_difficulty = (Level_Difficulty) new_difficulty_int;
+    public void difficulty_changed(int new_difficulty_int)
+    {
+        Level_Difficulty new_difficulty = (Level_Difficulty)new_difficulty_int;
         this.difficulty = new_difficulty;
     }
 
-    public void backgroundcolor_changed(int new_background_color_int){
-        Background_Color new_bgcolor = (Background_Color) new_background_color_int;
+    public void backgroundcolor_changed(int new_background_color_int)
+    {
+        Background_Color new_bgcolor = (Background_Color)new_background_color_int;
         SpaceLoad.switchColors(new_bgcolor);
         this.background_Color = new_bgcolor;
     }
@@ -265,39 +320,47 @@ public class Level_Editor_Manager : MonoBehaviour
         Camera.main.transform.position = new Vector3(0, 0, Camera.main.transform.position.z);
     }
 
-    public void select(Structure_Type selection)
+    public void select(Object_Type selection)
     {
         this.selected_object = selection;
     }
 
     public void select_planet()
     {
-        this.select(Structure_Type.Planet);
+        this.select(Object_Type.Planet);
     }
     public void select_turret()
     {
-        this.select(Structure_Type.Turret);
+        this.select(Object_Type.Turret);
     }
 
     public void select_spacegun()
     {
-        this.select(Structure_Type.Spacegun);
+        this.select(Object_Type.Spacegun);
     }
 
-    public void choose_structure(Editor_Structure structure)
-    {
-        this.chosen_structure = structure;
-        this.selected_object = Structure_Type.None;
+    public void select_sun(){
+        this.select(Object_Type.Sun);
     }
 
-    public void move_chosen_structure(Vector2 new_coords)
+    public void select_frozenvoid(){
+        this.select(Object_Type.FrozenVoid);
+    }
+
+    public void choose_object(Editor_Object obj)
     {
-        this.chosen_structure.move(new_coords);
+        this.chosen_object = obj;
+        this.selected_object = Object_Type.None;
+    }
+
+    public void move_chosen_object(Vector2 new_coords)
+    {
+        this.chosen_object.move(new_coords);
     }
 
     public void unselect()
     {
-        this.selected_object = Structure_Type.None;
+        this.selected_object = Object_Type.None;
     }
 
     public void close_all_databoxes()
@@ -323,6 +386,22 @@ public class Level_Editor_Manager : MonoBehaviour
                 es.close_databox();
             }
         }
+
+        foreach (Editor_Sun esn in this.suns)
+        {
+            if (esn != null)
+            {
+                esn.close_databox();
+            }
+        }
+
+        foreach (Editor_FrozenVoid ef in this.frozenVoids)
+        {
+            if (ef != null)
+            {
+                ef.close_databox();
+            }
+        }
     }
 
 
@@ -331,23 +410,35 @@ public class Level_Editor_Manager : MonoBehaviour
         this.close_all_databoxes();
         switch (this.selected_object)
         {
-            case Structure_Type.Planet:
+            case Object_Type.Planet:
                 Editor_Planet planet = Instantiate(editor_planet_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
                 Editor_Planet.On_Destroy_Callback on_destroy = new Editor_Planet.On_Destroy_Callback(remove_planet_from_list);
                 planet.Initialize(coords, on_destroy);
                 this.planets.Add(planet);
                 break;
-            case Structure_Type.Turret:
+            case Object_Type.Turret:
                 Editor_Turret turret = Instantiate(editor_turret_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
                 Editor_Turret.On_Destroy_Callback on_destroy_turret = new Editor_Turret.On_Destroy_Callback(remove_turret_from_list);
                 turret.Initialize(coords, on_destroy_turret);
                 this.turrets.Add(turret);
                 break;
-            case Structure_Type.Spacegun:
+            case Object_Type.Spacegun:
                 Editor_Spacegun spacegun = Instantiate(editor_spacegun_prefab, new Vector3(coords.x, coords.y, 0), Quaternion.identity);
                 Editor_Spacegun.On_Destroy_Callback on_destroy_spacegun = new Editor_Spacegun.On_Destroy_Callback(remove_spacegun_from_list);
                 spacegun.Initialize(coords, on_destroy_spacegun);
                 this.spaceguns.Add(spacegun);
+                break;
+            case Object_Type.Sun:
+                Editor_Sun sun = Instantiate(editor_sun_prefab, new Vector3(coords.x, coords.y, -5), Quaternion.identity);
+                Editor_Sun.On_Destroy_Callback on_destroy_sun = new Editor_Sun.On_Destroy_Callback(remove_sun_from_list);
+                sun.Initialize(coords, on_destroy_sun);
+                this.suns.Add(sun);
+                break;
+            case Object_Type.FrozenVoid:
+                Editor_FrozenVoid frozenvoid = Instantiate(editor_frozenvoid_prefab, new Vector3(coords.x, coords.y, -5), Quaternion.identity);
+                Editor_FrozenVoid.On_Destroy_Callback on_destroy_frozenvoid = new Editor_FrozenVoid.On_Destroy_Callback(remove_frozenvoid_from_list);
+                frozenvoid.Initialize(coords, on_destroy_frozenvoid);
+                this.frozenVoids.Add(frozenvoid);
                 break;
             default: // case null
                 break;
@@ -384,18 +475,28 @@ public class Level_Editor_Manager : MonoBehaviour
         }
         return present_teams;
     }
-    public void remove_planet_from_list(Editor_Structure structure_to_remove)
+    public void remove_planet_from_list(Editor_Object object_to_remove)
     {
-        this.planets.Remove((Editor_Planet)structure_to_remove);
+        this.planets.Remove((Editor_Planet)object_to_remove);
     }
 
-    public void remove_turret_from_list(Editor_Structure structure_to_remove)
+    public void remove_turret_from_list(Editor_Object object_to_remove)
     {
-        this.turrets.Remove((Editor_Turret)structure_to_remove);
+        this.turrets.Remove((Editor_Turret)object_to_remove);
     }
 
-    public void remove_spacegun_from_list(Editor_Structure structure_to_remove)
+    public void remove_spacegun_from_list(Editor_Object structure_to_remove)
     {
         this.spaceguns.Remove((Editor_Spacegun)structure_to_remove);
     }
+    public void remove_sun_from_list(Editor_Object object_to_remove)
+    {
+        this.suns.Remove((Editor_Sun)object_to_remove);
+    }
+
+    public void remove_frozenvoid_from_list(Editor_Object object_to_remove)
+    {
+        this.frozenVoids.Remove((Editor_FrozenVoid)object_to_remove);
+    }
 }
+

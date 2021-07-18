@@ -62,7 +62,7 @@ public class Planet : Structure
         this.is_protected = serializedPlanet.is_protected;
         this.lose_game = lose_game_callback;
         this.tag = "Planet";
-        this.structure_type = Structure_Type.Planet;
+        this.structure_type = Object_Type.Planet;
 
         this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         this.population_display = this.GetComponentInChildren<TextMeshPro>();

@@ -355,6 +355,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Space_Total
       objectReference: {fileID: 0}
+    - target: {fileID: 8701157626580395664, guid: 59bcecbf6cd67ee43b766e56810061eb,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701157626580395664, guid: 59bcecbf6cd67ee43b766e56810061eb,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59bcecbf6cd67ee43b766e56810061eb, type: 3}
 --- !u!1 &268033769

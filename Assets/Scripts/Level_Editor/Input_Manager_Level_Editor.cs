@@ -82,18 +82,18 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                 else
                 {
                     // Clicked on a planet
-                    Editor_Structure clicked_structure = hit.collider.gameObject.GetComponent<Editor_Structure>();
+                    Editor_Object clicked_structure = hit.collider.gameObject.GetComponent<Editor_Object>();
                     // Close all other databoxes before opening this one
                     level_Editor_Manager.close_all_databoxes();
                     clicked_structure.open_databox();
                     this.holding = true;
-                    level_Editor_Manager.choose_structure(clicked_structure);
+                    level_Editor_Manager.choose_object(clicked_structure);
                 }
             }
             else if (holding && Input.GetMouseButton(0)){
                 if(old_mouse_position[0] != Input.mousePosition.x || old_mouse_position[1] != Input.mousePosition.y)
                 {
-                    level_Editor_Manager.move_chosen_structure(mousePos2D);
+                    level_Editor_Manager.move_chosen_object(mousePos2D);
                 }
             }
             else if (!Input.GetMouseButton(0))

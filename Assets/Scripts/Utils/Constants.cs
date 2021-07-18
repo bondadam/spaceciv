@@ -32,13 +32,15 @@ public enum Selected_State
     Full
 }
 
-public enum Structure_Type
+public enum Object_Type
 {
     None,
     Move,
     Planet,
     Turret,
-    Spacegun
+    Spacegun,
+    FrozenVoid,
+    Sun
 }
 
 public enum Background_Color{
@@ -73,13 +75,20 @@ public static class Constants
     public const int PLANET_ABSOLUTE_MAX_POPULATION = 199;
 
     public const float PLANET_MAX_SIZE = 5;
-
     public const float PLANET_MIN_SIZE = 0.5f;
     public const float PLANET_DEFAULT_SIZE = 1f;
 
     public const float BOT_DEFAULT_MAX_SPEED = 10f;
     public const float BOT_DEFAULT_SPEED = 5f;
     public const float BOT_DEFAULT_MIN_SPEED = 0.5f;
+
+    public const float FROZENVOID_MAX_SIZE = 10;
+    public const float FROZENVOID_MIN_SIZE = 1;
+    public const float FROZENVOID_DEFAULT_SIZE = 1;
+
+    public const float SUN_MAX_SIZE = 10;
+    public const float SUN_MIN_SIZE = 1;
+    public const float SUN_DEFAULT_SIZE = 1;
 
     public const Bot_Type BOT_DEFAULT_TYPE = Bot_Type.ExpandingBot;
     public static string USER_LEVEL_DIRECTORY_PATH = Application.persistentDataPath;

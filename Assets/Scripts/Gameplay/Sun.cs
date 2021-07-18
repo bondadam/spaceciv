@@ -21,7 +21,7 @@ public class Sun : SpaceEntity
         this.transform.position = new Vector3(serializedSpaceEntity.position_x, serializedSpaceEntity.position_y, 0);
         this.tag = "Sun";   
         this.size = serializedSpaceEntity.size;
-        this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
+        //this.m_SpriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
 
 
         this.transform.localScale = new Vector3(serializedSpaceEntity.size, serializedSpaceEntity.size, 1);

@@ -191,13 +191,13 @@ public class Spaceship : MonoBehaviour
             Structure collided_planet = other.gameObject.GetComponent<Structure>();
             switch (collided_planet.get_structure_type())
             {
-                case Structure_Type.Planet:
+                case Object_Type.Planet:
                     collided_planet = (Planet)collided_planet;
                     break;
-                case Structure_Type.Turret:
+                case Object_Type.Turret:
                     collided_planet = (Turret)collided_planet;
                     break;
-                case Structure_Type.Spacegun:
+                case Object_Type.Spacegun:
                     collided_planet = (Spacegun)collided_planet;
                     break;
             }

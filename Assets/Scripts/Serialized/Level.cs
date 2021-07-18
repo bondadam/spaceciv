@@ -6,13 +6,15 @@ public class Level
 {
     public Level(){}
 
-    public Level(SerializedBot[] bots, SerializedPlanet[] planets, SerializedTurret[] turrets, SerializedSpacegun[] spaceguns){
+    public Level(SerializedBot[] bots, SerializedPlanet[] planets, SerializedTurret[] turrets, SerializedSpacegun[] spaceguns, SerializedSpaceEntity[] suns, SerializedSpaceEntity[] frozenvoids){
         
         this.bots = bots;
 
         this.planets = planets;
         this.turrets = turrets;
         this.spaceguns = spaceguns;
+        this.suns = suns;
+        this.frozenvoids = frozenvoids;
         this.record_time = 60;
     }
 

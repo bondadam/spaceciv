@@ -122,13 +122,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4dcf40a6b49354089ba89ca4e57ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data_Box: {fileID: 7190422427453391617}
   team_dropdown: {fileID: 4116971461996924957}
   initPopSlider: {fileID: 7878741529884978600}
   initialPopValue: {fileID: 6900279364725199710}
   maxPopSlider: {fileID: 7911856306464314549}
   maxPopValue: {fileID: 7972151002018311356}
   positionValue: {fileID: 6980148144362933958}
-  data_Box: {fileID: 7190422427453391617}
   initPopDynamic: {fileID: 1747461171694694383}
   m_SpriteRenderer: {fileID: 5842224615181661711}
   sprite_star: {fileID: 6222815857030655868}

@@ -7,7 +7,7 @@ using System;
 
 public class Structure : MonoBehaviour
 {
-    protected Structure_Type structure_type;
+    protected Object_Type structure_type;
     public List<Structure> neighboring_structures;
     public Team team;
 
@@ -56,7 +56,7 @@ public class Structure : MonoBehaviour
         }
     }
 
-    public Structure_Type get_structure_type()
+    public Object_Type get_structure_type()
     {
         return this.structure_type;
     }

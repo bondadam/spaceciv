@@ -169,6 +169,7 @@ public class Level_Manager : MonoBehaviour
         level = JsonUtility.FromJson<Level>(level_json);
         int structure_counter = 0;
         int spaceentity_counter = 0;
+        
         if(level.suns != null){
             foreach (SerializedSpaceEntity sse in level.suns)
             {
