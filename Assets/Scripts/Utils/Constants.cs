@@ -133,6 +133,17 @@ public static class Constants
                 {Team.CPU4, "CPU 4"}
         };
 
+        public static Dictionary<Bot_Type, string> bot_names = new Dictionary<Bot_Type, string>(){
+                {Bot_Type.BlitzBot, "Blitz"},
+                {Bot_Type.DefensiveBot, "Defensive" },
+                {Bot_Type.ExpandingBot, "Expanding" },
+                {Bot_Type.JuggernautBot, "Juggernaut"},
+                {Bot_Type.ExpandingJuggernautBot, "ExpJuggernaut"},
+                {Bot_Type.EmptyBot, "Empty"},
+                {Bot_Type.ProximityBot, "Proximity" },
+                {Bot_Type.JuggernautProximityBot, "ProxJuggernaut" }
+        };
+
     public static List<(string, Level_Difficulty)> level_paths = new List<(string, Level_Difficulty)>{
         ("Levels/First_level", Level_Difficulty.Easy),
         ("Levels/level1", Level_Difficulty.Easy),
@@ -151,10 +162,12 @@ public static class Constants
         ("Levels/Green_giant", Level_Difficulty.Medium),
         ("Levels/Turret_tutorial_2", Level_Difficulty.Medium),
         ("Levels/level16", Level_Difficulty.Medium),
+        ("Levels/Sun_And_Moon", Level_Difficulty.Medium),
         ("Levels/level2", Level_Difficulty.Hard),
         ("Levels/Bonanza", Level_Difficulty.Hard),
         ("Levels/level3", Level_Difficulty.Hard),
         ("Levels/level11", Level_Difficulty.Hard),
+        ("Levels/Brute Force", Level_Difficulty.Hard),
         ("Levels/Satellite", Level_Difficulty.Hard),
         ("Levels/Breakthrough", Level_Difficulty.Hard),
         ("Levels/level14", Level_Difficulty.Hard),

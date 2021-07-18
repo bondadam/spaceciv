@@ -35,6 +35,14 @@ public class Bot_Config : MonoBehaviour
         this.team_name.text = Constants.team_names[this.data.team];
 
         this.image.sprite = this.team_sprites[(int)this.data.team];
+        Bot_Type[] bot_types = (Bot_Type[])Bot_Type.GetValues(typeof(Bot_Type));
+        List<string> bot_options = new List<string>();
+        for (int i = 0; i < bot_types.Length; i++){
+            bot_options.Add(Constants.bot_names[bot_types[i]]);
+        }
+
+        this.type_dropdown.ClearOptions();
+        this.type_dropdown.AddOptions(bot_options); // this is your required solutio
 
         // SETUP TYPE
         this.type_dropdown.value = (int)this.data.type;
