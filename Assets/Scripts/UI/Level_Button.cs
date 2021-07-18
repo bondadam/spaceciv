@@ -98,16 +98,16 @@ public class Level_Button : MonoBehaviour
         Color final_color = Color.clear;
         switch(this.difficulty){
             case Level_Difficulty.Easy:
-                final_color = Color.cyan;
+                final_color = new Color(0.309f, 0.623f, 0.137f);
                 break;
             case Level_Difficulty.Medium:
-                final_color = Color.magenta;
+                final_color = new Color(0.137f, 0.341f, 0.623f);
                 break;
             case Level_Difficulty.Hard:
-                final_color = Color.yellow;
+                final_color = new Color(1, 0.541f, 0);
                 break;
             case Level_Difficulty.Impossible:
-                final_color = Color.red;
+                final_color = new Color(0.623f, 0.137f, 0.2f);
                 break;
         }
         this.image_display.color = final_color;
