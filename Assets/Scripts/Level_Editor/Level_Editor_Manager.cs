@@ -82,7 +82,7 @@ public class Level_Editor_Manager : MonoBehaviour
         this.save_overlay.SetActive(!this.save_overlay.activeSelf);
     }
 
-    public void save()
+    public string generate_serialized_level()
     {
         GameObject[] planets_as_objects = GameObject.FindGameObjectsWithTag("Planet");
         SerializedPlanet[] serializedPlanets = new SerializedPlanet[planets_as_objects.Length];
@@ -138,6 +138,11 @@ public class Level_Editor_Manager : MonoBehaviour
         new_level.spaceship_speed = this.spaceship_speed;
         new_level.record_time = this.record_time;
         string serialized_level = JsonUtility.ToJson(new_level);
+        return serialized_level;
+    }
+    public void save()
+    {
+        string serialized_level = generate_serialized_level();
         System.IO.FileInfo file;
 
         if (this.save_input.text != string.Empty)
@@ -165,7 +170,10 @@ public class Level_Editor_Manager : MonoBehaviour
         System.IO.File.WriteAllText(file.FullName, serialized_level);
         this.save_overlay.SetActive(false);
     }
-
+    public void copy_level_to_clipboard(){
+        string serialized_level = generate_serialized_level();
+        GUIUtility.systemCopyBuffer = serialized_level;
+    }
     public void clean()
     {
 

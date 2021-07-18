@@ -6,7 +6,7 @@
     "position_x": 5,
     "position_y": 2.5,
     "team": 1,
-    "initial_population": 10,
+    "initial_population": 25,
     "population_max": 99,
     "planet_size": 1
   },
@@ -14,7 +14,7 @@
     "position_x": -5,
     "position_y": -2.5,
     "team": 0,
-    "initial_population": 10,
+    "initial_population": 25,
     "population_max": 99,
     "planet_size": 1
   },

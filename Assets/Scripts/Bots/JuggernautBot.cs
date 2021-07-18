@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+// if protected enemy planets exist, attack only them
+// otherwise, attack only enemy planets (never attack neutral)
 public class JuggernautBot : Bot
 {
     public override void make_Move(Game_State game_State){

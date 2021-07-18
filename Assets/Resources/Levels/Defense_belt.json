@@ -1,87 +1,102 @@
 {
-    "name": "Defense Belt",
+    "difficulty": 0,
+    "color": 1,
     "planets": [
         {
+            "planet_size": 1.0,
             "team": 1,
-            "position_x": -5.627532482147217,
-            "position_y": 3.0991320610046388,
+            "position_x": -5.0,
+            "position_y": 2.5,
             "initial_population": 5,
             "population_max": 99,
-            "planet_size": 1
+            "is_protected": false
         },
         {
+            "planet_size": 1.0,
             "team": 1,
-            "position_x": -5.718007564544678,
-            "position_y": 0.7655572891235352,
+            "position_x": -5.0,
+            "position_y": 0.0,
             "initial_population": 5,
             "population_max": 99,
-            "planet_size": 1
+            "is_protected": false
         },
         {
+            "planet_size": 1.0,
             "team": 1,
-            "position_x": -5.736102104187012,
-            "position_y": -1.6041970252990723,
-            "initial_population": 80,
+            "position_x": -5.0,
+            "position_y": -2.5,
+            "initial_population": 65,
             "population_max": 99,
-            "planet_size": 1
+            "is_protected": false
         },
         {
+            "planet_size": 1.0,
             "team": 0,
-            "position_x": 5.46467924118042,
-            "position_y": 2.194645404815674,
+            "position_x": 3.5,
+            "position_y": 1.2999999523162842,
             "initial_population": 5,
             "population_max": 99,
-            "planet_size": 1.0
+            "is_protected": false
         },
-     
         {
+            "planet_size": 1.0,
             "team": 0,
-            "position_x": 5.46467924118042,
-            "position_y": -0.5911722779273987,
+            "position_x": 3.5,
+            "position_y": -1.2999999523162842,
             "initial_population": 5,
             "population_max": 99,
-            "planet_size": 1.0
+            "is_protected": false
         },
-        
         {
+            "planet_size": 1.0,
             "team": 5,
-            "position_x": 2.7323389053344728,
-            "position_y": 3.6755385398864748,
+            "position_x": 1.7000000476837159,
+            "position_y": 2.5,
             "initial_population": 25,
             "population_max": 99,
-            "planet_size": 1.0
+            "is_protected": false
         },
         {
+            "planet_size": 1.0,
             "team": 5,
-            "position_x": 2.8409087657928469,
-            "position_y": -1.642841100692749,
+            "position_x": 1.7000000476837159,
+            "position_y": -2.5,
             "initial_population": 25,
             "population_max": 99,
-            "planet_size": 1.0
+            "is_protected": false
         }
     ],
     "spaceguns": [],
-    "turrets": [   {
-        "team": 0,
-        "position_x": -1.6466418504714966,
-        "position_y": -0.6454414129257202,
-        "initial_population": 99,
-        "population_max": 99,
-        "radius": 2.5
-    },
-    {
-        "team": 0,
-        "position_x": -1.6466418504714966,
-        "position_y": 2.2308249473571779,
-        "initial_population": 99,
-        "population_max": 99,
-        "radius": 2.5
-    }],
+    "turrets": [
+        {
+            "radius": 2.0,
+            "team": 0,
+            "position_x": -2.0,
+            "position_y": -1.2999999523162842,
+            "initial_population": 99,
+            "population_max": 99,
+            "is_protected": false
+        },
+        {
+            "radius": 2.0,
+            "team": 0,
+            "position_x": -2.0,
+            "position_y": 1.2999999523162842,
+            "initial_population": 99,
+            "population_max": 99,
+            "is_protected": false
+        }
+    ],
+    "suns": [],
+    "frozenvoids": [],
     "bots": [
         {
             "team": 1,
             "type": 0,
             "decision_interval": 5.0
         }
-    ]
+    ],
+    "spaceship_speed": 0.6000000238418579,
+    "record_time": 80.0,
+    "tutorial": 0
 }

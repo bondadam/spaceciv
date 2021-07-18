@@ -74,6 +74,7 @@ public static class Constants
 
     public const int PLANET_ABSOLUTE_MAX_POPULATION = 199;
 
+    public const float DEFAULT_RECORD_TIME = 90;
     public const float PLANET_MAX_SIZE = 5;
     public const float PLANET_MIN_SIZE = 0.5f;
     public const float PLANET_DEFAULT_SIZE = 1f;
@@ -155,6 +156,7 @@ public static class Constants
         ("Levels/Easy_level_6", Level_Difficulty.Easy),
         ("Levels/level4", Level_Difficulty.Medium),
         ("Levels/level5", Level_Difficulty.Medium),
+        ("Levels/Circle_2", Level_Difficulty.Medium),
         ("Levels/level6", Level_Difficulty.Medium),
         ("Levels/Central_garden", Level_Difficulty.Medium),
         ("Levels/Defense_belt", Level_Difficulty.Medium),
@@ -162,12 +164,12 @@ public static class Constants
         ("Levels/Green_giant", Level_Difficulty.Medium),
         ("Levels/Turret_tutorial_2", Level_Difficulty.Medium),
         ("Levels/level16", Level_Difficulty.Medium),
-        ("Levels/Sun_And_Moon", Level_Difficulty.Medium),
+        ("Levels/Sun_and_moon", Level_Difficulty.Medium),
         ("Levels/level2", Level_Difficulty.Hard),
         ("Levels/Bonanza", Level_Difficulty.Hard),
         ("Levels/level3", Level_Difficulty.Hard),
         ("Levels/level11", Level_Difficulty.Hard),
-        ("Levels/Brute Force", Level_Difficulty.Hard),
+        ("Levels/Brute_force", Level_Difficulty.Hard),
         ("Levels/Satellite", Level_Difficulty.Hard),
         ("Levels/Breakthrough", Level_Difficulty.Hard),
         ("Levels/level14", Level_Difficulty.Hard),

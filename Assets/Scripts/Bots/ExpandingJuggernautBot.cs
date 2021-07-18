@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+// expands like expandingbot
+// then attacks like juggernaut (protected planets first)
+
 public class ExpandingJuggernautBot : Bot
 {
     private int decision_tick = 0;

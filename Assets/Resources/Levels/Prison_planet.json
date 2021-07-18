@@ -1,7 +1,8 @@
 {
     "difficulty": 0,
     "color": 3,
-    "record_time": 23.12,
+    "record_time": 45,
+    "best_known_time": 23.12,
     "name": "Prison Planet",
     "planets": [
         {
