@@ -5856,7 +5856,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1945186953}
         m_TargetAssemblyTypeName: Level_Editor_Manager, Assembly-CSharp
-        m_MethodName: unselect
+        m_MethodName: copy_level_to_clipboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5886,7 +5886,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7bd63107d9fe4cd4ebe03fd95834d125, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c28adf56fd02eb47bc2dfdfa2062307, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
