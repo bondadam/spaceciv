@@ -8,6 +8,8 @@ public class Bot_Config : MonoBehaviour
 {
     public Image image;
 
+    public Sprite[] team_sprites;
+
     public Text team_name;
 
     public TMP_Dropdown type_dropdown;
@@ -31,7 +33,8 @@ public class Bot_Config : MonoBehaviour
 
         // SETUP TEAM
         this.team_name.text = Constants.team_names[this.data.team];
-        this.image.color = Constants.team_colors[this.data.team];
+
+        this.image.sprite = this.team_sprites[(int)this.data.team];
 
         // SETUP TYPE
         this.type_dropdown.value = (int)this.data.type;

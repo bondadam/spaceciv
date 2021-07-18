@@ -1505,8 +1505,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1549,6 +1549,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 5607191822362833590}
+  team_sprites:
+  - {fileID: 21300000, guid: a2b3fb0fe44ab364da763e93ad4cd13e, type: 3}
+  - {fileID: 21300000, guid: e2b7c9828b81e1d4aa3eea5f5590d54c, type: 3}
+  - {fileID: 21300000, guid: adb7a5ce2cf4cd5498356325cf7d01f5, type: 3}
+  - {fileID: 21300000, guid: 7a57645830aa7d04e9e6d9992a863edf, type: 3}
+  - {fileID: 21300000, guid: ecf93b3e3047385488b64af39c472b07, type: 3}
+  - {fileID: 21300000, guid: 33043a7ec49c9184da6ee600ccd8380d, type: 3}
   team_name: {fileID: 7835651042093330152}
   type_dropdown: {fileID: 6042450993648651591}
   speed_slider: {fileID: 7869574953144985466}
