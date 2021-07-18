@@ -105,15 +105,15 @@ Material:
     - _Noisescale: 1
     - _Noisesize: 0
     - _OcclusionStrength: 1
-    - _Outerfresnelintensity: 0.228
+    - _Outerfresnelintensity: 0.862
     - _Parallax: 0.02
-    - _Power: 1.79
+    - _Power: 2.41
     - _Powerexponent: 1
     - _Pulseamplitude: 0.25
     - _Pulsefrequency: 2
     - _Pulseoffset: 0
     - _Pulsephase: 0
-    - _Scale: 1.2
+    - _Scale: 1
     - _Secondarytextureintensity: 0
     - _Seondarytextureintensity: 1
     - _Sharpennoise: 0

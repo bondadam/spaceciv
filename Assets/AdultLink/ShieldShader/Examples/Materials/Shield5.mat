@@ -80,48 +80,48 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Distortionscale: 4.43
-    - _Distortionspeed: 0.17
+    - _Distortionscale: 4.31
+    - _Distortionspeed: 0.41
     - _DstBlend: 0
     - _EdgeLength: 15
     - _Enabledistortion: 1
     - _Enablenoise: 0
     - _Enablepulsation: 0
     - _Exponent: 1
-    - _Extraroughness: 3.38
+    - _Extraroughness: 10
     - _GlobalFade: 1
     - _Globalopacity: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Innerfresnelintensity: 0
+    - _Innerfresnelintensity: 0.074
     - _Invert: 0
     - _Invertmaintexture: 0
     - _Invertsecondarytexture: 1
     - _Maintextureintensity: 1
     - _Metallic: 0
     - _Mode: 0
-    - _Noisescale: 1
+    - _Noisescale: 0
     - _Noisesize: 0
     - _OcclusionStrength: 1
-    - _Outerfresnelintensity: 1
+    - _Outerfresnelintensity: 0.198
     - _Parallax: 0.02
-    - _Power: 1.81
+    - _Power: 4.2
     - _Powerexponent: 1
     - _Pulseamplitude: 0.25
     - _Pulsefrequency: 20
     - _Pulseoffset: 0
     - _Pulsephase: 4.01
-    - _Scale: 1.2
+    - _Scale: 2
     - _Secondarytextureintensity: 0.5
     - _Seondarytextureintensity: 1
-    - _Sharpennoise: 0
+    - _Sharpennoise: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TessMax: 25
-    - _TessMin: 10
-    - _TessPhongStrength: 0.5
+    - _TessMin: 5
+    - _TessPhongStrength: 0.541
     - _TessValue: 1
     - _Test: 1
     - _Texintensity: 4
@@ -132,14 +132,14 @@ Material:
     m_Colors:
     - _Bordercolor: {r: 0, g: 0.70980394, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Edgecolor: {r: 0, g: 0.18198903, b: 1.8880861, a: 1}
+    - _Edgecolor: {r: 0.21143812, g: 0.2591831, b: 3.3653898, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainPanningspeed: {r: -0.05, g: 0.05, b: 0, a: 0}
     - _Maincolor: {r: 1.7411011, g: 0.90810376, b: 0, a: 1}
     - _Mainpanningspeed: {r: 0, g: -2, b: 0, a: 0}
     - _Noisespeed: {r: 0, g: 0, b: 0, a: 0}
     - _Panningspeed: {r: 0, g: 0.1, b: 0, a: 0}
-    - _Secondarycolor: {r: 0, g: 0.92365617, b: 1.7411011, a: 1}
+    - _Secondarycolor: {r: 0.8662077, g: 1.2469124, b: 2.3245068, a: 1}
     - _Secondarypanningspeed: {r: 0, g: 5, b: 0, a: 0}
     - _Staticcolor: {r: 0.26470587, g: 0.6957404, b: 1, a: 0.978}
     - _Staticpanningspeed: {r: 0, g: 2, b: 0, a: 0}

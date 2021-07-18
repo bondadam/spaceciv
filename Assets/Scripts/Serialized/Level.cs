@@ -6,7 +6,8 @@ public class Level
 {
     public Level(){}
 
-    public Level(SerializedBot[] bots, SerializedPlanet[] planets, SerializedTurret[] turrets, SerializedSpacegun[] spaceguns, SerializedSpaceEntity[] suns, SerializedSpaceEntity[] frozenvoids){
+    public Level(SerializedBot[] bots, SerializedPlanet[] planets, SerializedTurret[] turrets, SerializedSpacegun[] spaceguns, SerializedSpaceEntity[] suns, SerializedSpaceEntity[] frozenvoids,
+    float record_time = Game_Settings.BASE_RECORD_TIME){
         
         this.bots = bots;
 
@@ -15,7 +16,7 @@ public class Level
         this.spaceguns = spaceguns;
         this.suns = suns;
         this.frozenvoids = frozenvoids;
-        this.record_time = 60;
+        this.record_time = record_time;
     }
 
     public Level_Difficulty difficulty;

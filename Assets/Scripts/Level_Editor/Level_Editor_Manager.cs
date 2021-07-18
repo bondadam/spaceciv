@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class Level_Editor_Manager : MonoBehaviour
@@ -10,6 +11,8 @@ public class Level_Editor_Manager : MonoBehaviour
     public GameObject save_overlay;
     private Level_Difficulty difficulty;
     private Background_Color background_Color;
+    private float spaceship_speed;
+    private float record_time;
     public TextMeshProUGUI save_placeholder;
     private Object_Type selected_object;
     private List<Editor_Planet> planets;
@@ -32,6 +35,11 @@ public class Level_Editor_Manager : MonoBehaviour
     public GameObject bot_config_list;
     public TMP_Dropdown backgroundColor_dropdown;
     public TMP_Dropdown difficulty_dropdown;
+    public Slider spaceship_speed_slider;
+    public TextMeshProUGUI spaceship_speed_num;
+
+    public Slider record_time_slider;
+    public TextMeshProUGUI record_time_num;
 
 
     private string chosen_level;
@@ -50,6 +58,16 @@ public class Level_Editor_Manager : MonoBehaviour
         this.chosen_object = null;
         this.difficulty = Level_Difficulty.Easy;
         this.background_Color = Background_Color.default_color;
+        this.record_time = Game_Settings.BASE_RECORD_TIME;;
+        this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
+
+        this.record_time_slider.minValue = Game_Settings.MIN_RECORD_TIME;
+        this.record_time_slider.maxValue = Game_Settings.MAX_RECORD_TIME;
+        this.record_time_slider.value = Game_Settings.BASE_RECORD_TIME;
+
+        this.spaceship_speed_slider.minValue = Game_Settings.MIN_SPACESHIP_SPEED;
+        this.spaceship_speed_slider.maxValue = Game_Settings.MAX_SPACESHIP_SPEED;
+        this.spaceship_speed_slider.value = Game_Settings.BASE_SPACESHIP_SPEED;
         chosen_level = PlayerPrefs.GetString(Constants.EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF);
         if (chosen_level != null && chosen_level != "")
         {
@@ -117,6 +135,8 @@ public class Level_Editor_Manager : MonoBehaviour
         Level new_level = new Level(save_bots, serializedPlanets, serializedTurrets, serializedSpaceguns, serializedSuns, serializedFrozenVoids);
         new_level.difficulty = this.difficulty;
         new_level.color = this.background_Color;
+        new_level.spaceship_speed = this.spaceship_speed;
+        new_level.record_time = this.record_time;
         string serialized_level = JsonUtility.ToJson(new_level);
         System.IO.FileInfo file;
 
@@ -240,6 +260,15 @@ public class Level_Editor_Manager : MonoBehaviour
 
         this.difficulty_dropdown.value = (int)level.difficulty;
         this.backgroundColor_dropdown.value = (int)level.color;
+        if (level.spaceship_speed != 0){
+            this.spaceship_speed_slider.value = level.spaceship_speed;
+        }
+        if (level.record_time != 0){
+            this.record_time_slider.value = level.record_time;
+        }
+
+        this.spaceship_speed_num.text = this.spaceship_speed_slider.value.ToString();
+        this.record_time_num.text = this.record_time_slider.value.ToString();
         SpaceLoad.switchColors(level.color);
     }
 
@@ -296,6 +325,18 @@ public class Level_Editor_Manager : MonoBehaviour
     {
         Level_Difficulty new_difficulty = (Level_Difficulty)new_difficulty_int;
         this.difficulty = new_difficulty;
+    }
+
+    public void spaceship_speed_changed(float new_speed){
+        float new_speed_rounded = Mathf.Round(new_speed * 10.0f) * 0.1f;
+        this.spaceship_speed_slider.value = new_speed_rounded;
+        this.spaceship_speed = new_speed_rounded;
+        this.spaceship_speed_num.text = new_speed_rounded.ToString();
+    }
+
+    public void record_time_changed(float new_time){
+        this.record_time = new_time;
+        this.record_time_num.text = new_time.ToString();
     }
 
     public void backgroundcolor_changed(int new_background_color_int)
