@@ -12,6 +12,8 @@ public class Planet : Structure
     public AudioSource selectTwiceSound;
     public AudioSource unselectSound;
 
+    public GameObject star_sprite;
+
     private int level;
     private int max_level;
 
@@ -66,17 +68,7 @@ public class Planet : Structure
         this.population_display = this.GetComponentInChildren<TextMeshPro>();
         //this.upgrades
         protected_symbol = new GameObject();
-        if (this.is_protected)
-        {
-            SpriteRenderer NewImage = protected_symbol.AddComponent<SpriteRenderer>();
-            NewImage.sprite = Resources.Load<Sprite>("star");
-            NewImage.sortingLayerName = "Spaceshipground";
-            protected_symbol.transform.SetParent(this.transform);
-            protected_symbol.SetActive(true);
-            protected_symbol.transform.localScale = new Vector3((float)0.07, (float)0.07, (float)0.07);
-            protected_symbol.transform.position = new Vector3(serializedPlanet.position_x, serializedPlanet.position_y, 0);
-
-        }
+        this.star_sprite.SetActive(this.is_protected);
         this.population = initial_population;
 
         this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.team];
