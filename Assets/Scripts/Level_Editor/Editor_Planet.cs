@@ -10,8 +10,12 @@ public class Editor_Planet : Editor_Structure
     public TMP_Text initPopDynamic;
     private SerializedPlanet data;
     public SpriteRenderer m_SpriteRenderer;
+
+    public GameObject sprite_star;
+    public Sprite[] team_sprites;
     public Slider sizeSlider;
     public TextMeshProUGUI sizeValue;
+    public Toggle protected_toggle;
 
     override public void Initialize(Vector2 coords, On_Destroy_Callback on_destroy)
     {
@@ -31,6 +35,9 @@ public class Editor_Planet : Editor_Structure
         this.initialPopValue.text = Constants.PLANET_DEFAULT_INITIAL_POPULATION.ToString();
 
         this.initPopDynamic.text = this.initialPopValue.text;
+
+        this.protected_toggle.isOn = this.data.is_protected;
+        this.sprite_star.SetActive(this.protected_toggle.isOn);
 
         this.maxPopSlider.maxValue = Constants.PLANET_ABSOLUTE_MAX_POPULATION;
         this.maxPopSlider.value = Constants.PLANET_DEFAULT_MAX_POPULATION;
@@ -62,6 +69,9 @@ public class Editor_Planet : Editor_Structure
         this.maxPopSlider.value = this.data.population_max;
         this.maxPopValue.text = this.maxPopSlider.value.ToString();
 
+        this.protected_toggle.isOn = this.data.is_protected;
+        this.sprite_star.SetActive(this.protected_toggle.isOn);
+
         this.sizeSlider.maxValue = Constants.PLANET_MAX_SIZE * 2.0f;
         this.sizeSlider.value = this.data.planet_size * 2.0f;
         this.sizeSlider.minValue = Constants.PLANET_MIN_SIZE * 2.0f;
@@ -74,7 +84,7 @@ public class Editor_Planet : Editor_Structure
     override public void update_identity()
     {
         this.m_SpriteRenderer.transform.localScale = new Vector3(this.data.planet_size * 0.1f, this.data.planet_size * 0.1f, this.data.planet_size * 0.1f);
-        this.m_SpriteRenderer.color = Constants.team_colors[this.data.team];
+        this.m_SpriteRenderer.sprite = this.team_sprites[(int)this.data.team];
         this.update_position();
     }
 
@@ -82,6 +92,11 @@ public class Editor_Planet : Editor_Structure
         this.data.planet_size = this.sizeSlider.value / 2.0f;
         this.sizeValue.text =  this.data.planet_size.ToString();
         this.update_identity();
+    }
+
+    public void changeProtected(bool new_value){
+        this.data.is_protected = new_value;
+        this.sprite_star.SetActive(this.protected_toggle.isOn);
     }
 
     override public void update_position()
