@@ -1,6 +1,7 @@
 {
     "name": "Run Around",
-    "record_time": 24.66,
+    "record_time": 60,
+    "best_known_time": 24.66,
     "planets": [
         {
             "team": 1,
