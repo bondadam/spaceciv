@@ -12,7 +12,10 @@ public class Input_Manager_Level_Editor : MonoBehaviour
     private bool holding;
     //private bool moving_planet;
     private float holding_time;
+    private Editor_Object clicked_object;
     public Camera camera;
+
+    private Vector3 obj_position;
     
     public Text xpos;
     public Text ypos;
@@ -24,10 +27,10 @@ public class Input_Manager_Level_Editor : MonoBehaviour
         holding_time = 0;
         //moving_planet = false;
         old_mouse_position = new Vector2();
+        this.obj_position = new Vector3();
     }
 
-    public void hold()
-    {
+    public void hold(){
         this.holding = true;
     }
 
@@ -78,16 +81,18 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                         // Just clicked in empty space, start move dragging
                         this.move_dragging = true;
                     }
+                    this.clicked_object = null;
                 }
                 else
                 {
                     // Clicked on a planet
-                    Editor_Object clicked_structure = hit.collider.gameObject.GetComponent<Editor_Object>();
+                    this.clicked_object = hit.collider.gameObject.GetComponent<Editor_Object>();
                     // Close all other databoxes before opening this one
                     level_Editor_Manager.close_all_databoxes();
-                    clicked_structure.open_databox();
+                    
                     this.holding = true;
-                    level_Editor_Manager.choose_object(clicked_structure);
+                    level_Editor_Manager.choose_object(clicked_object);
+                    this.obj_position = level_Editor_Manager.get_chosen_obj_coords();
                 }
             }
             else if (holding && Input.GetMouseButton(0)){
@@ -95,12 +100,16 @@ public class Input_Manager_Level_Editor : MonoBehaviour
                 {
                     level_Editor_Manager.move_chosen_object(mousePos2D);
                 }
-            }
-            else if (!Input.GetMouseButton(0))
-            {
-                move_dragging = false;
             } else if (holding && Input.GetMouseButtonUp(0)){
                 holding = false;
+                Vector3 old_obj_position = this.obj_position;
+                this.obj_position = level_Editor_Manager.get_chosen_obj_coords();
+                if (this.obj_position == old_obj_position && this.clicked_object != null){
+                    this.clicked_object.open_databox();
+                }
+            } else if (!Input.GetMouseButton(0))
+            {
+                move_dragging = false;
             }
         }
         old_mouse_position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);

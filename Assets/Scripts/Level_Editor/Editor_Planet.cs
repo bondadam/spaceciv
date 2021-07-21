@@ -50,7 +50,7 @@ public class Editor_Planet : Editor_Structure
 
         this.notify_destroy = on_destroy;
 
-        this.open_databox();
+        //this.open_databox();
         this.update_identity();
     }
 

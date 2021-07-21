@@ -65,7 +65,7 @@ public class Bot_Config : MonoBehaviour
 
     public void change_speed(float new_speed)
     {
-        float calculated_speed = (Constants.BOT_DEFAULT_MAX_SPEED*2.0f - new_speed)/2.0f;
+        float calculated_speed = new_speed/2.0f;
         this.data.decision_interval = calculated_speed;
         this.speed_label.text = calculated_speed.ToString();
     }

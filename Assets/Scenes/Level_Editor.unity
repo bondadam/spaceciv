@@ -6463,7 +6463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level_Editor_Manager: {fileID: 1945186953}
-  camera: {fileID: 0}
+  camera: {fileID: 328412954}
   xpos: {fileID: 745895531}
   ypos: {fileID: 1058955925}
 --- !u!4 &1662969909

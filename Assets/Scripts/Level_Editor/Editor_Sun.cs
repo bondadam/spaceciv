@@ -23,7 +23,7 @@ public class Editor_Sun : Editor_Object
 
         this.notify_destroy = on_destroy;
 
-        this.open_databox();
+        //this.open_databox();
         this.update_identity();
     }
 

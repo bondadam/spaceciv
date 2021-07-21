@@ -65,9 +65,14 @@ public class Level_Editor_Manager : MonoBehaviour
         this.record_time_slider.maxValue = Game_Settings.MAX_RECORD_TIME;
         this.record_time_slider.value = Game_Settings.BASE_RECORD_TIME;
 
+        this.record_time_num.text = this.record_time_slider.value.ToString();
+
         this.spaceship_speed_slider.minValue = Game_Settings.MIN_SPACESHIP_SPEED;
         this.spaceship_speed_slider.maxValue = Game_Settings.MAX_SPACESHIP_SPEED;
         this.spaceship_speed_slider.value = Game_Settings.BASE_SPACESHIP_SPEED;
+
+        this.spaceship_speed_num.text = this.spaceship_speed_slider.value.ToString();
+
         chosen_level = PlayerPrefs.GetString(Constants.EDITOR_CURRENT_LEVEL_NAME_PLAYER_PREF);
         if (chosen_level != null && chosen_level != "")
         {
@@ -401,6 +406,14 @@ public class Level_Editor_Manager : MonoBehaviour
         this.chosen_object = obj;
         this.selected_object = Object_Type.None;
     }
+
+    public Vector3 get_chosen_obj_coords(){
+        if (this.chosen_object == null){
+            return new Vector3(0,0,0);
+        }
+        return this.chosen_object.gameObject.transform.position;
+    }
+
 
     public void move_chosen_object(Vector2 new_coords)
     {

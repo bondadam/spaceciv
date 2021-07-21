@@ -23,7 +23,7 @@ public class Editor_FrozenVoid : Editor_Object
 
         this.notify_destroy = on_destroy;
 
-        this.open_databox();
+        //this.open_databox();
         this.update_identity();
     }
 
@@ -45,7 +45,7 @@ public class Editor_FrozenVoid : Editor_Object
         this.sizeValue.text =  this.data.size.ToString();
         this.update_identity();
     }
-    
+
     override public void update_identity(){
         this.transform.localScale = new Vector3(this.data.size, this.data.size, this.data.size);
     }
