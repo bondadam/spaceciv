@@ -1,7 +1,7 @@
 
 public static class Game_Settings
 {
-    public static float MIN_SPACESHIP_SPEED = 0.1f;
+    public static float MIN_SPACESHIP_SPEED = 0f;
     public static float BASE_SPACESHIP_SPEED = 0.6f;
 
     public static float MAX_SPACESHIP_SPEED = 3f;

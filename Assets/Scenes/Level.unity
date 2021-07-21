@@ -4059,7 +4059,7 @@ MonoBehaviour:
   explosion_prefab: {fileID: 1048019570627316359, guid: 28e0595e34e70884ca2d9a1ea0997bde,
     type: 3}
   UI: {fileID: 1792495994}
-  finger_prefab: {fileID: 3646962578984618309, guid: 9726c8041f570d5468d280f34bc88a03,
+  finger_prefab: {fileID: 1927082666889759772, guid: 9726c8041f570d5468d280f34bc88a03,
     type: 3}
   turret_prefab: {fileID: -226036876853196607, guid: 9580c48bd40c3224a930a1ab02a69cf0,
     type: 3}

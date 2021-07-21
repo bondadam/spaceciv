@@ -59,7 +59,7 @@ public class Level_Editor_Manager : MonoBehaviour
         this.difficulty = Level_Difficulty.Easy;
         this.background_Color = Background_Color.default_color;
         this.record_time = Game_Settings.BASE_RECORD_TIME;;
-        this.spaceship_speed = Game_Settings.BASE_SPACESHIP_SPEED;
+        this.spaceship_speed = 0;
 
         this.record_time_slider.minValue = Game_Settings.MIN_RECORD_TIME;
         this.record_time_slider.maxValue = Game_Settings.MAX_RECORD_TIME;
@@ -69,7 +69,7 @@ public class Level_Editor_Manager : MonoBehaviour
 
         this.spaceship_speed_slider.minValue = Game_Settings.MIN_SPACESHIP_SPEED;
         this.spaceship_speed_slider.maxValue = Game_Settings.MAX_SPACESHIP_SPEED;
-        this.spaceship_speed_slider.value = Game_Settings.BASE_SPACESHIP_SPEED;
+        this.spaceship_speed_slider.value = 0;
 
         this.spaceship_speed_num.text = this.spaceship_speed_slider.value.ToString();
 

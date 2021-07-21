@@ -11,8 +11,8 @@ public class Level_Manager : MonoBehaviour
     public FrozenVoid frozenvoid_prefab;
     public GameObject explosion_prefab;
     public GameObject UI;
-    public GameObject finger_prefab;   
-    private GameObject finger;   
+    public Finger finger_prefab;   
+    private Finger finger;   
     private Tutorial tutorial;
     public Turret turret_prefab;
     public Spacegun spacegun_prefab;
@@ -295,22 +295,27 @@ public class Level_Manager : MonoBehaviour
 
         clear_tutorial_text();
         if(level.tutorial>0 && Utils.selected_level != Constants.USER_LEVEL_CODE){
-
             if(level.tutorial == 1){
                 tutorial = new Tutorial1();
             }else{
                 tutorial = new Tutorial();
             }
             finger = Instantiate(finger_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            finger.SetActive(false);
+            Finger.Fade_Out_Complete finger_fade_out_complete_callback = new Finger.Fade_Out_Complete(finger_fade_out_complete);
+            finger.Initialize(finger_fade_out_complete_callback);
+
+            finger.gameObject.SetActive(false);
             Tutorial.Show_Tutorial_Finger show_finger_callback = new Tutorial.Show_Tutorial_Finger(show_tutorial_finger);
             Tutorial.Clear_Tutorial_Finger clear_finger_callback = new Tutorial.Clear_Tutorial_Finger(clear_tutorial_finger);
             Tutorial.Show_Tutorial_Text show_tutorial_text_callback = new Tutorial.Show_Tutorial_Text(show_tutorial_text);
             Tutorial.Clear_Tutorial_Text clear_tutorial_text_callback = new Tutorial.Clear_Tutorial_Text(clear_tutorial_text);
             Tutorial.Get_Structure_Position get_structure_position_callback = new Tutorial.Get_Structure_Position(get_structure_position);
             Tutorial.Get_Nth_Structure get_nth_structure_callback = new Tutorial.Get_Nth_Structure(get_nth_structure);
-            tutorial.Initialize(show_finger_callback, clear_finger_callback, show_tutorial_text_callback, clear_tutorial_text_callback, get_structure_position_callback, get_nth_structure_callback);
+            Tutorial.Get_List_Of_Spaceships get_list_of_spaceships_callback = new Tutorial.Get_List_Of_Spaceships(get_list_of_spaceships);
+            tutorial.Initialize(show_finger_callback, clear_finger_callback, show_tutorial_text_callback, clear_tutorial_text_callback, get_structure_position_callback, get_nth_structure_callback, get_list_of_spaceships_callback);
 
+        }else{
+            tutorial = new Tutorial();
         }
     }
     public Vector2 get_structure_position(Object_Type type, int pos)
@@ -344,15 +349,24 @@ public class Level_Manager : MonoBehaviour
             return null;
         }
     }
+    public List<Spaceship> get_list_of_spaceships()
+    {
+        return spaceships;
+    }
     public void show_tutorial_finger(Vector2 pos)
     {
         
         finger.transform.position = pos;
-        finger.SetActive(true);
+        finger.gameObject.SetActive(true);
     }
     public void clear_tutorial_finger()
     {
-        finger.SetActive(false);
+        finger.GetComponentInChildren<Animator>().Play("fade_out");
+        //finger.gameObject.SetActive(false);
+    }
+    public void finger_fade_out_complete()
+    {
+
     }
     public void show_tutorial_text(string txt)
     {
@@ -408,7 +422,6 @@ public class Level_Manager : MonoBehaviour
                     }
                     this.game_over = game_over;
                 }
-                Debug.Log("We got a tut");
                 tutorial.Update_Custom();
                 for (int i = 0; i < this.planets.Count; i++)
                 {
